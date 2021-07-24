@@ -18,17 +18,18 @@ const formats_rfc_only = [
   "%Y-%m-%dT%H:%M:%S.%U-00:00",
 ];
 
-const formats_both = [
+const formats_both_utc = [
   "%Y-%m-%d",
   "%H:%M:%SZ",
   "%Y-%m-%dT%H:%M:%SZ",
-  "%Y-%m-%dt%H:%M:%SZ",
   "%Y-%m-%dT%H:%M:%S.%UZ",
-  "%Y-%m-%dt%H:%M:%S.%UZ",
   "%Y-%m-%dT%H:%M:%S+00:00",
-  "%Y-%m-%dt%H:%M:%S+00:00",
   "%Y-%m-%dT%H:%M:%S.%U+00:00",
-  "%Y-%m-%dt%H:%M:%S.%U+00:00",
+];
+
+const formats_both_local = [
+  "%Y-%m-%dT%H:%M:%S%Z:%z",
+  "%Y-%m-%dT%H:%M:%S.%U%Z:%z",
 ];
 
 const full_date_formats = [
@@ -39,18 +40,19 @@ const full_date_formats = [
 
 const time_formats = [
   "%H",
-  "%H.5",
   "%H,5",
+  "%H.5",
   "%H:%M",
-  "%H:%M.5",
   "%H:%M,5",
+  "%H:%M.5",
   "%H:%M:%S",
-  "%H:%M:%S.%U",
   "%H:%M:%S,%U",
+  "%H:%M:%S.%U",
 ];
 
 const merged = mergeDatesWithTimes(full_date_formats, time_formats);
 const mergedBasic = merged.map(s => s.replace(/[-:]/g, ""));
+const mergedBoth = [ ...merged, ...mergedBasic ];
 
 const formats_iso_only = [
   "%C",
@@ -59,9 +61,13 @@ const formats_iso_only = [
   "%Y-%o",
   "%Y-W%W",
   "%Y-W%W-%w",
-  ...merged,
-  ...mergedBasic,
-];
+  ...time_formats,
+  ...time_formats.map(s => "T" + s),
+  ...mergedBoth,
+  ...mergedBoth.map(s => s + "%Z"),
+  ...merged.map(s => s + "%Z:%z"),
+  ...mergedBasic.map(s => s + "%Z%z"),
+].filter(s => !formats_both_local.includes(s));
 
 function App() {
   const [ now, setNow ] = useState(() => new Date());
@@ -73,8 +79,19 @@ function App() {
 
   return (
     <div className="App">
+      <h1>RFC 3339 vs ISO 8601</h1>
       <Diagram date={now} />
-      <p>This table is not exhaustive. Both formats are case-insensitive so every <code>T</code> and <code>Z</code> could be <code>t</code> and <code>z</code> respectively. See below the table for format definition.</p>
+      <h2>Format Listing</h2>
+      <p>Notes:
+        <ul>
+          <li>This table is not exhaustive.</li>
+          <li>Both formats are case-insensitive so every <code>T</code>, <code>W</code>, <code>P</code>, <code>R</code>, and <code>Z</code> could be <code>t</code>, <code>w</code>, <code>p</code>, <code>r</code>, or <code>z</code> respectively.</li>
+          <li>RFC 3339 allows for other characters to replace the <code>T</code> but only gives examples using a space character.</li>
+          <li>ISO 8601 allows decimal fractions for the smallest time value. These are just represented by <code>,5</code> and <code>.5</code> due to a limitation of the formatter.</li>
+          <li>ISO 8601 prefers commas to dots for decimal separation but they are interchangeable in all formats.</li>
+          <li>The format key is given below the table.</li>
+        </ul>
+      </p>
       <table className="App-FormatTable">
         <thead>
           <tr>
@@ -89,29 +106,33 @@ function App() {
             formats_rfc_only.map(f => <tr key={f}><td><code>{f}</code></td><td>{formatUTC(f, now)}</td><td>✔️</td><td></td></tr>)
           }
           {
-            formats_both.map(f => <tr key={f}><td><code>{f}</code></td><td>{formatUTC(f, now)}</td><td>✔️</td><td>✔️</td></tr>)
+            formats_both_utc.map(f => <tr key={f}><td><code>{f}</code></td><td>{formatUTC(f, now)}</td><td>✔️</td><td>✔️</td></tr>)
+          }
+          {
+            formats_both_local.map(f => <tr key={f}><td><code>{f}</code></td><td>{format(f, now)}</td><td>✔️</td><td>✔️</td></tr>)
+          }
+          {
+            [
+              "%Y-%m-%dT%H:%M:%S-04:00",
+              "%Y-%m-%dT%H:%M:%S.%U-04:00",
+            ].map(f => <tr key={f}><td><code>{f}</code></td><td>{formatUTC(f, now, -4 * 60)}</td><td>✔️</td><td>✔️</td></tr>)
           }
           {
             [
               "%Y-%m-%dT%H−04:00",
               "%Y-%m-%dT%H:%M−04:00",
               "%Y-%m-%dT%H:%M:%S−04:00",
-              "%Y-%m-%dT%H:%M:%S.%U−04:00",
               "%Y-%m-%dT%H:%M:%S,%U−04:00",
+              "%Y-%m-%dT%H:%M:%S.%U−04:00",
             ].map(f => <tr key={f}><td><code>{f}</code></td><td>{formatUTC(f, now, -4 * 60)}</td><td></td><td>✔️</td></tr>)
           }
           {
             formats_iso_only.map(f => <tr key={f}><td><code>{f}</code></td><td>{format(f, now)}</td><td></td><td>✔️</td></tr>)
           }
-          {
-            merged.map(f => <tr key={f}><td><code>{f}</code></td><td>{formatUTC(f, now)}Z</td><td></td><td>✔️</td></tr>)
-          }
-          {
-            mergedBasic.map(f => <tr key={f}><td><code>{f}</code></td><td>{formatUTC(f, now)}Z</td><td></td><td>✔️</td></tr>)
-          }
         </tbody>
       </table>
-      <pre>
+      <h3>Format Key</h3>
+      <pre style={{backgroundColor:"#F4F4F4"}}>
         <code>
           {`
 %C - Century

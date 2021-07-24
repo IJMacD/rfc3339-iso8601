@@ -4,7 +4,7 @@
 const month_index = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 ];
 
 function isLeapYear(year) {
-    return (year % 4 == 0 && (year % 400 == 0 || year % 100 != 0));
+    return (year % 4 === 0 && (year % 400 === 0 || year % 100 !== 0));
 }
 
 export function getYearDay(dt) {
@@ -104,7 +104,6 @@ export function getWeekDay (dt) {
     if (dt.getMonth() < 2) {
         const a = dt.getFullYear() - 1;
         const b = int(a / 4) - int(a / 100) + int(a / 400);
-        const c = int((a - 1) / 4) - int((a - 1) / 100) + int((a - 1) / 400);
         const e = 0;
         const f = dt.getDate() - 1 + int(31 * dt.getMonth());
         const g = (a + b) % 7;
