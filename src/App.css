@@ -1,38 +1,41 @@
 .App {
+  padding: 0 3em;
+}
+svg {
+  max-width: 100vw;
+  max-height: 100vh;
+}
+text {
+  font-size: 2.653px;
+}
+text.key-label {
+  font-size: 10.503px;
+}
+/* #rfc text {
+  fill: #f0f;
+}
+#iso text {
+  fill: #00f;
+} */
+.App-FormatTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.App-FormatTable th,
+.App-FormatTable td {
+  border: 1px solid #999;
+}
+
+.App-FormatTable tbody tr:nth-child(2n) td {
+  background: #F9F9F9;
+}
+
+.App-FormatTable td:nth-child(3),
+.App-FormatTable td:nth-child(4)  {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+code {
+  color: #666;
 }
