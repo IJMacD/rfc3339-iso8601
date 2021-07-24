@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="32"
+   height="32"
+   viewBox="0 0 8.4666666 8.466666"
+   version="1.1"
+   id="svg886"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="C:\Users\doogl\Code\rfc3339-iso8601\public\logo512.png"
+   inkscape:export-xdpi="1536"
+   inkscape:export-ydpi="1536"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview888"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="7.0753533"
+     inkscape:cx="9.9641667"
+     inkscape:cy="30.952518"
+     inkscape:window-width="1500"
+     inkscape:window-height="930"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs883" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-19.144204,-70.072088)">
+    <path
+       id="circle992"
+       style="fill:none;stroke:#ffffff;stroke-width:1.37566;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 21.608718,70.922979 a 1.7683956,1.7683956 0 0 0 -1.768472,1.767935 1.7683956,1.7683956 0 0 0 1.160711,1.659924 2.9132134,2.9132134 0 0 0 -0.0032,0.08652 2.9132134,2.9132134 0 0 0 2.913062,2.913062 2.9132134,2.9132134 0 0 0 2.913599,-2.913062 2.9132134,2.9132134 0 0 0 -2.913599,-2.913062 2.9132134,2.9132134 0 0 0 -0.867846,0.132729 1.7683956,1.7683956 0 0 0 -1.434231,-0.734042 z" />
+    <circle
+       style="fill:none;stroke:#0000ff;stroke-width:1.32292;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path892"
+       cx="23.888823"
+       cy="74.425896"
+       r="2.8015246" />
+    <circle
+       style="fill:none;stroke:#ff00ff;stroke-width:1.32292;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path846"
+       cx="21.674715"
+       cy="72.746544"
+       r="1.7005976" />
+  </g>
+</svg>
