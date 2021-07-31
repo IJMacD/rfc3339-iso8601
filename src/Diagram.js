@@ -6,7 +6,7 @@ function Diagram (props) {
 
   return (
     <svg
-      viewBox="14.726 53.645 220.993 229.91"
+      viewBox="14.726 53.645 220.993 190.91"
       xmlns="http://www.w3.org/2000/svg"
       {...restProps}
     >
