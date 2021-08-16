@@ -54,6 +54,19 @@ const merged = mergeDatesWithTimes(full_date_formats, time_formats);
 const mergedBasic = merged.map(s => s.replace(/[-:]/g, ""));
 const mergedBoth = [ ...merged, ...mergedBasic ];
 
+const formats_negative = [
+  "%Y-%m-%dT%H:%M:%S-04:00",
+  "%Y-%m-%dT%H:%M:%S.%U-04:00",
+];
+
+const formats_negative_2212 = [
+  "%Y-%m-%dT%H−04:00",
+  "%Y-%m-%dT%H:%M−04:00",
+  "%Y-%m-%dT%H:%M:%S−04:00",
+  "%Y-%m-%dT%H:%M:%S,%U−04:00",
+  "%Y-%m-%dT%H:%M:%S.%U−04:00",
+];
+
 const formats_iso_only = [
   "%C",
   "%Y",
@@ -61,6 +74,9 @@ const formats_iso_only = [
   "%Y-%o",
   "%Y-W%W",
   "%Y-W%W-%w",
+  "%Y%o",
+  "%YW%W",
+  "%YW%W%w",
   ...time_formats,
   ...time_formats.map(s => "T" + s),
   ...mergedBoth,
@@ -103,31 +119,22 @@ function App() {
         </thead>
         <tbody>
           {
-            formats_rfc_only.map(f => <tr key={f}><td><code>{f}</code></td><td>{formatUTC(f, now)}</td><td>✔️</td><td></td></tr>)
+            formats_rfc_only.map(f => <ExampleRow key={f} format={f} now={now} utc rfc />)
           }
           {
-            formats_both_utc.map(f => <tr key={f}><td><code>{f}</code></td><td>{formatUTC(f, now)}</td><td>✔️</td><td>✔️</td></tr>)
+            formats_both_utc.map(f => <ExampleRow key={f} format={f} now={now} utc rfc iso />)
           }
           {
-            formats_both_local.map(f => <tr key={f}><td><code>{f}</code></td><td>{format(f, now)}</td><td>✔️</td><td>✔️</td></tr>)
+            formats_both_local.map(f => <ExampleRow key={f} format={f} now={now} rfc iso />)
           }
           {
-            [
-              "%Y-%m-%dT%H:%M:%S-04:00",
-              "%Y-%m-%dT%H:%M:%S.%U-04:00",
-            ].map(f => <tr key={f}><td><code>{f}</code></td><td>{formatUTC(f, now, -4 * 60)}</td><td>✔️</td><td>✔️</td></tr>)
+            formats_negative.map(f => <ExampleRow key={f} format={f} now={now} timezone={-4 * 60} utc rfc iso />)
           }
           {
-            [
-              "%Y-%m-%dT%H−04:00",
-              "%Y-%m-%dT%H:%M−04:00",
-              "%Y-%m-%dT%H:%M:%S−04:00",
-              "%Y-%m-%dT%H:%M:%S,%U−04:00",
-              "%Y-%m-%dT%H:%M:%S.%U−04:00",
-            ].map(f => <tr key={f}><td><code>{f}</code></td><td>{formatUTC(f, now, -4 * 60)}</td><td></td><td>✔️</td></tr>)
+            formats_negative_2212.map(f => <ExampleRow key={f} format={f} now={now} timezone={-4 * 60} utc iso />)
           }
           {
-            formats_iso_only.map(f => <tr key={f}><td><code>{f}</code></td><td>{format(f, now)}</td><td></td><td>✔️</td></tr>)
+            formats_iso_only.map(f => <ExampleRow key={f} format={f} now={now} iso />)
           }
         </tbody>
       </table>
@@ -154,11 +161,21 @@ function App() {
 `}
         </code>
       </pre>
+      <p><a href="https://github.com/IJMacD/rfc3339-iso8601">Source on GitHub</a></p>
     </div>
   );
 }
 
 export default App;
+
+function ExampleRow ({ format: formatString, now, utc = false, timezone = 0, rfc = false, iso = false }) {
+  return <tr>
+    <td><code>{formatString}</code></td>
+    <td>{utc?formatUTC(formatString, now, timezone):format(formatString, now, timezone)}</td>
+    <td>{ rfc && "✔️" }</td>
+    <td>{ iso && "✔️" }</td>
+  </tr>;
+}
 
 function mergeDatesWithTimes (dates, times) {
   const out = [];
