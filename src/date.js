@@ -11,6 +11,7 @@ export function getYearDay(dt) {
     const leap_day = dt.getMonth() > 1 && isLeapYear(dt.getFullYear()) ? 1 : 0;
     return month_index[dt.getMonth()] + dt.getDate() + leap_day;
 }
+
 /**
  * ISO Week Number
  * Algorithm from https://www.tondering.dk/claus/cal/week.php
