@@ -65,101 +65,101 @@ function Diagram (props) {
       </text>
       <g id="rfc">
         <text x={56} y={84}>
-          {formatUTC("%Y-%m-%d %H:%M:%SZ", date)}
+          {formatUTC("%Y-%M-%D %h:%m:%sZ", date)}
         </text>
         <text x={52} y={92}>
-          {formatUTC("%Y-%m-%d %H:%M:%S.%UZ", date)}
+          {formatUTC("%Y-%M-%D %h:%m:%.3sZ", date)}
         </text>
         <text x={44.832} y={100}>
-          {formatUTC("%Y-%m-%d_%H:%M:%SZ", date)}
+          {formatUTC("%Y-%M-%D_%h:%m:%sZ", date)}
         </text>
         <text x={40} y={108}>
-          {formatUTC("%Y-%m-%d_%H:%M:%S.%UZ", date)}
+          {formatUTC("%Y-%M-%D_%h:%m:%.3sZ", date)}
         </text>
         <text x={36} y={116}>
-          {formatUTC("%Y-%m-%dT%H:%M:%S-00:00", date)}
+          {formatUTC("%Y-%M-%DT%h:%m:%s-00:00", date)}
         </text>
       </g>
       <g id="both">
         <text x={75.087} y={116}>
-          {formatUTC("%Y-%m-%dT%H:%M:%SZ", date)}
+          {formatUTC("%Y-%M-%DT%h:%m:%sZ", date)}
         </text>
         <text x={79.087} y={120}>
-          {formatUTC("%Y-%m-%dT%H:%M:%S.%UZ", date)}
+          {formatUTC("%Y-%M-%DT%h:%m:%.3sZ", date)}
         </text>
         <text x={84.466} y={124}>
-          {formatUTC("%Y-%m-%dt%H:%M:%Sz", date)}
+          {formatUTC("%Y-%M-%Dt%h:%m:%sz", date)}
         </text>
         <text x={71.963} y={132}>
-          {formatUTC("%Y-%m-%dT%H:%M:%S+00:00", date)}
+          {formatUTC("%Y-%M-%DT%h:%m:%s+00:00", date)}
         </text>
         <text x={76} y={138}>
-          {format("%Y-%m-%dT%H:%M:%S%Z:%z", date)}
+          {format("%Y-%M-%DT%h:%m:%s%Z:%z", date)}
         </text>
         <text x={93.279} y={94}>
-          {format("%Y-%m-%d", date)}
+          {format("%Y-%M-%D", date)}
         </text>
         <text x={67.098} y={144}>
-          {formatUTC("%Y-%m-%dt%H:%M:%S+00:00", date)}
+          {formatUTC("%Y-%M-%Dt%h:%m:%s+00:00", date)}
         </text>
         <text x={68} y={152}>
-          {format("%Y-%m-%dt%H:%M:%S%Z:%z", date)}
+          {format("%Y-%M-%Dt%h:%m:%s%Z:%z", date)}
         </text>
         <text x={85.381} y={100}>
-          {formatUTC("%H:%M:%SZ", date)}
+          {formatUTC("%h:%m:%sZ", date)}
         </text>
         <text x={93.631} y={104}>
-          {formatUTC("%H:%M:%S.%UZ", date)}
+          {formatUTC("%h:%m:%.3sZ", date)}
         </text>
         <text x={85.381} y={108}>
-          {format("%H:%M:%S%Z:%z", date)}
+          {format("%h:%m:%s%Z:%z", date)}
         </text>
         <text x={93.631} y={112}>
-          {format("%H:%M:%S.%U%Z:%z", date)}
+          {format("%h:%m:%.3s%Z:%z", date)}
         </text>
       </g>
       <g id="iso">
         <text x={123.106} y={80}>
-          {format("%Y-%m-%dT%H:%M", date)}
+          {format("%Y-%M-%DT%h:%m", date)}
         </text>
         <text x={118.106} y={84}>
-          {format("%Y-%m", date)}
+          {format("%Y-%M", date)}
         </text>
         <text x={138.106} y={84}>
-          {format("%H:%M:%S", date)}
+          {format("%h:%m:%s", date)}
         </text>
         <text x={113.587} y={88}>
-          {format("%Y-%m-%dT%H,5", date)}
+          {format("%Y-%M-%DT%,1h", date)}
         </text>
         <text x={143.414} y={88}>
-          {format("%Y-%m-%dT%H.5", date)}
+          {format("%Y-%M-%DT%.1h", date)}
         </text>
         <text x={126.139} y={92}>
-          {format("%Y-%m-%dT%H:%M:%S", date)}
+          {format("%Y-%M-%DT%h:%m:%s", date)}
         </text>
         <text x={119.369} y={96}>
-          {format("%Y-%m-%dT%H:%M,5", date)}
+          {format("%Y-%M-%DT%h:%,1m", date)}
         </text>
         <text x={150.677} y={96}>
-          {format("%Y-%m-%dT%H:%M.5", date)}
+          {format("%Y-%M-%DT%h:%.1m", date)}
         </text>
         <text x={120} y={100}>
-          {format("T%H:%M:%S", date)}
+          {format("T%h:%m:%s", date)}
         </text>
         <text x={140} y={100}>
-          {formatUTC("T%H:%M:%SZ", date)}
+          {formatUTC("T%h:%m:%sZ", date)}
         </text>
         <text x={160} y={100}>
-          {format("T%H:%M:%S%Z:%z", date)}
+          {format("T%h:%m:%s%Z:%z", date)}
         </text>
         <text x={164} y={104}>
-          {format("T%H:%M:%S%Z", date)}
+          {format("T%h:%m:%s%Z", date)}
         </text>
         <text x={120} y={104}>
           {format("%Y", date)}
         </text>
         <text x={132} y={104}>
-          {format("%D", date)}
+          {format("%d", date)}
         </text>
         <text x={144} y={104}>
           {format("%C", date)}
@@ -168,19 +168,19 @@ function Diagram (props) {
           {format("%N", date)}
         </text>
         <text x={144.889} y={108}>
-          {formatUTC("%Y-%m-%dT%H:%M:%S\u221201:00", date, -60)}
+          {formatUTC("%Y-%M-%DT%h:%m:%s\u221201:00", date, -60)}
         </text>
         <text x={125.009} y={108}>
-          {format("%Y-%o", date)}
+          {format("%Y-%oO", date)}
         </text>
         <text x={123.413} y={112}>
-          {format("%Y-%oT%H:%M", date)}
+          {format("%Y-%OT%h:%m", date)}
         </text>
         <text x={153.413} y={112}>
-          {format("%Y-%oT%H:%M:%S", date)}
+          {format("%Y-%OT%h:%m:%s", date)}
         </text>
         <text x={149.971} y={116}>
-          {format("%Y-%oT%H.5", date)}
+          {format("%Y-%OT%.1h", date)}
         </text>
         <text x={126.913} y={116}>
           {format("%G-W%W", date)}
@@ -189,42 +189,42 @@ function Diagram (props) {
           {format("%G-W%W-%w", date)}
         </text>
         <text x={160.336} y={120}>
-          {format("%G-W%W-%wT%H:%M", date)}
+          {format("%G-W%W-%wT%h:%m", date)}
         </text>
         <text x={169.336} y={124}>
-          {format("%G-W%W-%wT%H:%M:%S", date)}
+          {format("%G-W%W-%wT%h:%m:%s", date)}
         </text>
         <text x={129.087} y={124}>
-          {format("%Y-%m-%dT%H:%M:%S.%U", date)}
+          {format("%Y-%M-%DT%h:%m:%.3s", date)}
         </text>
 
         <text x={124.336} y={128}>
           {format("%Y/P2M", date)}
         </text>
         <text x={144.336} y={128}>
-          {format("%Y-%m/P2M", date)}
+          {format("%Y-%M/P2M", date)}
         </text>
         <text x={164.336} y={128}>
-          {format("%Y-%m-%d/P2M", date)}
+          {format("%Y-%M-%D/P2M", date)}
         </text>
 
         <text x={129.336} y={132}>
-          {format("%Y-%m-%dT%H/PT2M", date)}
+          {format("%Y-%M-%DT%h/PT2M", date)}
         </text>
         <text x={164.336} y={132}>
-          {format("%Y-%m-%dT%H:%M/PT2M", date)}
+          {format("%Y-%M-%DT%h:%m/PT2M", date)}
         </text>
 
         <text x={125.336} y={136}>
-          {format("%Y-%m-%dT%H:%M:%S/PT3D", date)}
+          {format("%Y-%M-%DT%h:%m:%s/P3D", date)}
         </text>
         <text x={169.336} y={136}>
-          {format("%Y-%m-%dT%H:%M:%S/PT2M", date)}
+          {format("%Y-%M-%DT%h:%m:%s/PT2M", date)}
         </text>
 
 
         <text x={120.336} y={140}>
-          {format("%Y-%o/P2M", date)}
+          {format("%Y-%O/P2M", date)}
         </text>
         <text x={144.336} y={140}>
           {format("%Y-W%W/P2M", date)}
@@ -234,37 +234,37 @@ function Diagram (props) {
         </text>
 
         <text x={116.336} y={144}>
-          {format("%Y-%oT%H/PT2M", date)}
+          {format("%Y-%OT%h/PT2M", date)}
         </text>
         <text x={149.336} y={144}>
-          {format("%Y-W%W-%wT%H:%M/PT2M", date)}
+          {format("%Y-W%W-%wT%h:%m/PT2M", date)}
         </text>
         <text x={184.336} y={144}>
-          {format("%Y-%m/12", date)}
+          {format("%Y-%M/12", date)}
         </text>
 
         <text x={114.336} y={148}>
-          {format("%Y-%oT%H:%M:%S/PT3D", date)}
+          {format("%Y-%OT%h:%m:%s/PT3D", date)}
         </text>
         <text x={154.336} y={148}>
-          {format("%Y-W%W-%wT%H:%M:%S/PT2M", date)}
+          {format("%Y-W%W-%wT%h:%m:%s/PT2M", date)}
         </text>
 
         <text x={109.336} y={152}>
-          {format("%Y-%m-%d/28", date)}
+          {format("%Y-%M-%D/28", date)}
         </text>
         <text x={134.336} y={152}>
-          {format("%Y-%m-%d/%Y-12-31", date)}
+          {format("%Y-%M-%D/%Y-12-31", date)}
         </text>
         <text x={169.336} y={152}>
-          {format("%Y-%m-%dT%H/23", date)}
+          {format("%Y-%M-%DT%h/23", date)}
         </text>
 
         <text x={104.336} y={156}>
-          {format("%Y-%m-%dT%H:%M/59", date)}
+          {format("%Y-%M-%DT%h:%m/59", date)}
         </text>
         <text x={164.336} y={156}>
-          {format("%Y-%m-%dT%H:%M:%S/59", date)}
+          {format("%Y-%M-%DT%h:%m:%s/59", date)}
         </text>
 
 
@@ -302,11 +302,11 @@ function Diagram (props) {
         </text>
 
         <text x={79.336} y={184}>
-          {format("R2/%Y-%o/P1Y2.5MT4H", date)}
+          {format("R2/%Y-%O/P1Y2.5MT4H", date)}
         </text>
 
         <text x={85.336} y={192}>
-          {format("R/%Y-W%W-%wT%H/PT45M", date)}
+          {format("R/%Y-W%W-%wT%h/PT45M", date)}
         </text>
 
         <g id="iso-mutual">
@@ -317,34 +317,34 @@ function Diagram (props) {
             {format("+00%Y", date)}
           </text>
           <text   x={154}   y={172}  >
-            {format("+00%Y-%m", date)}
+            {format("+00%Y-%M", date)}
           </text>
           <text   x={128}   y={172}  >
-            {format("+00%Y-%m-%d", date)}
+            {format("+00%Y-%M-%D", date)}
           </text>
           <text   x={148}   y={176}  >
-            {format("+00%Y-%m-%dT%H", date)}
+            {format("+00%Y-%M-%DT%h", date)}
           </text>
           <text   x={124}   y={180}  >
-            {format("+00%Y-%m-%dT%H:%M", date)}
+            {format("+00%Y-%M-%DT%h:%m", date)}
           </text>
           <text   x={148}   y={184}  >
-            {format("+00%Y-%m-%dT%H:%M:%S", date)}
+            {format("+00%Y-%M-%DT%h:%m:%s", date)}
           </text>
           <text   x={124}   y={188}  >
-            {format("+00%G-W%W-%wT%H", date)}
+            {format("+00%G-W%W-%wT%h", date)}
           </text>
           <text   x={148}   y={192}  >
-            {format("+00%G-W%W-%wT%H:%M", date)}
+            {format("+00%G-W%W-%wT%h:%m", date)}
           </text>
           <text   x={124}   y={196}  >
-            {format("+00%Y-%oT%H", date)}
+            {format("+00%Y-%OT%h", date)}
           </text>
           <text   x={148}   y={200}  >
-            {format("+00%Y-%oT%H:%M", date)}
+            {format("+00%Y-%OT%h:%m", date)}
           </text>
           <text   x={132}   y={204}  >
-            {format("+00%Y-%oT%H:%M:%S", date)}
+            {format("+00%Y-%OT%h:%m:%s", date)}
           </text>
         </g>
       </g>

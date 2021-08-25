@@ -4,69 +4,71 @@ import { format, formatUTC } from './format';
 import Diagram from './Diagram';
 
 const time_formats_rfc_only = [
-  "%H:%M:%S-00:00",
-  "%H:%M:%.3S-00:00",
+  "%h:%m:%s-00:00",
+  "%h:%m:%.3s-00:00",
 ];
 
 const formats_rfc_only = [
-  "%Y-%m-%d %H:%M:%SZ",
-  "%Y-%m-%d_%H:%M:%SZ",
-  "%Y-%m-%d %H:%M:%Sz",
-  "%Y-%m-%d_%H:%M:%Sz",
-  "%Y-%m-%d %H:%M:%S.%UZ",
-  "%Y-%m-%d_%H:%M:%S.%UZ",
-  "%Y-%m-%d %H:%M:%S.%Uz",
-  "%Y-%m-%d_%H:%M:%S.%Uz",
-  "%Y-%m-%d %H:%M:%S-00:00",
-  "%Y-%m-%d %H:%M:%S.%U-00:00",
-  "%Y-%m-%dT%H:%M:%S-00:00",
-  "%Y-%m-%dT%H:%M:%S.%U-00:00",
+  "%Y-%M-%D %h:%m:%sZ",
+  "%Y-%M-%D_%h:%m:%sZ",
+  "%Y-%M-%D %h:%m:%sz",
+  "%Y-%M-%D_%h:%m:%sz",
+  "%Y-%M-%D %h:%m:%.3sZ",
+  "%Y-%M-%D_%h:%m:%.3sZ",
+  "%Y-%M-%D %h:%m:%.3sz",
+  "%Y-%M-%D_%h:%m:%.3sz",
+  "%Y-%M-%D %h:%m:%s-00:00",
+  "%Y-%M-%D %h:%m:%.3s-00:00",
+  "%Y-%M-%DT%h:%m:%s-00:00",
+  "%Y-%M-%DT%h:%m:%.3s-00:00",
 ];
 
 const date_formats_both_utc = [
-  "%Y-%m-%d",
+  "%Y-%M-%D",
 ];
 
 const time_formats_both_utc = [
-  "%H:%M:%SZ",
-  "%H:%M:%.3SZ",
-  "%H:%M:%S+00:00",
-  "%H:%M:%.3S+00:00",
+  "%h:%m:%sZ",
+  "%h:%m:%.3sZ",
+  "%h:%m:%s+00:00",
+  "%h:%m:%.3s+00:00",
 ];
 
 const time_formats_both_local = [
-  "%H:%M:%S%Z:%z",
-  "%H:%M:%.3S%Z:%z",
+  "%h:%m:%s%Z:%z",
+  "%h:%m:%.3s%Z:%z",
 ];
 
 const formats_both_utc = [
-  "%Y-%m-%dT%H:%M:%SZ",
-  "%Y-%m-%dT%H:%M:%.3SZ",
-  "%Y-%m-%dT%H:%M:%S+00:00",
-  "%Y-%m-%dT%H:%M:%.3S+00:00",
+  "%Y-%M-%DT%h:%m:%sZ",
+  "%Y-%M-%DT%h:%m:%.3sZ",
+  "%Y-%M-%DT%h:%m:%s+00:00",
+  "%Y-%M-%DT%h:%m:%.3s+00:00",
 ];
 
 const formats_both_local = [
-  "%Y-%m-%dT%H:%M:%S%Z:%z",
-  "%Y-%m-%dT%H:%M:%.3S%Z:%z",
+  "%Y-%M-%DT%h:%m:%s%Z:%z",
+  "%Y-%M-%DT%h:%m:%.3s%Z:%z",
 ];
 
 const full_date_formats = [
-  "%Y-%m-%d",
+  "%Y-%M-%D",
   "%G-W%W-%w",
-  "%Y-%o",
+  "%Y-%O",
 ];
 
 const basic_time_formats_iso_only = [
-  "%H",
-  "%,1H",
-  "%.1H",
-  "%H:%M",
-  "%H:%,1M",
-  "%H:%.1M",
-  "%H:%M:%S",
-  "%H:%M:%,3S",
-  "%H:%M:%.3S",
+  "%h",
+  "%,1h",
+  "%.1h",
+  "%h:%m",
+  "%h:%,1m",
+  "%h:%.1m",
+  "%h:%m:%s",
+  "%h:%m:%,3s",
+  "%h:%m:%.3s",
+  "%h:%m:%s,%u",
+  "%h:%m:%s.%u",
 ];
 
 const time_formats_iso_only = [
@@ -79,43 +81,43 @@ const mergedBasic = merged.map(s => s.replace(/[-:]/g, ""));
 const mergedBoth = [ ...merged, ...mergedBasic ];
 
 const formats_negative = [
-  "%Y-%m-%dT%H:%M:%S%Z:%z",
-  "%Y-%m-%dT%H:%M:%.3S%Z:%z",
+  "%Y-%M-%DT%h:%m:%s%Z:%z",
+  "%Y-%M-%DT%h:%m:%.3s%Z:%z",
 ];
 
 const formats_negative_2212 = [
-  "%Y-%m-%dT%H%−Z",
-  "%Y-%m-%dT%H:%M%−Z",
-  "%Y-%m-%dT%H:%M:%S%−Z",
-  "%Y-%m-%dT%H:%M:%S,%U%−Z",
-  "%Y-%m-%dT%H:%M:%S.%U%−Z",
-  "%Y-%m-%dT%H%−Z:%z",
-  "%Y-%m-%dT%H:%M%−Z:%z",
-  "%Y-%m-%dT%H:%M:%S%−Z:%z",
-  "%Y-%m-%dT%H:%M:%S,%U%−Z:%z",
-  "%Y-%m-%dT%H:%M:%S.%U%−Z:%z",
-  "%Y%m%dT%H%−Z",
-  "%Y%m%dT%H%M%−Z",
-  "%Y%m%dT%H%M%S%−Z",
-  "%Y%m%dT%H%M%S,%U%−Z",
-  "%Y%m%dT%H%M%S.%U%−Z",
-  "%Y%m%dT%H%−Z%z",
-  "%Y%m%dT%H%M%−Z%z",
-  "%Y%m%dT%H%M%S%−Z%z",
-  "%Y%m%dT%H%M%S,%U%−Z%z",
-  "%Y%m%dT%H%M%S.%U%−Z%z",
+  "%Y-%M-%DT%h%−Z",
+  "%Y-%M-%DT%h:%m%−Z",
+  "%Y-%M-%DT%h:%m:%s%−Z",
+  "%Y-%M-%DT%h:%m:%,3s%−Z",
+  "%Y-%M-%DT%h:%m:%.3s%−Z",
+  "%Y-%M-%DT%h%−Z:%z",
+  "%Y-%M-%DT%h:%m%−Z:%z",
+  "%Y-%M-%DT%h:%m:%s%−Z:%z",
+  "%Y-%M-%DT%h:%m:%,3s%−Z:%z",
+  "%Y-%M-%DT%h:%m:%.3s%−Z:%z",
+  "%Y%M%DdT%h%−Z",
+  "%Y%M%DdT%h%m%−Z",
+  "%Y%M%DdT%h%m%s%−Z",
+  "%Y%M%DdT%h%m%,3s%−Z",
+  "%Y%M%DdT%h%m%.3s%−Z",
+  "%Y%M%DdT%h%−Z%z",
+  "%Y%M%DdT%h%m%−Z%z",
+  "%Y%M%DdT%h%m%s%−Z%z",
+  "%Y%M%DdT%h%m%,3s%−Z%z",
+  "%Y%M%DdT%h%m%.3s%−Z%z",
 ];
 
 const date_formats_iso_only = [
   "%N",
   "%C",
-  "%D",
+  "%d",
   "%Y",
-  "%Y-%m",
-  "%Y-%o",
+  "%Y-%M",
+  "%Y-%O",
   "%G-W%W",
   "%G-W%W-%w",
-  "%Y%o",
+  "%Y%O",
   "%GW%W",
   "%GW%W%w",
 ];
@@ -271,19 +273,19 @@ function App() {
           {`
 %N - Millennium
 %C - Century
-%D - Decade
+%d - Decade
 %Y - Year
-%m - Month
-%d - Day
+%M - Month
+%D - Day
 %G - Week Year
 %W - Week
 %w - Week Day
-%o - Ordinal Day
+%O - Ordinal Day
 
-%H - Hour
-%M - Minute
-%S - Second
-%U - Millisecond
+%h - Hour
+%m - Minute
+%s - Second
+%u - Microsecond
 
 %Z - Zone Hour including +/-
 %z - Zone Minute
