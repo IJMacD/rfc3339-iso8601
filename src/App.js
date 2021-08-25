@@ -74,7 +74,7 @@ const time_formats_iso_only = [
   ...basic_time_formats_iso_only.map(s => "T" + s),
 ];
 
-const merged = mergeDatesWithTimes(full_date_formats, basic_time_formats_iso_only);
+const merged = crossJoin(full_date_formats, basic_time_formats_iso_only).map(([d,t]) => `${d}T${t}`);
 const mergedBasic = merged.map(s => s.replace(/[-:]/g, ""));
 const mergedBoth = [ ...merged, ...mergedBasic ];
 
@@ -126,6 +126,48 @@ const formats_iso_only = [
   ...merged.map(s => s + "%Z:%z"),
   ...mergedBasic.map(s => s + "%Z%z"),
 ].filter(s => !formats_both_local.includes(s));
+
+const periods = [
+  "P1Y",
+  "P1,5Y",
+  "P1.5Y",
+  "P1M",
+  "P1,5M",
+  "P1.5M",
+  "P1W",
+  "P1D",
+  "PT1H",
+  "PT1M",
+  "PT1S",
+  "P1Y1M",
+  "P1Y1D",
+  "P1Y1M1D",
+  "P1DT1H",
+  "P1MT1M",
+  "P1DT1M",
+  "P1WT1M",
+  "P1WT1M1S",
+];
+
+const example_periods = [
+  "P1Y",
+  "P1M",
+  "P1D",
+];
+
+const ranges = [
+  ...crossJoin(full_date_formats, example_periods).map(([d,p]) => `${d}/${p}`),
+  ...crossJoin(full_date_formats, full_date_formats).map(([d1,d2]) => `${d1}/${d2}`),
+  ...crossJoin(example_periods, full_date_formats).map(([p,d]) => `${p}/${d}`),
+
+  ...crossJoin(merged, ["P1DT1H"]).map(([d,p]) => `${d}/${p}`),
+
+  ...crossJoin(full_date_formats, ["P1Y"]).map(([d,p]) => `R/${d}/${p}`),
+  ...crossJoin(full_date_formats, full_date_formats).map(([d1,d2]) => `R/${d1}/${d2}`),
+
+  ...crossJoin(full_date_formats, ["P1Y"]).map(([d,p]) => `R10/${d}/${p}`),
+  ...crossJoin(full_date_formats, full_date_formats).map(([d1,d2]) => `R10/${d1}/${d2}`),
+];
 
 function App() {
   const [ now, setNow ] = useState(() => new Date());
@@ -210,6 +252,18 @@ function App() {
             formats_iso_only.map(f => <ExampleRow key={f} format={f} now={now} iso />)
           }
         </tbody>
+        <tbody>
+          <tr><th colSpan={4} style={sectionHeaderStyle}>Periods</th></tr>
+          {
+            periods.map(f => <ExampleRow key={f} format={f} now={now} iso />)
+          }
+        </tbody>
+        <tbody>
+          <tr><th colSpan={4} style={sectionHeaderStyle}>Ranges</th></tr>
+          {
+            ranges.map(f => <ExampleRow key={f} format={f} now={now} iso />)
+          }
+        </tbody>
       </table>
       <h3>Format Key</h3>
       <pre style={{backgroundColor:"#F4F4F4"}}>
@@ -255,12 +309,12 @@ function ExampleRow ({ format: formatString, now, timezone = NaN, rfc = false, i
   </tr>;
 }
 
-function mergeDatesWithTimes (dates, times) {
+function crossJoin (aa, bb) {
   const out = [];
 
-  for (const d of dates) {
-    for (const t of times) {
-      out.push(`${d}T${t}`)
+  for (const a of aa) {
+    for (const b of bb) {
+      out.push([a,b]);
     }
   }
 
