@@ -3,6 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { format, formatUTC } from './format';
 import Diagram from './Diagram';
 
+const time_formats_rfc_only = [
+  "%H:%M:%S-00:00",
+  "%H:%M:%.3S-00:00",
+];
+
 const formats_rfc_only = [
   "%Y-%m-%d %H:%M:%SZ",
   "%Y-%m-%d_%H:%M:%SZ",
@@ -18,18 +23,32 @@ const formats_rfc_only = [
   "%Y-%m-%dT%H:%M:%S.%U-00:00",
 ];
 
-const formats_both_utc = [
+const date_formats_both_utc = [
   "%Y-%m-%d",
+];
+
+const time_formats_both_utc = [
   "%H:%M:%SZ",
+  "%H:%M:%.3SZ",
+  "%H:%M:%S+00:00",
+  "%H:%M:%.3S+00:00",
+];
+
+const time_formats_both_local = [
+  "%H:%M:%S%Z:%z",
+  "%H:%M:%.3S%Z:%z",
+];
+
+const formats_both_utc = [
   "%Y-%m-%dT%H:%M:%SZ",
-  "%Y-%m-%dT%H:%M:%S.%UZ",
+  "%Y-%m-%dT%H:%M:%.3SZ",
   "%Y-%m-%dT%H:%M:%S+00:00",
-  "%Y-%m-%dT%H:%M:%S.%U+00:00",
+  "%Y-%m-%dT%H:%M:%.3S+00:00",
 ];
 
 const formats_both_local = [
   "%Y-%m-%dT%H:%M:%S%Z:%z",
-  "%Y-%m-%dT%H:%M:%S.%U%Z:%z",
+  "%Y-%m-%dT%H:%M:%.3S%Z:%z",
 ];
 
 const full_date_formats = [
@@ -38,7 +57,7 @@ const full_date_formats = [
   "%Y-%o",
 ];
 
-const time_formats = [
+const basic_time_formats_iso_only = [
   "%H",
   "%,1H",
   "%.1H",
@@ -50,13 +69,18 @@ const time_formats = [
   "%H:%M:%.3S",
 ];
 
-const merged = mergeDatesWithTimes(full_date_formats, time_formats);
+const time_formats_iso_only = [
+  ...basic_time_formats_iso_only,
+  ...basic_time_formats_iso_only.map(s => "T" + s),
+];
+
+const merged = mergeDatesWithTimes(full_date_formats, basic_time_formats_iso_only);
 const mergedBasic = merged.map(s => s.replace(/[-:]/g, ""));
 const mergedBoth = [ ...merged, ...mergedBasic ];
 
 const formats_negative = [
   "%Y-%m-%dT%H:%M:%S%Z:%z",
-  "%Y-%m-%dT%H:%M:%S.%U%Z:%z",
+  "%Y-%m-%dT%H:%M:%.3S%Z:%z",
 ];
 
 const formats_negative_2212 = [
@@ -82,7 +106,7 @@ const formats_negative_2212 = [
   "%Y%m%dT%H%M%S.%U%−Z%z",
 ];
 
-const formats_iso_only = [
+const date_formats_iso_only = [
   "%N",
   "%C",
   "%D",
@@ -94,8 +118,9 @@ const formats_iso_only = [
   "%Y%o",
   "%GW%W",
   "%GW%W%w",
-  ...time_formats,
-  ...time_formats.map(s => "T" + s),
+];
+
+const formats_iso_only = [
   ...mergedBoth,
   ...mergedBoth.map(s => s + "%Z"),
   ...merged.map(s => s + "%Z:%z"),
@@ -109,6 +134,12 @@ function App() {
     const intervalID = setInterval(() => setNow(new Date()), 1000);
     return () => clearTimeout(intervalID);
   }, []);
+
+  /** @type {import('react').CSSProperties} */
+  const sectionHeaderStyle = {
+    background: "#E5E5E5",
+    textAlign: "left",
+  };
 
   return (
     <div className="App">
@@ -135,6 +166,31 @@ function App() {
           </tr>
         </thead>
         <tbody>
+          <tr><th colSpan={4} style={sectionHeaderStyle}>Dates</th></tr>
+          {
+            date_formats_both_utc.map(f => <ExampleRow key={f} format={f} now={now} timezone={0} rfc iso />)
+          }
+          {
+            date_formats_iso_only.map(f => <ExampleRow key={f} format={f} now={now} iso />)
+          }
+        </tbody>
+        <tbody>
+          <tr><th colSpan={4} style={sectionHeaderStyle}>Times</th></tr>
+          {
+            time_formats_rfc_only.map(f => <ExampleRow key={f} format={f} now={now} timezone={0} rfc />)
+          }
+          {
+            time_formats_both_utc.map(f => <ExampleRow key={f} format={f} now={now} timezone={0} rfc iso />)
+          }
+          {
+            time_formats_both_local.map(f => <ExampleRow key={f} format={f} now={now} rfc iso />)
+          }
+          {
+            time_formats_iso_only.map(f => <ExampleRow key={f} format={f} now={now} iso />)
+          }
+        </tbody>
+        <tbody>
+          <tr><th colSpan={4} style={sectionHeaderStyle}>Date-Times</th></tr>
           {
             formats_rfc_only.map(f => <ExampleRow key={f} format={f} now={now} timezone={0} rfc />)
           }
