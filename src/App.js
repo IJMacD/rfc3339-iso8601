@@ -23,7 +23,7 @@ const formats_rfc_only = [
   "%Y-%M-%DT%h:%m:%.3s-00:00",
 ];
 
-const date_formats_both_utc = [
+const date_formats_both = [
   "%Y-%M-%D",
 ];
 
@@ -126,7 +126,7 @@ const formats_negative_2212 = [
 const date_formats_iso_only = [
   "%N",
   "%C",
-  "%d",
+  "%X",
   "%Y",
   "%Y-%M",
   "%Y-%O",
@@ -227,7 +227,7 @@ function App() {
         <tbody>
           <tr><th colSpan={4} style={sectionHeaderStyle}>Dates</th></tr>
           {
-            date_formats_both_utc.map(f => <ExampleRow key={f} format={f} now={now} timezone={0} rfc iso />)
+            date_formats_both.map(f => <ExampleRow key={f} format={f} now={now} rfc iso />)
           }
           {
             date_formats_iso_only.map(f => <ExampleRow key={f} format={f} now={now} iso />)
@@ -291,7 +291,7 @@ function App() {
           {`
 %N - Millennium
 %C - Century
-%d - Decade
+%X - Decade
 %Y - Year
 %M - Month
 %D - Day
