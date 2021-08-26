@@ -29,15 +29,18 @@ const date_formats_both_utc = [
 
 const time_formats_both_utc = [
   "%h:%m:%sZ",
+  "%h:%m:%.1sZ",
   "%h:%m:%.3sZ",
   "%h:%m:%s.%uZ",
   "%h:%m:%s+00:00",
+  "%h:%m:%.1s+00:00",
   "%h:%m:%.3s+00:00",
   "%h:%m:%s.%u+00:00",
 ];
 
 const time_formats_both_local = [
   "%h:%m:%s%Z:%z",
+  "%h:%m:%.1s%Z:%z",
   "%h:%m:%.3s%Z:%z",
   "%h:%m:%s.%u%Z:%z",
 ];
@@ -74,10 +77,19 @@ const basic_time_formats_iso_only = [
   "%h:%m:%s.%u",
 ];
 
-const time_formats_iso_only = [
+const expanded_time_formats_iso_only = [
   ...basic_time_formats_iso_only,
   ...basic_time_formats_iso_only.map(s => "T" + s),
 ];
+
+const time_formats_iso_only = [
+  ...new Set([
+    ...expanded_time_formats_iso_only,
+    ...expanded_time_formats_iso_only.map(s => s.replace(/[-:]/g, "")),
+  ]
+)];
+
+const time_formats_iso_utc = time_formats_iso_only.map(s => s + "Z").filter(s => !time_formats_both_utc.includes(s));
 
 const merged = crossJoin(full_date_formats, basic_time_formats_iso_only).map(([d,t]) => `${d}T${t}`);
 const mergedBasic = merged.map(s => s.replace(/[-:]/g, ""));
@@ -235,6 +247,9 @@ function App() {
           {
             time_formats_iso_only.map(f => <ExampleRow key={f} format={f} now={now} iso />)
           }
+          {
+            time_formats_iso_utc.map(f => <ExampleRow key={f} format={f} now={now} timezone={0} iso />)
+          }
         </tbody>
         <tbody>
           <tr><th colSpan={4} style={sectionHeaderStyle}>Date-Times</th></tr>
@@ -314,14 +329,10 @@ function ExampleRow ({ format: formatString, now, timezone = NaN, rfc = false, i
   </tr>;
 }
 
+/**
+ * @param {any[]} aa
+ * @param {any[]} bb
+ */
 function crossJoin (aa, bb) {
-  const out = [];
-
-  for (const a of aa) {
-    for (const b of bb) {
-      out.push([a,b]);
-    }
-  }
-
-  return out;
+  return aa.map(a => bb.map(b => [a,b])).flat();
 }
