@@ -30,13 +30,16 @@ const date_formats_both_utc = [
 const time_formats_both_utc = [
   "%h:%m:%sZ",
   "%h:%m:%.3sZ",
+  "%h:%m:%s.%uZ",
   "%h:%m:%s+00:00",
   "%h:%m:%.3s+00:00",
+  "%h:%m:%s.%u+00:00",
 ];
 
 const time_formats_both_local = [
   "%h:%m:%s%Z:%z",
   "%h:%m:%.3s%Z:%z",
+  "%h:%m:%s.%u%Z:%z",
 ];
 
 const formats_both_utc = [
@@ -96,16 +99,16 @@ const formats_negative_2212 = [
   "%Y-%M-%DT%h:%m:%s%−Z:%z",
   "%Y-%M-%DT%h:%m:%,3s%−Z:%z",
   "%Y-%M-%DT%h:%m:%.3s%−Z:%z",
-  "%Y%M%DdT%h%−Z",
-  "%Y%M%DdT%h%m%−Z",
-  "%Y%M%DdT%h%m%s%−Z",
-  "%Y%M%DdT%h%m%,3s%−Z",
-  "%Y%M%DdT%h%m%.3s%−Z",
-  "%Y%M%DdT%h%−Z%z",
-  "%Y%M%DdT%h%m%−Z%z",
-  "%Y%M%DdT%h%m%s%−Z%z",
-  "%Y%M%DdT%h%m%,3s%−Z%z",
-  "%Y%M%DdT%h%m%.3s%−Z%z",
+  "%Y%M%DT%h%−Z",
+  "%Y%M%DT%h%m%−Z",
+  "%Y%M%DT%h%m%s%−Z",
+  "%Y%M%DT%h%m%,3s%−Z",
+  "%Y%M%DT%h%m%.3s%−Z",
+  "%Y%M%DT%h%−Z%z",
+  "%Y%M%DT%h%m%−Z%z",
+  "%Y%M%DT%h%m%s%−Z%z",
+  "%Y%M%DT%h%m%,3s%−Z%z",
+  "%Y%M%DT%h%m%.3s%−Z%z",
 ];
 
 const date_formats_iso_only = [
