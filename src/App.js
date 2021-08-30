@@ -50,11 +50,13 @@ const formats_both_utc = [
   "%Y-%M-%DT%h:%m:%.3sZ",
   "%Y-%M-%DT%h:%m:%s+00:00",
   "%Y-%M-%DT%h:%m:%.3s+00:00",
+  "%Y-%M-%DT%h:%m:%s.%u+00:00",
 ];
 
 const formats_both_local = [
   "%Y-%M-%DT%h:%m:%s%Z:%z",
   "%Y-%M-%DT%h:%m:%.3s%Z:%z",
+  "%Y-%M-%DT%h:%m:%s.%u%Z:%z",
 ];
 
 const full_date_formats = [
@@ -208,7 +210,7 @@ function App() {
       <p>Notes:</p>
       <ul>
         <li>This table is not exhaustive.</li>
-        <li>Both formats are case-insensitive so every <code>T</code>, <code>W</code>, <code>P</code>, <code>R</code>, and <code>Z</code> could be <code>t</code>, <code>w</code>, <code>p</code>, <code>r</code>, or <code>z</code> respectively.</li>
+        <li>Both standards are case-insensitive so every <code>T</code>, <code>W</code>, <code>P</code>, <code>R</code>, and <code>Z</code> could be <code>t</code>, <code>w</code>, <code>p</code>, <code>r</code>, or <code>z</code> respectively.</li>
         <li>RFC 3339 allows for other characters to replace the <code>T</code> but only gives examples using a space character.</li>
         <li>ISO 8601 allows decimal fractions of the smallest time value. These are represented here by a single fractional digit but the standard allows arbitrary precision.</li>
         <li>ISO 8601 prefers commas to dots for decimal separation but they are interchangeable in all formats.</li>
