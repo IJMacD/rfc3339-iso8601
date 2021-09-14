@@ -8,35 +8,36 @@ function isLeapYear(year) {
 }
 
 export function getYearDay(dt) {
-    const leap_day = dt.getMonth() > 1 && isLeapYear(dt.getFullYear()) ? 1 : 0;
-    return month_index[dt.getMonth()] + dt.getDate() + leap_day;
+    const leap_day = dt.getUTCMonth() > 1 && isLeapYear(dt.getUTCFullYear()) ? 1 : 0;
+    return month_index[dt.getUTCMonth()] + dt.getUTCDate() + leap_day;
 }
 
 /**
  * ISO Week Number
  * Algorithm from https://www.tondering.dk/claus/cal/week.php
+ * Uses UTC values
  */
 export function getWeek (dt) {
     let n, g, s;
 
-    if (dt.getMonth() < 2) {
-        const a = dt.getFullYear() - 1;
+    if (dt.getUTCMonth() < 2) {
+        const a = dt.getUTCFullYear() - 1;
         const b = int(a / 4) - int(a / 100) + int(a / 400);
         const c = int((a - 1) / 4) - int((a - 1) / 100) + int((a - 1) / 400);
         s = b - c;
         const e = 0;
-        const f = dt.getDate() - 1 + int(31 * dt.getMonth());
+        const f = dt.getUTCDate() - 1 + int(31 * dt.getUTCMonth());
         g = (a + b) % 7;
         const d = (f + g - e) % 7;
         n = f + 3 - d;
     }
     else {
-        const a = dt.getFullYear();
+        const a = dt.getUTCFullYear();
         const b = int(a / 4) - int(a / 100) + int(a / 400);
         const c = int((a - 1) / 4) - int((a - 1) / 100) + int((a - 1) / 400);
         s = b - c;
         const e = s + 1;
-        const f = dt.getDate() + int((153 * int(dt.getMonth() - 2) + 2) / 5) + 58 + s;
+        const f = dt.getUTCDate() + int((153 * int(dt.getUTCMonth() - 2) + 2) / 5) + 58 + s;
         g = (a + b) % 7;
         const d = (f + g - e) % 7;
         n = f + 3 - d;
@@ -57,66 +58,68 @@ export function getWeek (dt) {
 /**
  * ISO Week Year
  * Algorithm from https://www.tondering.dk/claus/cal/week.php
+ * Uses UTC values
  */
 export function getWeekYear (dt) {
     let n, g, s;
 
-    if (dt.getMonth() < 2) {
-        const a = dt.getFullYear() - 1;
+    if (dt.getUTCMonth() < 2) {
+        const a = dt.getUTCFullYear() - 1;
         const b = int(a / 4) - int(a / 100) + int(a / 400);
         const c = int((a - 1) / 4) - int((a - 1) / 100) + int((a - 1) / 400);
         s = b - c;
         const e = 0;
-        const f = dt.getDate() - 1 + int(31 * dt.getMonth());
+        const f = dt.getUTCDate() - 1 + int(31 * dt.getUTCMonth());
         g = (a + b) % 7;
         const d = (f + g - e) % 7;
         n = f + 3 - d;
     }
     else {
-        const a = dt.getFullYear();
+        const a = dt.getUTCFullYear();
         const b = int(a / 4) - int(a / 100) + int(a / 400);
         const c = int((a - 1) / 4) - int((a - 1) / 100) + int((a - 1) / 400);
         s = b - c;
         const e = s + 1;
-        const f = dt.getDate() + int((153 * int(dt.getMonth() - 2) + 2) / 5) + 58 + s;
+        const f = dt.getUTCDate() + int((153 * int(dt.getUTCMonth() - 2) + 2) / 5) + 58 + s;
         g = (a + b) % 7;
         const d = (f + g - e) % 7;
         n = f + 3 - d;
     }
 
     if (n < 0) {
-        return dt.getFullYear() - 1;
+        return dt.getUTCFullYear() - 1;
     }
     else if (n > 364 + s) {
-        return dt.getFullYear() + 1;
+        return dt.getUTCFullYear() + 1;
     }
     else {
-        return dt.getFullYear();
+        return dt.getUTCFullYear();
     }
 }
 
 /**
  * ISO Week Number
  * Algorithm from https://www.tondering.dk/claus/cal/week.php
+ * Uses UTC values
  */
 export function getWeekDay (dt) {
     let d;
 
-    if (dt.getMonth() < 2) {
-        const a = dt.getFullYear() - 1;
+    if (dt.getUTCMonth() < 2) {
+        const a = dt.getUTCFullYear() - 1;
         const b = int(a / 4) - int(a / 100) + int(a / 400);
         const e = 0;
-        const f = dt.getDate() - 1 + int(31 * dt.getMonth());
+        const f = dt.getUTCDate() - 1 + int(31 * dt.getUTCMonth());
         const g = (a + b) % 7;
         d = (f + g - e) % 7;
     }
     else {
-        const a = dt.getFullYear();
+        const a = dt.getUTCFullYear();
         const b = int(a / 4) - int(a / 100) + int(a / 400);
         const c = int((a - 1) / 4) - int((a - 1) / 100) + int((a - 1) / 400);
         const s = b - c;
         const e = s + 1;
-        const f = dt.getDate() + int((153 * int(dt.getMonth() - 2) + 2) / 5) + 58 + s;
+        const f = dt.getUTCDate() + int((153 * int(dt.getUTCMonth() - 2) + 2) / 5) + 58 + s;
         const g = (a + b) % 7;
         d = (f + g - e) % 7;
     }
