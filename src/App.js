@@ -97,12 +97,12 @@ const merged = crossJoin(full_date_formats, basic_time_formats_iso_only).map(([d
 const mergedBasic = merged.map(s => s.replace(/[-:]/g, ""));
 const mergedBoth = [ ...merged, ...mergedBasic ];
 
-const formats_negative = [
+const formats_timezone = [
   "%Y-%M-%DT%h:%m:%s%Z:%z",
   "%Y-%M-%DT%h:%m:%.3s%Z:%z",
 ];
 
-const formats_negative_2212 = [
+const formats_timezone_2212 = [
   "%Y-%M-%DT%h%−Z",
   "%Y-%M-%DT%h:%m%−Z",
   "%Y-%M-%DT%h:%m:%s%−Z",
@@ -265,10 +265,13 @@ function App() {
             formats_both_local.map(f => <ExampleRow key={f} format={f} now={now} rfc iso />)
           }
           {
-            formats_negative.map(f => <ExampleRow key={f} format={f} now={now} timezone={-4 * 60} rfc iso />)
+            formats_timezone.map(f => <ExampleRow key={f} format={f} now={now} timezone={-12 * 60} rfc iso />)
           }
           {
-            formats_negative_2212.map(f => <ExampleRow key={f} format={f} now={now} timezone={-4 * 60} iso />)
+            formats_timezone.map(f => <ExampleRow key={f} format={f} now={now} timezone={8 * 60 + 45} rfc iso />)
+          }
+          {
+            formats_timezone_2212.map(f => <ExampleRow key={f} format={f} now={now} timezone={-12 * 60} iso />)
           }
           {
             formats_iso_only.map(f => <ExampleRow key={f} format={f} now={now} iso />)
