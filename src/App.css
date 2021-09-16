@@ -50,3 +50,12 @@ code {
 .App-FormatTable code {
   background-color: transparent;
 }
+
+@media print {
+  a[href]::after {
+    content: "[" attr(href) "]";
+    opacity: 0.75;
+    font-size: 0.8em;
+    margin: 0 0.25em;
+  }
+}
