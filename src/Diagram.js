@@ -247,7 +247,7 @@ function Diagram (props) {
         </text>
 
         <text x={114.336} y={148}>
-          {format("%Y-%OT%h:%m:%s/PT3D", date)}
+          {format("%Y-%OT%h:%m:%s/PT3H", date)}
         </text>
         <text x={154.336} y={148}>
           {format("%Y-W%W-%wT%h:%m:%s/PT2M", date)}
