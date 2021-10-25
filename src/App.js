@@ -134,6 +134,7 @@ const date_formats_iso_only = [
   "%Y-%O",
   "%G-W%W",
   "%G-W%W-%w",
+  "%Y%M%D",
   "%Y%O",
   "%GW%W",
   "%GW%W%w",
