@@ -1,5 +1,7 @@
 .App {
   padding: 0 1em;
+  display: flex;
+  flex-direction: column;
 }
 @media (min-width: 768px) {
   .App {

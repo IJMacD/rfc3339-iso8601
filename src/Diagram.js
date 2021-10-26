@@ -44,12 +44,13 @@ function Diagram (props) {
         {"RFC 3339"}
       </text>
       <text
-        x={161.192}
+        x={170}
         y={78.692}
         fill="#00f"
         className="key-label"
       >
         {"ISO 8601"}
+        <tspan x={170.8} dy={6} style={{fontSize:"0.4em"}}>ISO 8601-1:2019</tspan>
       </text>
       <text
         x={157.192}
@@ -59,9 +60,10 @@ function Diagram (props) {
         style={{fontSize:8}}
       >
         {"By Mutual Agreement"}
-        <tspan x={157.192} y={234} style={{fontSize:5}}>
+        <tspan x={157.192} dy={8} style={{fontSize:5}}>
           (e.g. agreement on six-digit years)
         </tspan>
+        <tspan x={157.192} dy={7} style={{fontSize:4}}>ISO 8601-2:2019</tspan>
       </text>
       <g id="rfc">
         <text x={56} y={84}>
