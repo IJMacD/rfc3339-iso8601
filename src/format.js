@@ -34,6 +34,9 @@ import * as datetime from './date';
  * @param {number} [timezoneOffset] minutes
  */
 export function formatUTC(format, date = new Date(), timezoneOffset = 0) {
+    // timezoneOffset === NaN: use local time
+    if (isNaN(timezoneOffset)) timezoneOffset = -date.getTimezoneOffset();
+
     const d = timezoneOffset !== 0 ? new Date(+date + timezoneOffset * 60 * 1000) : date;
     let fraction = "";
 
