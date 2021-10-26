@@ -57,7 +57,7 @@ const formats_both_local = [
 
 const full_date_formats = [
   "%Y-%M-%D",
-  "%G-W%W-%w",
+  "%V-W%W-%w",
   "%Y-%O",
 ];
 
@@ -125,18 +125,18 @@ const formats_timezone_2212 = [
 ];
 
 const date_formats_iso_only = [
-  "%N",
+  "%L",
   "%C",
   "%X",
   "%Y",
   "%Y-%M",
   "%Y-%O",
-  "%G-W%W",
-  "%G-W%W-%w",
+  "%V-W%W",
+  "%V-W%W-%w",
   "%Y%M%D",
   "%Y%O",
-  "%GW%W",
-  "%GW%W%w",
+  "%VW%W",
+  "%VW%W%w",
 ];
 
 const formats_iso_only = [

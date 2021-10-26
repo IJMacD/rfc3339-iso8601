@@ -5,7 +5,7 @@ import * as datetime from './date';
  * %Y - Year
  * %m - Month
  * %d - Day
- * %G - Week Year
+ * %V - Week Year
  * %W - Week
  * %w - Week Day
  * %o - Ordinal Day
@@ -45,13 +45,13 @@ export function formatUTC(format, date = new Date(), timezoneOffset = 0) {
             const dot = w[0];
             const precision = +w[1];
             switch (s) {
-                case "N": fraction = frac(((d.getUTCFullYear() % 1000)/1000), precision).substr(1);     break;
+                case "L": fraction = frac(((d.getUTCFullYear() % 1000)/1000), precision).substr(1);     break;
                 case "C": fraction = frac(((d.getUTCFullYear() % 100)/100), precision).substr(1);       break;
                 case "X": fraction = frac(((d.getUTCFullYear() % 10)/10), precision).substr(1);         break;
                 case "Y": fraction = frac((d.getUTCMonth() / 12), precision).substr(1);                 break;
                 case "M": fraction = frac(((d.getUTCDate() - 1)/(365/12)), precision).substr(1);        break;
                 case "D": fraction = frac((d.getUTCHours() / 24), precision).substr(1);                 break;
-                case "G": fraction = frac((datetime.getWeek(d)/52), precision).substr(1);               break;
+                case "V": fraction = frac((datetime.getWeek(d)/52), precision).substr(1);               break;
                 case "W": fraction = frac(((datetime.getWeekDay(d) - 1) / 7), precision).substr(1);     break;
                 case "w": fraction = frac((d.getUTCHours() / 24), precision).substr(1);                 break;
                 case "O": fraction = frac((d.getUTCHours() / 24), precision).substr(1);                 break;
@@ -68,13 +68,13 @@ export function formatUTC(format, date = new Date(), timezoneOffset = 0) {
         }
 
         switch (s) {
-            case "N": return ((d.getUTCFullYear() / 1000)|0).toString()                    + fraction;
+            case "L": return ((d.getUTCFullYear() / 1000)|0).toString()                    + fraction;
             case "C": return ((d.getUTCFullYear() / 100)|0).toString().padStart(2, "0")    + fraction;
             case "X": return ((d.getUTCFullYear() / 10)|0).toString().padStart(3, "0")     + fraction;
             case "Y": return d.getUTCFullYear().toString().padStart(4, "0")                + fraction;
             case "M": return pad2(d.getUTCMonth() + 1)                                     + fraction;
             case "D": return pad2(d.getUTCDate())                                          + fraction;
-            case "G": return datetime.getWeekYear(d).toString().padStart(2, "0")           + fraction;
+            case "V": return datetime.getWeekYear(d).toString().padStart(2, "0")           + fraction;
             case "W": return pad2(datetime.getWeek(d))                                     + fraction;
             case "w": return datetime.getWeekDay(d).toString()                             + fraction;
             case "O": return datetime.getYearDay(d).toString().padStart(3, "0")            + fraction;

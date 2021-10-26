@@ -102,13 +102,13 @@ function App() {
       <pre style={{backgroundColor:"#F4F4F4"}}>
         <code>
           {`
-%N - Millennium
+%L - Millennium
 %C - Century
 %X - Decade
 %Y - Year
 %M - Month
 %D - Day
-%G - Week Year
+%V - Week Year
 %W - Week
 %w - Week Day
 %O - Ordinal Day

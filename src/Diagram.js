@@ -170,7 +170,7 @@ function Diagram (props) {
           {format("%C", date)}
         </text>
         <text x={156} y={104}>
-          {format("%N", date)}
+          {format("%L", date)}
         </text>
         <text x={144.889} y={108}>
           {formatUTC("%Y-%M-%DT%h:%m:%s\u221201:00", date, -60)}
@@ -188,16 +188,16 @@ function Diagram (props) {
           {format("%Y-%OT%.1h", date)}
         </text>
         <text x={126.913} y={116}>
-          {format("%G-W%W", date)}
+          {format("%V-W%W", date)}
         </text>
         <text x={133.259} y={120}>
-          {format("%G-W%W-%w", date)}
+          {format("%V-W%W-%w", date)}
         </text>
         <text x={160.336} y={120}>
-          {format("%G-W%W-%wT%h:%m", date)}
+          {format("%V-W%W-%wT%h:%m", date)}
         </text>
         <text x={169.336} y={124}>
-          {format("%G-W%W-%wT%h:%m:%s", date)}
+          {format("%V-W%W-%wT%h:%m:%s", date)}
         </text>
         <text x={129.087} y={124}>
           {format("%Y-%M-%DT%h:%m:%.3s", date)}
@@ -337,10 +337,10 @@ function Diagram (props) {
             {format("+00%Y-%M-%DT%h:%m:%s", date)}
           </text>
           <text   x={124}   y={188}  >
-            {format("+00%G-W%W-%wT%h", date)}
+            {format("+00%V-W%W-%wT%h", date)}
           </text>
           <text   x={148}   y={192}  >
-            {format("+00%G-W%W-%wT%h:%m", date)}
+            {format("+00%V-W%W-%wT%h:%m", date)}
           </text>
           <text   x={124}   y={196}  >
             {format("+00%Y-%OT%h", date)}
@@ -350,6 +350,12 @@ function Diagram (props) {
           </text>
           <text   x={132}   y={204}  >
             {format("+00%Y-%OT%h:%m:%s", date)}
+          </text>
+          <text   x={144}   y={208}  >
+            {format("+00%Y%OT%h%m%s", date)}
+          </text>
+          <text   x={136}   y={212}  >
+            {format("+00%Y%M%DT%h:%m:%s", date)}
           </text>
         </g>
       </g>
