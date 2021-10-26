@@ -202,13 +202,14 @@ export const time_formats = [
 ];
 
 export const date_time_formats = [
-  ...formats_rfc_only.map(f => ({ format: f,      timezone: 0,            rfc: true, iso: false })),
-  ...formats_both_utc.map(f => ({ format: f,      timezone: 0,            rfc: true, iso: true })),
-  ...formats_both_local.map(f => ({ format: f,    timezone: NaN,          rfc: true, iso: true })),
-  ...formats_timezone.map(f => ({ format: f,      timezone: -12 * 60,     rfc: true, iso: true })),
-  ...formats_timezone.map(f => ({ format: f,      timezone: 8 * 60 + 45,  rfc: true, iso: true })),
-  ...formats_timezone_2212.map(f => ({ format: f, timezone: -12 * 60,     rfc: false, iso: true })),
-  ...formats_iso_only.map(f => ({ format: f,      timezone: NaN,          rfc: false, iso: true })),
+  ...formats_rfc_only.map(f => ({ format: f,                  timezone: 0,            rfc: true, iso: false })),
+  ...formats_both_utc.map(f => ({ format: f,                  timezone: 0,            rfc: true, iso: true })),
+  ...formats_both_local.map(f => ({ format: f,                timezone: NaN,          rfc: true, iso: true })),
+  ...formats_timezone.map(f => ({ format: f.replace("T","t"), timezone: NaN,  rfc: true, iso: true })),
+  ...formats_timezone.map(f => ({ format: f,                  timezone: -12 * 60,     rfc: true, iso: true })),
+  ...formats_timezone.map(f => ({ format: f,                  timezone: 8 * 60 + 45,  rfc: true, iso: true })),
+  ...formats_timezone_2212.map(f => ({ format: f,             timezone: -12 * 60,     rfc: false, iso: true })),
+  ...formats_iso_only.map(f => ({ format: f,                  timezone: NaN,          rfc: false, iso: true })),
 ];
 
 /**
