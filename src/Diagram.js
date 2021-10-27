@@ -315,47 +315,50 @@ function Diagram (props) {
         </text>
 
         <g id="iso-mutual">
-          <text   x={140}   y={164}  >
+          <text   x={136}   y={164}  >
             {format("+00%C", date)}
           </text>
-          <text   x={144}   y={168}  >
+          <text   x={148}   y={164}  >
             {format("+00%Y", date)}
           </text>
-          <text   x={154}   y={172}  >
+          <text   x={154}   y={168}  >
             {format("+00%Y-%M", date)}
           </text>
-          <text   x={128}   y={172}  >
+          <text   x={128}   y={168}  >
             {format("+00%Y-%M-%D", date)}
           </text>
-          <text   x={148}   y={176}  >
+          <text   x={148}   y={172}  >
             {format("+00%Y-%M-%DT%h", date)}
           </text>
-          <text   x={124}   y={180}  >
+          <text   x={124}   y={176}  >
             {format("+00%Y-%M-%DT%h:%m", date)}
           </text>
-          <text   x={148}   y={184}  >
+          <text   x={148}   y={180}  >
             {format("+00%Y-%M-%DT%h:%m:%s", date)}
           </text>
-          <text   x={124}   y={188}  >
+          <text   x={124}   y={184}  >
             {format("+00%V-W%W-%wT%h", date)}
           </text>
-          <text   x={148}   y={192}  >
+          <text   x={148}   y={188}  >
             {format("+00%V-W%W-%wT%h:%m", date)}
           </text>
-          <text   x={124}   y={196}  >
+          <text   x={124}   y={192}  >
             {format("+00%Y-%OT%h", date)}
           </text>
-          <text   x={148}   y={200}  >
+          <text   x={150}   y={192}  >
             {format("+00%Y-%OT%h:%m", date)}
           </text>
-          <text   x={132}   y={204}  >
+          <text   x={140}   y={196}  >
+            {format("+00%Y-%OT%h:%m%Z:%z", date)}
+          </text>
+          <text   x={128}   y={200}  >
             {format("+00%Y-%OT%h:%m:%s", date)}
           </text>
-          <text   x={144}   y={208}  >
+          <text   x={144}   y={204}  >
             {format("+00%Y%OT%h%m%s", date)}
           </text>
-          <text   x={136}   y={212}  >
-            {format("+00%Y%M%DT%h:%m:%s", date)}
+          <text   x={136}   y={208}  >
+            {formatUTC("+00%Y%M%DT%h%m%sZ", date)}
           </text>
         </g>
       </g>

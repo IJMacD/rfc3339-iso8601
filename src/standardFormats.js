@@ -84,8 +84,7 @@ const time_formats_iso_only = [
   ...new Set([
     ...expanded_time_formats_iso_only,
     ...expanded_time_formats_iso_only.map(s => s.replace(/[-:]/g, "")),
-  ]
-  )
+  ])
 ];
 
 const time_formats_iso_utc = time_formats_iso_only.map(s => s + "Z").filter(s => !time_formats_both_utc.includes(s));
