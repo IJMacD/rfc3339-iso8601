@@ -27,24 +27,61 @@ function App() {
   };
 
   function handleDownload () {
-    const yesRFC = testFileType === "rfc3339" || testFileType === "both";
-    const yesISO = testFileType === "iso8601" || testFileType === "both";
+
+    let df;
+    let tf;
+    let dtf;
+
+    let filename = "date-test-values";
+
+    if (testFileType === "intersection") {
+      filename += "-rfc8601_∩_iso8601";
+      if (showHTML) filename += "_∩_html";
+
+      df = date_formats.filter(f => (f.rfc && f.iso && (!showHTML || f.html)));
+      tf = time_formats.filter(f => (f.rfc && f.iso && (!showHTML || f.html)));
+      dtf = date_time_formats.filter(f => (f.rfc && f.iso && (!showHTML || f.html)));
+
+    } else {
+      const yesRFC = testFileType === "rfc3339" || testFileType === "union";
+      const yesISO = testFileType === "iso8601" || testFileType === "union";
+      const yesHTML = testFileType === "html" || (testFileType === "union" && showHTML === true);
+
+      if (testFileType === "union") {
+        filename += "-rfc8601_∪_iso8601";
+        if (showHTML) filename += "_∪_html";
+      } else {
+        filename += `-${testFileType}`;
+      }
+
+      df = date_formats.filter(f => (f.rfc && yesRFC) || (f.iso && yesISO) || (f.html && yesHTML));
+      tf = time_formats.filter(f => (f.rfc && yesRFC) || (f.iso && yesISO) || (f.html && yesHTML));
+      dtf = date_time_formats.filter(f => (f.rfc && yesRFC) || (f.iso && yesISO) || (f.html && yesHTML));
+
+      if (yesHTML) {
+        df.push({ format: "--%M-%D", rfc: false, iso: false, html: true });
+      }
+    }
 
     const str = [];
 
-    str.push("# Dates");
+    if (testFileType === "html") {
+      // eh, just do this on on its own since we don't have separate sections
+      str.push(...html_formats.map(f => format(f, now)));
+    } else {
+      str.push("# Dates");
+      str.push(...df.map(f => format(f.format, now)));
 
-    str.push(...date_formats.filter(f => (f.rfc && yesRFC) || (f.iso && yesISO)).map(f => format(f.format, now)));
+      str.push("# Times");
+      str.push(...tf.map(f => formatUTC(f.format, now, f.timezone)));
 
-    str.push("# Times");
+      str.push("# Date-Times");
+      str.push(...dtf.map(f => formatUTC(f.format, now, f.timezone)));
+    }
 
-    str.push(...time_formats.filter(f => (f.rfc && yesRFC) || (f.iso && yesISO)).map(f => formatUTC(f.format, now, f.timezone)));
+    filename += ".txt";
 
-    str.push("# Date-Times");
-
-    str.push(...date_time_formats.filter(f => (f.rfc && yesRFC) || (f.iso && yesISO)).map(f => formatUTC(f.format, now, f.timezone)));
-
-    downloadFile(str.join("\n"), `date-test-values-${yesRFC?"rfc3339":""}${yesRFC&&yesISO?"-":""}${yesISO?"iso8601":""}.txt`);
+    downloadFile(str.join("\n"), filename);
   }
 
   return (
@@ -61,9 +98,9 @@ function App() {
       <p style={{marginBottom:0}}>Notes:</p>
       <ul>
         <li>This table is not exhaustive.</li>
-        <li>This page targets ISO 8601-1:2019 and ISO 8601-2:2019 editions. Previous editions and drafts contain key differences.</li>
+        <li>This page targets <a href="https://www.iso.org/obp/ui#iso:std:iso:8601:-1:ed-1:v1:en">ISO 8601-1:2019</a> and <a href="https://www.iso.org/obp/ui#iso:std:iso:8601:-2:ed-1:v1:en">ISO 8601-2:2019</a> editions. Previous editions and drafts contain key differences.</li>
         <li>Both standards are case-insensitive so every <code>T</code>, <code>W</code>, <code>P</code>, <code>R</code>, or <code>Z</code> could be <code>t</code>, <code>w</code>, <code>p</code>, <code>r</code>, or <code>z</code> respectively.</li>
-        <li>RFC 3339 allows for other characters to replace <code>T</code> but only gives a space character as an example.</li>
+        <li><a href="https://datatracker.ietf.org/doc/html/rfc3339">RFC 3339</a> allows for other characters to replace <code>T</code> but only gives a space character as an example.</li>
         <li>ISO 8601 allows decimal fractions of the smallest time value. These are represented here by a single fractional digit but the standard allows arbitrary precision.</li>
         <li>ISO 8601 prefers commas to dots for decimal separation but they are interchangeable in all formats.</li>
         <li>ISO 8601 recommends U+2212 MINUS "−" for timezones west of Greenwich. The formatter defaults to U+2D HYPHEN MINUS "-" which is valid under both standards.</li>
@@ -146,7 +183,9 @@ function App() {
         <button onClick={() => handleDownload()}>Download test file</button>
         <label><input type="radio" name="test-file-includes" value="rfc3339" checked={testFileType === "rfc3339"} />RFC 3339</label>
         <label><input type="radio" name="test-file-includes" value="iso8601" checked={testFileType === "iso8601"} />ISO 8601</label>
-        <label><input type="radio" name="test-file-includes" value="both" checked={testFileType === "both"} />Union</label>
+        { showHTML && <label><input type="radio" name="test-file-includes" value="html" checked={testFileType === "html"} />HTML</label> }
+        <label><input type="radio" name="test-file-includes" value="union" checked={testFileType === "union"} />Union</label>
+        <label><input type="radio" name="test-file-includes" value="intersection" checked={testFileType === "intersection"} />Intersection</label>
       </p>
       <p><a href="https://github.com/IJMacD/rfc3339-iso8601">Source on GitHub</a></p>
     </div>
