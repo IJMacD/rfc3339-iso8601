@@ -4,15 +4,21 @@ import { format, formatUTC } from './format';
 import Diagram from './Diagram';
 import { date_formats, time_formats, date_time_formats, periods, ranges } from './standardFormats';
 import { downloadFile } from './downloadFile';
+import { useSavedState } from './useSavedState';
 
 function App() {
   const [ now, setNow ] = useState(() => new Date());
   const [ testFileType, setTestFileType ] = useState("both");
+  const [ showHTML, setShowHTML ] = useSavedState("rfciso.showHTML", false);
 
   useEffect(() => {
     const intervalID = setInterval(() => setNow(new Date()), 1000);
     return () => clearTimeout(intervalID);
   }, []);
+
+  useEffect(() => {
+    document.title = `RFC 3339 vs ISO 8601${showHTML ? " vs HTML" : "" }`;
+  }, [showHTML]);
 
   /** @type {import('react').CSSProperties} */
   const sectionHeaderStyle = {
@@ -43,8 +49,14 @@ function App() {
 
   return (
     <div className="App">
-      <h1>RFC 3339 vs ISO 8601</h1>
-      <Diagram date={now} />
+      <h1>RFC 3339 vs ISO 8601 { showHTML && "vs HTML" }</h1>
+      <Diagram date={now} html={showHTML} />
+      <p>
+        <label>
+          <input type="checkbox" checked={showHTML} onChange={e => setShowHTML(e.target.checked)} />
+          Show HTML
+        </label>
+      </p>
       <h2>Format Listing</h2>
       <p style={{marginBottom:0}}>Notes:</p>
       <ul>
@@ -56,6 +68,7 @@ function App() {
         <li>ISO 8601 prefers commas to dots for decimal separation but they are interchangeable in all formats.</li>
         <li>ISO 8601 recommends U+2212 MINUS "−" for timezones west of Greenwich. The formatter defaults to U+2D HYPHEN MINUS "-" which is valid under both standards.</li>
         <li>ISO 8601-1:2019 permits omitting the <code>T</code> in the <em>time of day</em> representations (<b>Times</b>)*. However, a <code>T</code> (or <code>t</code>) is always required for <em>date and time of day</em> representations (<b>Date-Times</b>). Previous editions also allowed omitting the <code>T</code> in Date-Times but it was never permitted to <em>insert</em> alternative characters (e.g. space or underscore). [* When unambiguous]</li>
+        { showHTML && <li>The HTML living standard defines a microsyntax for <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#dates-and-times">Dates and times</a> based on ISO 8601 and RFC 3339. It has far fewer ambiguities than either standard and gives explicit parsing rules.</li> }
         <li>The format key is given below the table.</li>
       </ul>
       <table className="App-FormatTable">
