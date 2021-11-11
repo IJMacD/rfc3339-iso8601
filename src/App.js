@@ -2,7 +2,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import { format, formatUTC } from './format';
 import Diagram from './Diagram';
-import { date_formats, time_formats, date_time_formats, periods, ranges } from './standardFormats';
+import { date_formats, time_formats, date_time_formats, periods, ranges, html_formats } from './standardFormats';
 import { downloadFile } from './downloadFile';
 import { useSavedState } from './useSavedState';
 
@@ -78,36 +78,38 @@ function App() {
             <th>Now</th>
             <th>RFC 3339</th>
             <th>ISO 8601</th>
+            { showHTML && <th>HTML</th> }
           </tr>
         </thead>
         <tbody>
-          <tr><th colSpan={4} style={sectionHeaderStyle}>Dates</th></tr>
+          <tr><th colSpan={100} style={sectionHeaderStyle}>Dates</th></tr>
           {
-            date_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} rfc={f.rfc} iso={f.iso} />)
+            date_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
+          }
+          { showHTML && <ExampleRow key={"--%M-%D"} format={"--%M-%D"} now={now} html showHTML={true}  /> }
+        </tbody>
+        <tbody>
+          <tr><th colSpan={100} style={sectionHeaderStyle}>Times</th></tr>
+          {
+            time_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} timezone={f.timezone} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
           }
         </tbody>
         <tbody>
-          <tr><th colSpan={4} style={sectionHeaderStyle}>Times</th></tr>
+          <tr><th colSpan={100} style={sectionHeaderStyle}>Date-Times</th></tr>
           {
-            time_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} timezone={f.timezone} rfc={f.rfc} iso={f.iso} />)
+            date_time_formats.map((f, i) => <ExampleRow key={i} format={f.format} now={now} timezone={f.timezone} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
           }
         </tbody>
         <tbody>
-          <tr><th colSpan={4} style={sectionHeaderStyle}>Date-Times</th></tr>
+          <tr><th colSpan={100} style={sectionHeaderStyle}>Periods</th></tr>
           {
-            date_time_formats.map((f, i) => <ExampleRow key={i} format={f.format} now={now} timezone={f.timezone} rfc={f.rfc} iso={f.iso} />)
+            periods.map(f => <ExampleRow key={f} format={f} now={now} iso html={html_formats.includes(f)} showHTML={showHTML} />)
           }
         </tbody>
         <tbody>
-          <tr><th colSpan={4} style={sectionHeaderStyle}>Periods</th></tr>
+          <tr><th colSpan={100} style={sectionHeaderStyle}>Ranges</th></tr>
           {
-            periods.map(f => <ExampleRow key={f} format={f} now={now} iso />)
-          }
-        </tbody>
-        <tbody>
-          <tr><th colSpan={4} style={sectionHeaderStyle}>Ranges</th></tr>
-          {
-            ranges.map(f => <ExampleRow key={f} format={f} now={now} iso />)
+            ranges.map(f => <ExampleRow key={f} format={f} now={now} iso showHTML={showHTML} />)
           }
         </tbody>
       </table>
@@ -153,11 +155,12 @@ function App() {
 
 export default App;
 
-function ExampleRow ({ format: formatString, now, timezone = NaN, rfc = false, iso = false }) {
+function ExampleRow ({ format: formatString, now, timezone = NaN, rfc = false, iso = false, html = false, showHTML = false }) {
   return <tr>
     <td><code>{formatString}</code></td>
     <td>{isNaN(timezone) ? format(formatString, now) : formatUTC(formatString, now, timezone)}</td>
     <td>{ rfc && "✔️" }</td>
     <td>{ iso && "✔️" }</td>
+    { showHTML && <td>{ html && "✔️" }</td> }
   </tr>;
 }

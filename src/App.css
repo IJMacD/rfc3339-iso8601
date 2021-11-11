@@ -38,7 +38,8 @@ text.key-label {
 }
 
 .App-FormatTable td:nth-child(3),
-.App-FormatTable td:nth-child(4)  {
+.App-FormatTable td:nth-child(4),
+.App-FormatTable td:nth-child(5)  {
   text-align: center;
 }
 

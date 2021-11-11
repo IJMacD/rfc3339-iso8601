@@ -44,9 +44,9 @@ const time_formats_both_local = [
 const formats_both_utc = [
   "%Y-%M-%DT%h:%m:%sZ",
   "%Y-%M-%DT%h:%m:%.3sZ",
-  "%Y-%M-%DT%h:%m:%s+00:00",
-  "%Y-%M-%DT%h:%m:%.3s+00:00",
-  "%Y-%M-%DT%h:%m:%s.%u+00:00",
+  "%Y-%M-%DT%h:%m:%s%Z:%z",
+  "%Y-%M-%DT%h:%m:%.3s%Z:%z",
+  "%Y-%M-%DT%h:%m:%s.%u%Z:%z",
 ];
 
 const formats_both_local = [
@@ -173,6 +173,54 @@ const example_periods = [
   "P1D",
 ];
 
+export const html_formats = [
+  "%Y-%M-%D",
+  "%Y-%M",
+  "%V-W%W",
+  "%h:%m",
+  "%h:%m:%s",
+  "%h:%m:%.1s",
+  "%h:%m:%.2s",
+  "%h:%m:%.3s",
+  "%Y-%M-%DT%h:%m",
+  "%Y-%M-%DT%h:%m:%s",
+  "%Y-%M-%DT%h:%m:%.1s",
+  "%Y-%M-%DT%h:%m:%.2s",
+  "%Y-%M-%DT%h:%m:%.3s",
+  "%Y-%M-%D %h:%m",
+  "%Y-%M-%D %h:%m:%s",
+  "%Y-%M-%D %h:%m:%.1s",
+  "%Y-%M-%D %h:%m:%.2s",
+  "%Y-%M-%D %h:%m:%.3s",
+  "%Y-%M-%DT%h:%mZ",
+  "%Y-%M-%DT%h:%m:%sZ",
+  "%Y-%M-%DT%h:%m:%.1sZ",
+  "%Y-%M-%DT%h:%m:%.2sZ",
+  "%Y-%M-%DT%h:%m:%.3sZ",
+  "%Y-%M-%D %h:%mZ",
+  "%Y-%M-%D %h:%m:%sZ",
+  "%Y-%M-%D %h:%m:%.1sZ",
+  "%Y-%M-%D %h:%m:%.2sZ",
+  "%Y-%M-%D %h:%m:%.3sZ",
+  "%Y-%M-%DT%h:%m%Z:%z",
+  "%Y-%M-%DT%h:%m:%s%Z:%z",
+  "%Y-%M-%DT%h:%m:%.1s%Z:%z",
+  "%Y-%M-%DT%h:%m:%.2s%Z:%z",
+  "%Y-%M-%DT%h:%m:%.3s%Z:%z",
+  "%Y-%M-%D %h:%m%Z:%z",
+  "%Y-%M-%D %h:%m:%s%Z:%z",
+  "%Y-%M-%D %h:%m:%.1s%Z:%z",
+  "%Y-%M-%D %h:%m:%.2s%Z:%z",
+  "%Y-%M-%D %h:%m:%.3s%Z:%z",
+  "P1W",
+  "P1D",
+  "PT1H",
+  "PT1M",
+  "PT1S",
+  "P1DT1H",
+  "P1DT1M",
+];
+
 export const ranges = [
   ...crossJoin(full_date_formats, example_periods).map(([d, p]) => `${d}/${p}`),
   ...crossJoin(full_date_formats, full_date_formats).map(([d1, d2]) => `${d1}/${d2}`),
@@ -188,27 +236,27 @@ export const ranges = [
 ];
 
 export const date_formats = [
-  ...date_formats_both.map(f => ({ format: f, rfc: true, iso: true })),
-  ...date_formats_iso_only.map(f => ({ format: f, rfc: false, iso: true })),
+  ...date_formats_both.map(f => ({ format: f, rfc: true, iso: true, html: html_formats.includes(f) })),
+  ...date_formats_iso_only.map(f => ({ format: f, rfc: false, iso: true, html: html_formats.includes(f) })),
 ];
 
 export const time_formats = [
-  ...time_formats_rfc_only.map(f => ({ format: f, timezone: 0, rfc: true, iso: false })),
-  ...time_formats_both_utc.map(f => ({ format: f, timezone: 0, rfc: true, iso: true })),
-  ...time_formats_both_local.map(f => ({ format: f, timezone: NaN, rfc: true, iso: true })),
-  ...time_formats_iso_only.map(f => ({ format: f, timezone: NaN, rfc: false, iso: true })),
-  ...time_formats_iso_utc.map(f => ({ format: f, timezone: 0, rfc: false, iso: true })),
+  ...time_formats_rfc_only.map(f => ({ format: f, timezone: 0, rfc: true, iso: false, html: html_formats.includes(f) })),
+  ...time_formats_both_utc.map(f => ({ format: f, timezone: 0, rfc: true, iso: true, html: html_formats.includes(f) })),
+  ...time_formats_both_local.map(f => ({ format: f, timezone: NaN, rfc: true, iso: true, html: html_formats.includes(f) })),
+  ...time_formats_iso_only.map(f => ({ format: f, timezone: NaN, rfc: false, iso: true, html: html_formats.includes(f) })),
+  ...time_formats_iso_utc.map(f => ({ format: f, timezone: 0, rfc: false, iso: true, html: html_formats.includes(f) })),
 ];
 
 export const date_time_formats = [
-  ...formats_rfc_only.map(f => ({ format: f,                  timezone: 0,            rfc: true, iso: false })),
-  ...formats_both_utc.map(f => ({ format: f,                  timezone: 0,            rfc: true, iso: true })),
-  ...formats_both_local.map(f => ({ format: f,                timezone: NaN,          rfc: true, iso: true })),
-  ...formats_timezone.map(f => ({ format: f.replace("T","t"), timezone: NaN,  rfc: true, iso: true })),
-  ...formats_timezone.map(f => ({ format: f,                  timezone: -12 * 60,     rfc: true, iso: true })),
-  ...formats_timezone.map(f => ({ format: f,                  timezone: 8 * 60 + 45,  rfc: true, iso: true })),
-  ...formats_timezone_2212.map(f => ({ format: f,             timezone: -12 * 60,     rfc: false, iso: true })),
-  ...formats_iso_only.map(f => ({ format: f,                  timezone: NaN,          rfc: false, iso: true })),
+  ...formats_rfc_only.map(f => ({ format: f,                  timezone: 0,            rfc: true, iso: false, html: html_formats.includes(f) })),
+  ...formats_both_utc.map(f => ({ format: f,                  timezone: 0,            rfc: true, iso: true,  html: html_formats.includes(f) })),
+  ...formats_both_local.map(f => ({ format: f,                timezone: NaN,          rfc: true, iso: true,  html: html_formats.includes(f) })),
+  ...formats_timezone.map(f => ({ format: f.replace("T","t"), timezone: NaN,          rfc: true, iso: true,  html: false })),
+  ...formats_timezone.map(f => ({ format: f,                  timezone: -12 * 60,     rfc: true, iso: true,  html: html_formats.includes(f) })),
+  ...formats_timezone.map(f => ({ format: f,                  timezone: 8 * 60 + 45,  rfc: true, iso: true,  html: html_formats.includes(f) })),
+  ...formats_timezone_2212.map(f => ({ format: f,             timezone: -12 * 60,     rfc: false, iso: true, html: html_formats.includes(f) })),
+  ...formats_iso_only.map(f => ({ format: f,                  timezone: NaN,          rfc: false, iso: true, html: html_formats.includes(f) })),
 ];
 
 /**

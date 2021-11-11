@@ -84,7 +84,7 @@ export function formatUTC(format, date = new Date(), timezoneOffset = 0) {
             case "u": return (d.getUTCMilliseconds()*1000).toString().padStart(6, "0")     + fraction;
             case "Z": {
                 const zH = -(timezoneOffset / 60)|0;
-                return `${zH < 0 ? "+" : (u || "-")}${Math.abs(zH).toString().padStart(2, "0")}`;
+                return `${zH <= 0 ? "+" : (u || "-")}${Math.abs(zH).toString().padStart(2, "0")}`;
             }
             case "z": {
                 const zM = timezoneOffset % 60;
