@@ -46,16 +46,16 @@ function App() {
       <h1>RFC 3339 vs ISO 8601</h1>
       <Diagram date={now} />
       <h2>Format Listing</h2>
-      <p>Notes:</p>
+      <p style={{marginBottom:0}}>Notes:</p>
       <ul>
         <li>This table is not exhaustive.</li>
-        <li>This page aims at ISO 8601-1:2019 and ISO 8601-2:2019. Previous editions and drafts contain key differences.</li>
-        <li>Both standards are case-insensitive so every <code>T</code>, <code>W</code>, <code>P</code>, <code>R</code>, and <code>Z</code> could be <code>t</code>, <code>w</code>, <code>p</code>, <code>r</code>, or <code>z</code> respectively.</li>
-        <li>RFC 3339 allows for other characters to replace the <code>T</code> but only gives examples using a space character.</li>
+        <li>This page targets ISO 8601-1:2019 and ISO 8601-2:2019 editions. Previous editions and drafts contain key differences.</li>
+        <li>Both standards are case-insensitive so every <code>T</code>, <code>W</code>, <code>P</code>, <code>R</code>, or <code>Z</code> could be <code>t</code>, <code>w</code>, <code>p</code>, <code>r</code>, or <code>z</code> respectively.</li>
+        <li>RFC 3339 allows for other characters to replace <code>T</code> but only gives a space character as an example.</li>
         <li>ISO 8601 allows decimal fractions of the smallest time value. These are represented here by a single fractional digit but the standard allows arbitrary precision.</li>
         <li>ISO 8601 prefers commas to dots for decimal separation but they are interchangeable in all formats.</li>
         <li>ISO 8601 recommends U+2212 MINUS "−" for timezones west of Greenwich. The formatter defaults to U+2D HYPHEN MINUS "-" which is valid under both standards.</li>
-        <li>ISO 8601-1:2019 permits omitting the <code>T</code> in the <em>time of day</em> representations (<b>Times</b>). However, a <code>T</code> (or <code>t</code>) is always required for <em>date and time of day</em> representations (<b>Date-Times</b>). Previous editions also allowed omitting the <code>T</code> in Date-Times but it was never permitted to <em>insert</em> alternative characters (e.g. space or underscore)</li>
+        <li>ISO 8601-1:2019 permits omitting the <code>T</code> in the <em>time of day</em> representations (<b>Times</b>)*. However, a <code>T</code> (or <code>t</code>) is always required for <em>date and time of day</em> representations (<b>Date-Times</b>). Previous editions also allowed omitting the <code>T</code> in Date-Times but it was never permitted to <em>insert</em> alternative characters (e.g. space or underscore). [* When unambiguous]</li>
         <li>The format key is given below the table.</li>
       </ul>
       <table className="App-FormatTable">
