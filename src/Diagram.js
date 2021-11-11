@@ -10,23 +10,6 @@ function Diagram (props) {
       xmlns="http://www.w3.org/2000/svg"
       {...restProps}
     >
-      <circle
-        cx={134.327}
-        cy={148.288}
-        r={72.135}
-        fill="none"
-        stroke="#00f"
-        strokeWidth={0.265}
-      />
-      <text
-        x={170}
-        y={78.692}
-        fill="#00f"
-        className="key-label"
-      >
-        {"ISO 8601"}
-        <tspan x={170.8} dy={6} style={{fontSize:"0.4em"}}>ISO 8601-1:2019</tspan>
-      </text>
       <g id="rfc" transform="translate(0 6)">
         <circle
           cx={75}
@@ -55,7 +38,7 @@ function Diagram (props) {
         </text>
       </g>
       <g id="rfc-html">
-        <text x={36} y={132}>
+        <text x={38} y={128}>
           {formatUTC("%Y-%M-%D %h:%m:%sZ", date)}
         </text>
         <text x={32} y={136}>
@@ -118,6 +101,23 @@ function Diagram (props) {
         </text>
       </g>
       <g id="iso">
+        <circle
+          cx={134.327}
+          cy={148.288}
+          r={72.135}
+          fill="none"
+          stroke="#00f"
+          strokeWidth={0.265}
+        />
+        <text
+          x={170}
+          y={78.692}
+          fill="#00f"
+          className="key-label"
+        >
+          {"ISO 8601"}
+          <tspan x={170.8} dy={6} style={{fontSize:"0.4em"}}>ISO 8601-1:2019</tspan>
+        </text>
         <text x={110} y={84}>
           {format("%Y-%M-%DT%,1h", date)}
         </text>
