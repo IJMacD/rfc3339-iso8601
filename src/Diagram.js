@@ -10,7 +10,7 @@ function Diagram (props) {
       xmlns="http://www.w3.org/2000/svg"
       {...restProps}
     >
-      <g id="rfc" transform="translate(0 6)">
+      <g id="rfc" transform="translate(0 2)">
         <circle
           cx={75}
           cy={123}
@@ -52,43 +52,37 @@ function Diagram (props) {
         </text> */}
       </g>
       <g id="all">
-        <text x={76} y={112}>
+        <text x={82} y={112}>
           {format("%Y-%M-%D", date)}
         </text>
-        <text x={72} y={120}>
-          {formatUTC("%h:%m:%sZ", date)}
-        </text>
-        <text x={92} y={120}>
-          {formatUTC("%h:%m:%.1sZ", date)}
-        </text>
-        <text x={76} y={124}>
-          {formatUTC("%h:%m:%.2sZ", date)}
-        </text>
-        <text x={96} y={124}>
-          {formatUTC("%h:%m:%.3sZ", date)}
-        </text>
-        <text x={78} y={132}>
-          {format("%h:%m:%s%Z:%z", date)}
-        </text>
-        <text x={94} y={136}>
-          {format("%h:%m:%.3s%Z:%z", date)}
-        </text>
-        <text x={72} y={140}>
+        <text x={76} y={120}>
           {formatUTC("%Y-%M-%DT%h:%m:%sZ", date)}
         </text>
-        <text x={82} y={144}>
+        <text x={84} y={124}>
+          {formatUTC("%Y-%M-%DT%h:%m:%.1sZ", date)}
+        </text>
+        <text x={70} y={128}>
+          {formatUTC("%Y-%M-%DT%h:%m:%.2sZ", date)}
+        </text>
+        <text x={82} y={132}>
           {formatUTC("%Y-%M-%DT%h:%m:%.3sZ", date)}
         </text>
-        <text x={71.963} y={152}>
+        <text x={72} y={140}>
           {formatUTC("%Y-%M-%DT%h:%m:%s+00:00", date)}
         </text>
-        <text x={67.098} y={156}>
-          {formatUTC("%Y-%M-%Dt%h:%m:%s+00:00", date)}
+        <text x={82} y={144}>
+          {formatUTC("%Y-%M-%DT%h:%m:%.1s+00:00", date)}
         </text>
-        <text x={72} y={164}>
+        <text x={82} y={152}>
           {format("%Y-%M-%DT%h:%m:%s%Z:%z", date)}
         </text>
-        <text x={68} y={168}>
+        <text x={64} y={156}>
+          {format("%Y-%M-%DT%h:%m:%.1s%Z:%z", date)}
+        </text>
+        <text x={74} y={160}>
+          {format("%Y-%M-%DT%h:%m:%.2s%Z:%z", date)}
+        </text>
+        <text x={66} y={164}>
           {format("%Y-%M-%DT%h:%m:%.3s%Z:%z", date)}
         </text>
       </g>
@@ -96,8 +90,27 @@ function Diagram (props) {
         <text x={86} y={99}>
           {formatUTC("%Y-%M-%Dt%h:%m:%sz", date)}
         </text>
-        <text x={82} y={103}>
+        <text x={82} y={102}>
           {format("%Y-%M-%Dt%h:%m:%s%Z:%z", date)}
+        </text>
+
+        <text x={96} y={90}>
+          {formatUTC("%h:%m:%sZ", date)}
+        </text>
+        <text x={108} y={111}>
+          {formatUTC("%h:%m:%.1sZ", date)}
+        </text>
+        <text x={88} y={96}>
+          {formatUTC("%h:%m:%.2sZ", date)}
+        </text>
+        <text x={94} y={93}>
+          {formatUTC("%h:%m:%.3sZ", date)}
+        </text>
+        <text x={102} y={108}>
+          {format("%h:%m:%s%Z:%z", date)}
+        </text>
+        <text x={94} y={105}>
+          {format("%h:%m:%.3s%Z:%z", date)}
         </text>
       </g>
       <g id="iso">
@@ -386,6 +399,9 @@ function Diagram (props) {
         <text x={66} y={194}>
           {formatUTC("--%M-%D", date)}
         </text>
+        <text x={56} y={178}>
+          {format("%Y-%M-%D %h:%m", date)}
+        </text>
         <text x={52} y={182}>
           {format("%Y-%M-%D %h:%m:%s", date)}
         </text>
@@ -426,6 +442,9 @@ function Diagram (props) {
         </text>
         <text x={100} y={190}>
           {format("%Y-%M-%DT%h:%m", date)}
+        </text>
+        <text x={88} y={178}>
+          {format("%h:%m", date)}
         </text>
         <text x={100} y={178}>
           {format("%h:%m:%s", date)}
