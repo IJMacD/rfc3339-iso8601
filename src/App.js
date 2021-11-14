@@ -45,7 +45,7 @@ function App() {
     } else {
       const yesRFC = testFileType === "rfc3339" || testFileType === "union";
       const yesISO = testFileType === "iso8601" || testFileType === "union";
-      const yesHTML = testFileType === "html" || (testFileType === "union" && showHTML === true);
+      const yesHTML = showHTML && (testFileType === "html" || testFileType === "union");
 
       if (testFileType === "union") {
         filename += "-rfc8601_∪_iso8601";
