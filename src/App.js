@@ -8,7 +8,7 @@ import { useSavedState } from './useSavedState';
 
 function App() {
   const [ now, setNow ] = useState(() => new Date());
-  const [ testFileType, setTestFileType ] = useState("both");
+  const [ testFileType, setTestFileType ] = useState("union");
   const [ showHTML, setShowHTML ] = useSavedState("rfciso.showHTML", false);
 
   useEffect(() => {
