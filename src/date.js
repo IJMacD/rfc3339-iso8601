@@ -1,6 +1,4 @@
-
-
-//  31  28  31   30   31   30   31   31   30   31   30   31
+                //  31  28  31  30   31   30   31   31   30   31   30   31
 const month_index = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 ];
 
 function isLeapYear(year) {
@@ -13,9 +11,12 @@ export function getYearDay(dt) {
 }
 
 /**
- * ISO Week Number
+ * Gives ISO Week Number for a given date. Week 1 is the first week the majority of days
+ * in the new year. (Also the week with 4th January and the first Thursday of the year)
+ * 
  * Algorithm from https://www.tondering.dk/claus/cal/week.php
  * Uses UTC values
+ * @param {Date} dt
  */
 export function getWeek (dt) {
     let n, g, s;
@@ -56,9 +57,12 @@ export function getWeek (dt) {
 
 
 /**
- * ISO Week Year
+ * Returns the ISO Week Year for the given date. The returned year may be
+ * one lower, one higher, or the same as the calendar year.
+ * 
  * Algorithm from https://www.tondering.dk/claus/cal/week.php
  * Uses UTC values
+ * @param {Date} dt
  */
 export function getWeekYear (dt) {
     let n, g, s;
@@ -98,9 +102,11 @@ export function getWeekYear (dt) {
 }
 
 /**
- * ISO Week Number
+ * Return the ISO Week Day for a given date with 1 being Monday, 7 being Sunday
+ * 
  * Algorithm from https://www.tondering.dk/claus/cal/week.php
  * Uses UTC values
+ * @param {Date} dt
  */
 export function getWeekDay (dt) {
     let d;
