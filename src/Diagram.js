@@ -2,7 +2,7 @@ import * as React from "react"
 import { format, formatUTC } from "./format";
 
 function Diagram (props) {
-  const { date, html, ...restProps } = props;
+  const { date, html, showKey, ...restProps } = props;
 
   return (
     <svg
@@ -10,6 +10,20 @@ function Diagram (props) {
       xmlns="http://www.w3.org/2000/svg"
       {...restProps}
     >
+      { showKey &&
+        <g>
+          <rect x={220} y={60} width={3} height={3} className="key-date" />
+          <text x={225} y={62}>Date</text>
+          <rect x={220} y={65} width={3} height={3} className="key-time" />
+          <text x={225} y={67}>Time</text>
+          <rect x={220} y={70} width={3} height={3} className="key-datetime" />
+          <text x={225} y={72}>DateTime</text>
+          <rect x={220} y={75} width={3} height={3} className="key-period" />
+          <text x={225} y={77}>Period</text>
+          <rect x={220} y={80} width={3} height={3} className="key-range" />
+          <text x={225} y={82}>Range</text>
+        </g>
+      }
       <g id="rfc" transform="translate(0 2)">
         <circle
           cx={75}
@@ -27,24 +41,24 @@ function Diagram (props) {
         >
           {"RFC 3339"}
         </text>
-        <text x={54} y={84}>
+        <text x={54} y={84} className="datetime">
           {formatUTC("%Y-%M-%D_%h:%m:%sZ", date)}
         </text>
-        <text x={46} y={90}>
+        <text x={46} y={90} className="datetime">
           {formatUTC("%Y-%M-%D_%h:%m:%.3sZ", date)}
         </text>
-        <text x={40} y={96}>
+        <text x={40} y={96} className="datetime">
           {formatUTC("%Y-%M-%DT%h:%m:%s-00:00", date)}
         </text>
       </g>
       <g id="rfc-html">
-        <text x={38} y={128}>
+        <text x={38} y={128} className="datetime">
           {formatUTC("%Y-%M-%D %h:%m:%sZ", date)}
         </text>
-        <text x={32} y={136}>
+        <text x={32} y={136} className="datetime">
           {formatUTC("%Y-%M-%D %h:%m:%.3sZ", date)}
         </text>
-        <text x={29} y={144}>
+        <text x={29} y={144} className="datetime">
           {format("%Y-%M-%D %h:%m:%s%Z:%z", date)}
         </text>
         {/* <text x={30} y={148}>
@@ -52,64 +66,64 @@ function Diagram (props) {
         </text> */}
       </g>
       <g id="all">
-        <text x={82} y={112}>
+        <text x={82} y={112} className="date">
           {format("%Y-%M-%D", date)}
         </text>
-        <text x={76} y={120}>
+        <text x={76} y={120} className="datetime">
           {formatUTC("%Y-%M-%DT%h:%m:%sZ", date)}
         </text>
-        <text x={84} y={124}>
+        <text x={84} y={124} className="datetime">
           {formatUTC("%Y-%M-%DT%h:%m:%.1sZ", date)}
         </text>
-        <text x={70} y={128}>
+        <text x={70} y={128} className="datetime">
           {formatUTC("%Y-%M-%DT%h:%m:%.2sZ", date)}
         </text>
-        <text x={82} y={132}>
+        <text x={82} y={132} className="datetime">
           {formatUTC("%Y-%M-%DT%h:%m:%.3sZ", date)}
         </text>
-        <text x={72} y={140}>
+        <text x={72} y={140} className="datetime">
           {formatUTC("%Y-%M-%DT%h:%m:%s+00:00", date)}
         </text>
-        <text x={82} y={144}>
+        <text x={82} y={144} className="datetime">
           {formatUTC("%Y-%M-%DT%h:%m:%.1s+00:00", date)}
         </text>
-        <text x={82} y={152}>
+        <text x={82} y={152} className="datetime">
           {format("%Y-%M-%DT%h:%m:%s%Z:%z", date)}
         </text>
-        <text x={64} y={156}>
+        <text x={64} y={156} className="datetime">
           {format("%Y-%M-%DT%h:%m:%.1s%Z:%z", date)}
         </text>
-        <text x={74} y={160}>
+        <text x={74} y={160} className="datetime">
           {format("%Y-%M-%DT%h:%m:%.2s%Z:%z", date)}
         </text>
-        <text x={66} y={164}>
+        <text x={66} y={164} className="datetime">
           {format("%Y-%M-%DT%h:%m:%.3s%Z:%z", date)}
         </text>
       </g>
       <g id="rfc-iso">
-        <text x={86} y={99}>
+        <text x={86} y={99} className="datetime">
           {formatUTC("%Y-%M-%Dt%h:%m:%sz", date)}
         </text>
-        <text x={82} y={102}>
+        <text x={82} y={102} className="datetime">
           {format("%Y-%M-%Dt%h:%m:%s%Z:%z", date)}
         </text>
 
-        <text x={96} y={90}>
+        <text x={96} y={90} className="time">
           {formatUTC("%h:%m:%sZ", date)}
         </text>
-        <text x={108} y={111}>
+        <text x={108} y={111} className="time">
           {formatUTC("%h:%m:%.1sZ", date)}
         </text>
-        <text x={88} y={96}>
+        <text x={88} y={96} className="time">
           {formatUTC("%h:%m:%.2sZ", date)}
         </text>
-        <text x={94} y={93}>
+        <text x={94} y={93} className="time">
           {formatUTC("%h:%m:%.3sZ", date)}
         </text>
-        <text x={102} y={108}>
+        <text x={102} y={108} className="time">
           {format("%h:%m:%s%Z:%z", date)}
         </text>
-        <text x={94} y={105}>
+        <text x={94} y={105} className="time">
           {format("%h:%m:%.3s%Z:%z", date)}
         </text>
       </g>
@@ -131,177 +145,177 @@ function Diagram (props) {
           {"ISO 8601"}
           <tspan x={170.8} dy={6} style={{fontSize:"0.4em"}}>ISO 8601-1:2019</tspan>
         </text>
-        <text x={110} y={84}>
+        <text x={110} y={84} className="datetime">
           {format("%Y-%M-%DT%,1h", date)}
         </text>
-        <text x={136} y={84}>
+        <text x={136} y={84} className="datetime">
           {format("%Y-%M-%DT%.1h", date)}
         </text>
-        <text x={119.369} y={92}>
+        <text x={119.369} y={92} className="datetime">
           {format("%Y-%M-%DT%h:%,1m", date)}
         </text>
-        <text x={150.677} y={92}>
+        <text x={150.677} y={92} className="datetime">
           {format("%Y-%M-%DT%h:%.1m", date)}
         </text>
-        <text x={120} y={96}>
+        <text x={120} y={96} className="time">
           {format("T%h:%m:%s", date)}
         </text>
-        <text x={140} y={96}>
+        <text x={140} y={96} className="time">
           {formatUTC("T%h:%m:%sZ", date)}
         </text>
-        <text x={160} y={96}>
+        <text x={160} y={96} className="time">
           {format("T%h:%m:%s%Z:%z", date)}
         </text>
-        <text x={164} y={100}>
+        <text x={164} y={100} className="time">
           {format("T%h:%m:%s%Z", date)}
         </text>
-        <text x={120} y={100}>
+        <text x={120} y={100} className="date">
           {format("%Y", date)}
         </text>
-        <text x={132} y={100}>
+        <text x={132} y={100} className="date">
           {format("%X", date)}
         </text>
-        <text x={144} y={100}>
+        <text x={144} y={100} className="date">
           {format("%C", date)}
         </text>
-        <text x={130} y={88}>
+        <text x={130} y={88} className="datetime">
           {formatUTC("%Y-%M-%DT%h:%m:%s\u221201:00", date, -60)}
         </text>
-        <text x={124} y={104}>
+        <text x={124} y={104} className="date">
           {format("%Y-%O", date)}
         </text>
-        <text x={140} y={104}>
+        <text x={140} y={104} className="datetime">
           {format("%Y-%OT%h:%m", date)}
         </text>
-        <text x={126} y={108}>
+        <text x={126} y={108} className="datetime">
           {format("%Y-%OT%h:%m:%s", date)}
         </text>
-        <text x={166} y={104}>
+        <text x={166} y={104} className="datetime">
           {format("%Y-%OT%.1h", date)}
         </text>
-        <text x={133.259} y={120}>
+        <text x={133.259} y={120} className="date">
           {format("%V-W%W-%w", date)}
         </text>
-        <text x={160.336} y={120}>
+        <text x={160.336} y={120} className="datetime">
           {format("%V-W%W-%wT%h:%m", date)}
         </text>
-        <text x={169.336} y={124}>
+        <text x={169.336} y={124} className="datetime">
           {format("%V-W%W-%wT%h:%m:%s", date)}
         </text>
-        <text x={129.087} y={124}>
+        <text x={129.087} y={124} className="datetime">
           {format("%Y-%M-%DT%h:%m:%s.%u", date)}
         </text>
 
-        <text x={128} y={128}>
+        <text x={128} y={128} className="range">
           {format("%Y/P2M", date)}
         </text>
-        <text x={144.336} y={128}>
+        <text x={144.336} y={128} className="range">
           {format("%Y-%M/P2M", date)}
         </text>
-        <text x={164.336} y={128}>
+        <text x={164.336} y={128} className="range">
           {format("%Y-%M-%D/P2M", date)}
         </text>
 
-        <text x={129.336} y={132}>
+        <text x={129.336} y={132} className="range">
           {format("%Y-%M-%DT%h/PT2M", date)}
         </text>
-        <text x={166} y={132}>
+        <text x={166} y={132} className="range">
           {format("%Y-%M-%DT%h:%m/PT2M", date)}
         </text>
 
-        <text x={134} y={136}>
+        <text x={134} y={136} className="range">
           {format("%Y-%M-%DT%h:%m:%s/P3D", date)}
         </text>
-        <text x={169.336} y={136}>
+        <text x={169.336} y={136} className="range">
           {format("%Y-%M-%DT%h:%m:%s/PT2M", date)}
         </text>
 
 
-        <text x={160} y={108}>
+        <text x={160} y={108} className="range">
           {format("%Y-%O/P2M", date)}
         </text>
-        <text x={128} y={112}>
+        <text x={128} y={112} className="range">
           {format("%Y-W%W/P2M", date)}
         </text>
-        <text x={184} y={140}>
+        <text x={184} y={140} className="range">
           {format("%Y-W%W-%w/P2M", date)}
         </text>
 
-        <text x={166} y={116}>
+        <text x={166} y={116} className="range">
           {format("%Y-%OT%h/PT2M", date)}
         </text>
-        <text x={160} y={112}>
+        <text x={160} y={112} className="range">
           {format("%Y-W%W-%wT%h:%m/PT2M", date)}
         </text>
-        <text x={192} y={144}>
+        <text x={192} y={144} className="range">
           {format("%Y-%M/12", date)}
         </text>
 
-        <text x={116} y={206}>
+        <text x={116} y={206} className="range">
           {format("%Y-%OT%h:%m:%s/PT3H", date)}
         </text>
-        <text x={130} y={116}>
+        <text x={130} y={116} className="range">
           {format("%Y-W%W-%wT%h:%m:%s/PT2M", date)}
         </text>
 
-        <text x={136} y={140}>
+        <text x={136} y={140} className="range">
           {format("%Y-%M-%D/28", date)}
         </text>
-        <text x={148} y={202}>
+        <text x={148} y={202} className="range">
           {format("%Y-%M-%D/%Y-12-31", date)}
         </text>
-        <text x={120} y={202}>
+        <text x={120} y={202} className="range">
           {format("%Y-%M-%DT%h/23", date)}
         </text>
 
-        <text x={150} y={206}>
+        <text x={150} y={206} className="range">
           {format("%Y-%M-%DT%h:%m/59", date)}
         </text>
-        <text x={124} y={210}>
+        <text x={124} y={210} className="range">
           {format("%Y-%M-%DT%h:%m:%s/59", date)}
         </text>
 
 
-        <text x={134} y={182}>
+        <text x={134} y={182} className="period">
           {"P1Y"}
         </text>
-        <text x={130} y={186}>
+        <text x={130} y={186} className="period">
           {"P1,5Y"}
         </text>
-        <text x={138} y={186}>
+        <text x={138} y={186} className="period">
           {"P1.5Y"}
         </text>
 
-        <text x={128} y={190}>
+        <text x={128} y={190} className="period">
           {"P2M"}
         </text>
-        <text x={136} y={190}>
+        <text x={136} y={190} className="period">
           {"P2,5M"}
         </text>
 
-        <text x={128} y={194}>
+        <text x={128} y={194} className="period">
           {"P2.5M"}
         </text>
-        <text x={140} y={194}>
+        <text x={140} y={194} className="period">
           {"P1Y2M"}
         </text>
 
-        <text x={126} y={198}>
+        <text x={126} y={198} className="period">
           {"P1Y2,5M"}
         </text>
-        <text x={146} y={198}>
+        <text x={146} y={198} className="period">
           {"P1Y2.5M"}
         </text>
 
-        <text x={144} y={214}>
+        <text x={144} y={214} className="period">
           {"P1Y2.5MT4H"}
         </text>
 
-        <text x={108} y={214}>
+        <text x={108} y={214} className="range">
           {format("R2/%Y-%O/P1Y2.5MT4H", date)}
         </text>
 
-        <text x={120} y={218}>
+        <text x={120} y={218} className="range">
           {format("R/%Y-W%W-%wT%h/PT45M", date)}
         </text>
 
@@ -328,49 +342,49 @@ function Diagram (props) {
             </tspan>
             <tspan x={180} dy={7} style={{fontSize:4}}>ISO 8601-2:2019</tspan>
           </text>
-          <text   x={136}   y={164}  >
+          <text   x={136}   y={164} className="date" >
             {format("+00%C", date)}
           </text>
-          <text   x={148}   y={164}  >
+          <text   x={148}   y={164} className="date" >
             {format("+00%Y", date)}
           </text>
-          <text   x={154}   y={168}  >
+          <text   x={154}   y={168} className="date" >
             {format("+00%Y-%M", date)}
           </text>
-          <text   x={128}   y={168}  >
+          <text   x={128}   y={168} className="date" >
             {format("+00%Y-%M-%D", date)}
           </text>
-          <text   x={148}   y={172}  >
+          <text   x={148}   y={172} className="datetime" >
             {format("+00%Y-%M-%DT%h", date)}
           </text>
-          <text   x={124}   y={176}  >
+          <text   x={124}   y={176} className="datetime" >
             {format("+00%Y-%M-%DT%h:%m", date)}
           </text>
-          <text   x={148}   y={180}  >
+          <text   x={148}   y={180} className="datetime" >
             {format("+00%Y-%M-%DT%h:%m:%s", date)}
           </text>
-          <text   x={124}   y={184}  >
+          <text   x={124}   y={184} className="datetime" >
             {format("+00%V-W%W-%wT%h", date)}
           </text>
-          <text   x={148}   y={188}  >
+          <text   x={148}   y={188} className="datetime" >
             {format("+00%V-W%W-%wT%h:%m", date)}
           </text>
-          <text   x={124}   y={192}  >
+          <text   x={124}   y={192} className="datetime" >
             {format("+00%Y-%OT%h", date)}
           </text>
-          <text   x={150}   y={192}  >
+          <text   x={150}   y={192} className="datetime" >
             {format("+00%Y-%OT%h:%m", date)}
           </text>
-          <text   x={140}   y={196}  >
+          <text   x={140}   y={196} className="datetime" >
             {format("+00%Y-%OT%h:%m%Z:%z", date)}
           </text>
-          <text   x={128}   y={200}  >
+          <text   x={128}   y={200} className="datetime" >
             {format("+00%Y-%OT%h:%m:%s", date)}
           </text>
-          <text   x={144}   y={204}  >
+          <text   x={144}   y={204} className="datetime" >
             {format("+00%Y%OT%h%m%s", date)}
           </text>
-          <text   x={136}   y={208}  >
+          <text   x={136}   y={208} className="datetime" >
             {formatUTC("+00%Y%M%DT%h%m%sZ", date)}
           </text>
         </g>
@@ -393,75 +407,75 @@ function Diagram (props) {
           {"HTML"}
           <tspan dx={-27} dy={6} style={{fontSize:"0.4em"}}>Living Standard</tspan>
         </text>
-        <text x={66} y={194}>
+        <text x={66} y={194} className="date">
           {formatUTC("--%M-%D", date)}
         </text>
-        <text x={56} y={178}>
+        <text x={56} y={178} className="datetime">
           {format("%Y-%M-%D %h:%m", date)}
         </text>
-        <text x={52} y={182}>
+        <text x={52} y={182} className="datetime">
           {format("%Y-%M-%D %h:%m:%s", date)}
         </text>
-        <text x={48} y={186}>
+        <text x={48} y={186} className="datetime">
           {format("%Y-%M-%D %h:%m:%.3s", date)}
         </text>
       </g>}
       <g id="iso-html">
-        <text x={126} y={142}>
+        <text x={126} y={142} className="period">
           {format("P1D", date)}
         </text>
-        <text x={125} y={146}>
+        <text x={125} y={146} className="period">
           {format("P1W", date)}
         </text>
-        <text x={122} y={150}>
+        <text x={122} y={150} className="period">
           {format("P1.5W", date)}
         </text>
-        <text x={124} y={154}>
+        <text x={124} y={154} className="period">
           {format("PT1H", date)}
         </text>
-        <text x={120} y={158}>
+        <text x={120} y={158} className="period">
           {format("PT1M", date)}
         </text>
-        <text x={128} y={158}>
+        <text x={128} y={158} className="period">
           {format("PT1S", date)}
         </text>
-        <text x={116} y={162}>
+        <text x={116} y={162} className="period">
           {format("P1DT1H1M", date)}
         </text>
-        <text x={112} y={166}>
+        <text x={112} y={166} className="period">
           {format("P1DT1.1S", date)}
         </text>
-        <text x={118} y={170}>
+        <text x={118} y={170} className="period">
           {format("P1TD1.12S", date)}
         </text>
-        <text x={112} y={174}>
+        <text x={112} y={174} className="period">
           {format("P1DT1.123S", date)}
         </text>
-        <text x={100} y={190}>
+        <text x={100} y={190} className="datetime">
           {format("%Y-%M-%DT%h:%m", date)}
         </text>
-        <text x={88} y={178}>
+        <text x={88} y={178} className="time">
           {format("%h:%m", date)}
         </text>
-        <text x={100} y={178}>
+        <text x={100} y={178} className="time">
           {format("%h:%m:%s", date)}
         </text>
-        <text x={90} y={182}>
+        <text x={90} y={182} className="time">
           {format("%h:%m:%.1s", date)}
         </text>
-        <text x={106} y={182}>
+        <text x={106} y={182} className="time">
           {format("%h:%m:%.3s", date)}
         </text>
-        <text x={80} y={186}>
+        <text x={80} y={186} className="datetime">
           {format("%Y-%M-%DT%h:%m:%s", date)}
         </text>
-        <text x={110} y={186}>
+        <text x={110} y={186} className="date">
           {format("%Y-%M", date)}
         </text>
-        <text x={96} y={202}>
+        <text x={96} y={202} className="date">
           {format("%V-W%W", date)}
         </text>
-        <text x={86} y={194}>
+        <text x={86} y={194} className="datetime">
           {format("%Y-%M-%DT%h:%m:%.3s", date)}
         </text>
       </g>

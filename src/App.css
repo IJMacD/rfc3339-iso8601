@@ -54,6 +54,31 @@ code {
   background-color: transparent;
 }
 
+.diagram--key .date,
+.key-date {
+  fill: #E80E9C;
+}
+
+.diagram--key .time,
+.key-time {
+  fill: #5D73F0;
+}
+
+.diagram--key .datetime,
+.key-datetime {
+  fill: #E69B58;
+}
+
+.diagram--key .period,
+.key-period {
+  fill: #5d3754;
+}
+
+.diagram--key .range,
+.key-range {
+  fill: #007a78;
+}
+
 @media print {
   a[href]::after {
     content: "[" attr(href) "]";

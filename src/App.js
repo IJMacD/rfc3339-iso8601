@@ -10,6 +10,7 @@ function App() {
   const [ now, setNow ] = useState(() => new Date());
   const [ testFileType, setTestFileType ] = useState("union");
   const [ showHTML, setShowHTML ] = useSavedState("rfciso.showHTML", false);
+  const [ showColours, setShowColours ] = useSavedState("rfciso.showColours", false);
 
   useEffect(() => {
     const intervalID = setInterval(() => setNow(new Date()), 1000);
@@ -87,11 +88,15 @@ function App() {
   return (
     <div className="App">
       <h1>RFC 3339 vs ISO 8601 { showHTML && "vs HTML" }</h1>
-      <Diagram date={now} html={showHTML} />
+      <Diagram date={now} html={showHTML} showKey={showColours} className={showColours?"diagram--key":"diagram"} />
       <p>
         <label>
           <input type="checkbox" checked={showHTML} onChange={e => setShowHTML(e.target.checked)} />
           Show HTML
+        </label>
+        <label>
+          <input type="checkbox" checked={showColours} onChange={e => setShowColours(e.target.checked)} />
+          Show Key
         </label>
       </p>
       <h2 style={{marginBottom:0}}>Format Listing</h2>
