@@ -13,23 +13,33 @@ function Diagram (props) {
 
   return (
     <svg
-      viewBox="14.726 53.645 220.993 190.91"
+      viewBox="10 50 270 190"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       {...restProps}
     >
       { showKey &&
         <g className="key">
-          <rect x={220} y={60} width={3} height={3} className={showDate?"key-date":"key-off"} />
-          <text x={225} y={62} onClick={() => setShowDate(v => !v)}>Date</text>
-          <rect x={220} y={65} width={3} height={3} className={showTime?"key-time":"key-off"} />
-          <text x={225} y={67} onClick={() => setShowTime(v => !v)}>Time</text>
-          <rect x={220} y={70} width={3} height={3} className={showDateTime?"key-datetime":"key-off"} />
-          <text x={225} y={72} onClick={() => setShowDateTime(v => !v)}>DateTime</text>
-          <rect x={220} y={75} width={3} height={3} className={showPeriod?"key-period":"key-off"} />
-          <text x={225} y={77} onClick={() => setShowPeriod(v => !v)}>Period</text>
-          <rect x={220} y={80} width={3} height={3} className={showRange?"key-range":"key-off"} />
-          <text x={225} y={82} onClick={() => setShowRange(v => !v)}>Range</text>
+          <g onClick={() => setShowDate(v => !v)}>
+            <rect x={220} y={60} width={3} height={3} className={showDate?"key-date":"key-off"} />
+            <text x={225} y={62}>Date</text>
+          </g>
+          <g onClick={() => setShowTime(v => !v)}>
+            <rect x={220} y={65} width={3} height={3} className={showTime?"key-time":"key-off"} />
+            <text x={225} y={67}>Time</text>
+          </g>
+          <g onClick={() => setShowDateTime(v => !v)}>
+            <rect x={220} y={70} width={3} height={3} className={showDateTime?"key-datetime":"key-off"} />
+            <text x={225} y={72}>DateTime</text>
+          </g>
+          <g onClick={() => setShowPeriod(v => !v)}>
+            <rect x={220} y={75} width={3} height={3} className={showPeriod?"key-period":"key-off"} />
+            <text x={225} y={77}>Period</text>
+          </g>
+          <g onClick={() => setShowRange(v => !v)}>
+            <rect x={220} y={80} width={3} height={3} className={showRange?"key-range":"key-off"} />
+            <text x={225} y={82}>Range</text>
+          </g>
         </g>
       }
       <g id="rfc" transform="translate(0 2)">
@@ -63,10 +73,10 @@ function Diagram (props) {
         <text x={38} y={128} className="datetime">
           {formatUTC("%Y-%M-%D %h:%m:%sZ", date)}
         </text>
-        <text x={32} y={136} className="datetime">
+        <text x={32} y={134} className="datetime">
           {formatUTC("%Y-%M-%D %h:%m:%.3sZ", date)}
         </text>
-        <text x={29} y={144} className="datetime">
+        <text x={29} y={140} className="datetime">
           {format("%Y-%M-%D %h:%m:%s%Z:%z", date)}
         </text>
         {/* <text x={30} y={148}>
@@ -74,7 +84,7 @@ function Diagram (props) {
         </text> */}
       </g>
       <g id="all">
-        <text x={82} y={112} className="date">
+        <text x={82} y={114} className="date">
           {format("%Y-%M-%D", date)}
         </text>
         <text x={76} y={120} className="datetime">
@@ -183,8 +193,11 @@ function Diagram (props) {
         <text x={132} y={100} className="date">
           {format("%X", date)}
         </text>
-        <text x={144} y={100} className="date">
+        <text x={142} y={100} className="date">
           {format("%C", date)}
+        </text>
+        <text x={148} y={100} className="time">
+          {format("%h:%m:%s%Z", date)}
         </text>
         <text x={130} y={88} className="datetime">
           {formatUTC("%Y-%M-%DT%h:%m:%s\u221201:00", date, -60)}
@@ -269,7 +282,7 @@ function Diagram (props) {
         <text x={136} y={140} className="range">
           {format("%Y-%M-%D/28", date)}
         </text>
-        <text x={148} y={202} className="range">
+        <text x={126} y={198} className="range">
           {format("%Y-%M-%D/%Y-12-31", date)}
         </text>
         <text x={120} y={202} className="range">
@@ -284,38 +297,38 @@ function Diagram (props) {
         </text>
 
 
-        <text x={134} y={182} className="period">
+        <text x={134} y={148} className="period">
           {"P1Y"}
         </text>
-        <text x={130} y={186} className="period">
+        <text x={138} y={152} className="period">
           {"P1,5Y"}
         </text>
-        <text x={138} y={186} className="period">
+        <text x={134} y={156} className="period">
           {"P1.5Y"}
         </text>
 
-        <text x={128} y={190} className="period">
+        <text x={134} y={176} className="period">
           {"P2M"}
         </text>
-        <text x={136} y={190} className="period">
+        <text x={132} y={180} className="period">
           {"P2,5M"}
         </text>
 
-        <text x={128} y={194} className="period">
+        <text x={131} y={184} className="period">
           {"P2.5M"}
         </text>
-        <text x={140} y={194} className="period">
+        <text x={138} y={192} className="period">
           {"P1Y2M"}
         </text>
 
-        <text x={126} y={198} className="period">
+        <text x={126} y={192} className="period">
           {"P1Y2,5M"}
         </text>
-        <text x={146} y={198} className="period">
+        <text x={132} y={188} className="period">
           {"P1Y2.5M"}
         </text>
 
-        <text x={144} y={214} className="period">
+        <text x={130} y={195} className="period">
           {"P1Y2.5MT4H"}
         </text>
 
@@ -397,7 +410,7 @@ function Diagram (props) {
           </text>
         </g>
       </g>
-      { html && <g id="html" transform="translate(-10 4)">
+      { html && <g id="html" transform="translate(-12 6)">
         <circle
           cx={90}
           cy={155}
@@ -432,34 +445,34 @@ function Diagram (props) {
         </text>
       </g>}
       <g id="iso-html">
-        <text x={126} y={142} className="period">
+        <text x={122} y={146} className="period">
           {format("P1D", date)}
         </text>
-        <text x={125} y={146} className="period">
+        <text x={124} y={150} className="period">
           {format("P1W", date)}
         </text>
-        <text x={122} y={150} className="period">
+        <text x={122} y={154} className="period">
           {format("P1.5W", date)}
         </text>
-        <text x={124} y={154} className="period">
+        <text x={124} y={158} className="period">
           {format("PT1H", date)}
         </text>
-        <text x={120} y={158} className="period">
+        <text x={114} y={162} className="period">
           {format("PT1M", date)}
         </text>
-        <text x={128} y={158} className="period">
+        <text x={126} y={162} className="period">
           {format("PT1S", date)}
         </text>
-        <text x={116} y={162} className="period">
+        <text x={116} y={166} className="period">
           {format("P1DT1H1M", date)}
         </text>
-        <text x={112} y={166} className="period">
+        <text x={112} y={170} className="period">
           {format("P1DT1.1S", date)}
         </text>
-        <text x={118} y={170} className="period">
+        <text x={118} y={174} className="period">
           {format("P1TD1.12S", date)}
         </text>
-        <text x={112} y={174} className="period">
+        <text x={112} y={178} className="period">
           {format("P1DT1.123S", date)}
         </text>
         <text x={100} y={190} className="datetime">
