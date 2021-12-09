@@ -79,6 +79,36 @@ code {
   fill: #007a78;
 }
 
+.diagram .key-off {
+  fill: none;
+  stroke: #000;
+  stroke-width: 0.1;
+}
+
+.diagram--key .key {
+  cursor: pointer;
+}
+
+.diagram--hide-date .date {
+  display: none;
+}
+
+.diagram--hide-time .time {
+  display: none;
+}
+
+.diagram--hide-datetime .datetime {
+  display: none;
+}
+
+.diagram--hide-period .period {
+  display: none;
+}
+
+.diagram--hide-range .range {
+  display: none;
+}
+
 @media print {
   a[href]::after {
     content: "[" attr(href) "]";

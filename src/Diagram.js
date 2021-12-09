@@ -3,25 +3,33 @@ import { format, formatUTC } from "./format";
 
 function Diagram (props) {
   const { date, html, showKey, ...restProps } = props;
+  const [ showDate, setShowDate ] = React.useState(true);
+  const [ showTime, setShowTime ] = React.useState(true);
+  const [ showDateTime, setShowDateTime ] = React.useState(true);
+  const [ showPeriod, setShowPeriod ] = React.useState(true);
+  const [ showRange, setShowRange ] = React.useState(true);
+
+  const className = `diagram ${showKey?"diagram--key":""} ${showDate?"":"diagram--hide-date"} ${showTime?"":"diagram--hide-time"} ${showDateTime?"":"diagram--hide-datetime"} ${showPeriod?"":"diagram--hide-period"} ${showRange?"":"diagram--hide-range"}`;
 
   return (
     <svg
       viewBox="14.726 53.645 220.993 190.91"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
       {...restProps}
     >
       { showKey &&
-        <g>
-          <rect x={220} y={60} width={3} height={3} className="key-date" />
-          <text x={225} y={62}>Date</text>
-          <rect x={220} y={65} width={3} height={3} className="key-time" />
-          <text x={225} y={67}>Time</text>
-          <rect x={220} y={70} width={3} height={3} className="key-datetime" />
-          <text x={225} y={72}>DateTime</text>
-          <rect x={220} y={75} width={3} height={3} className="key-period" />
-          <text x={225} y={77}>Period</text>
-          <rect x={220} y={80} width={3} height={3} className="key-range" />
-          <text x={225} y={82}>Range</text>
+        <g className="key">
+          <rect x={220} y={60} width={3} height={3} className={showDate?"key-date":"key-off"} />
+          <text x={225} y={62} onClick={() => setShowDate(v => !v)}>Date</text>
+          <rect x={220} y={65} width={3} height={3} className={showTime?"key-time":"key-off"} />
+          <text x={225} y={67} onClick={() => setShowTime(v => !v)}>Time</text>
+          <rect x={220} y={70} width={3} height={3} className={showDateTime?"key-datetime":"key-off"} />
+          <text x={225} y={72} onClick={() => setShowDateTime(v => !v)}>DateTime</text>
+          <rect x={220} y={75} width={3} height={3} className={showPeriod?"key-period":"key-off"} />
+          <text x={225} y={77} onClick={() => setShowPeriod(v => !v)}>Period</text>
+          <rect x={220} y={80} width={3} height={3} className={showRange?"key-range":"key-off"} />
+          <text x={225} y={82} onClick={() => setShowRange(v => !v)}>Range</text>
         </g>
       }
       <g id="rfc" transform="translate(0 2)">

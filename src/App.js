@@ -88,7 +88,7 @@ function App() {
   return (
     <div className="App">
       <h1>RFC 3339 vs ISO 8601 { showHTML && "vs HTML" }</h1>
-      <Diagram date={now} html={showHTML} showKey={showColours} className={showColours?"diagram--key":"diagram"} />
+      <Diagram date={now} html={showHTML} showKey={showColours} />
       <p>
         <label>
           <input type="checkbox" checked={showHTML} onChange={e => setShowHTML(e.target.checked)} />
