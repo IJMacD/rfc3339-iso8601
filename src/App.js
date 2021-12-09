@@ -61,6 +61,7 @@ function App() {
 
       if (yesHTML) {
         df.push({ format: "--%M-%D", rfc: false, iso: false, html: true });
+        df.push({ format: "%M-%D", rfc: false, iso: false, html: true });
       }
     }
 
@@ -131,7 +132,12 @@ function App() {
           {
             date_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
           }
-          { showHTML && <ExampleRow key={"--%M-%D"} format={"--%M-%D"} now={now} html showHTML={true}  /> }
+          { showHTML &&
+            <>
+              <ExampleRow format={"--%M-%D"} now={now} html showHTML={true}  />
+              <ExampleRow format={"%M-%D"} now={now} html showHTML={true}  />
+            </>
+          }
         </tbody>
         <tbody>
           <tr><th colSpan={100} style={sectionHeaderStyle}>Times</th></tr>

@@ -418,6 +418,9 @@ function Diagram (props) {
         <text x={66} y={194} className="date">
           {formatUTC("--%M-%D", date)}
         </text>
+        <text x={70} y={198} className="date">
+          {formatUTC("%M-%D", date)}
+        </text>
         <text x={56} y={178} className="datetime">
           {format("%Y-%M-%D %h:%m", date)}
         </text>
