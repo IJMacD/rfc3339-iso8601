@@ -89,23 +89,23 @@ code {
   cursor: pointer;
 }
 
-.diagram--hide-date .date {
+.diagram--key.diagram--hide-date .date {
   display: none;
 }
 
-.diagram--hide-time .time {
+.diagram--key.diagram--hide-time .time {
   display: none;
 }
 
-.diagram--hide-datetime .datetime {
+.diagram--key.diagram--hide-datetime .datetime {
   display: none;
 }
 
-.diagram--hide-period .period {
+.diagram--key.diagram--hide-period .period {
   display: none;
 }
 
-.diagram--hide-range .range {
+.diagram--key.diagram--hide-range .range {
   display: none;
 }
 
