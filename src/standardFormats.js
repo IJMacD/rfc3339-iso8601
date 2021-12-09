@@ -124,7 +124,6 @@ const formats_timezone_2212 = [
 ];
 
 const date_formats_iso_only = [
-  "%L",
   "%C",
   "%X",
   "%Y",
