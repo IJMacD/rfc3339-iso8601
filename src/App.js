@@ -5,6 +5,7 @@ import Diagram from './Diagram';
 import { useSavedState } from './useSavedState';
 import { DownloadTestFile } from './DownloadTestFile';
 import { date as date_formats, time as time_formats, period as period_formats, range as range_formats, dateTime as date_time_formats } from './formats';
+import { CheckFormat } from './CheckFormat';
 
 function App() {
   const [ now, setNow ] = useState(() => new Date());
@@ -127,6 +128,7 @@ function App() {
         </code>
       </pre>
       <DownloadTestFile now={now} showHTML={showHTML} />
+      <CheckFormat now={now} showHTML={showHTML} />
       <p><a href="https://github.com/IJMacD/rfc3339-iso8601">Source on GitHub</a></p>
     </div>
   );
