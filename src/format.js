@@ -24,8 +24,34 @@ import * as datetime from './date';
  * @param {string} format
  * @param {Date} [date]
  */
- export function format(format, date = new Date()) {
+export function format(format, date = new Date()) {
     return formatUTC(format, date, -date.getTimezoneOffset());
+}
+
+/**
+ * Takes timezone from the format automatically
+ * @param {string} format
+ * @param {Date} [date]
+ */
+export function formatAuto(format, date = new Date()) {
+    const empty = format.replace(/%(−?)(.\d)?([a-z])/ig, "");
+
+    let timezoneOffset = -date.getTimezoneOffset();
+
+    if (empty.match(/Z$/i)) {
+        timezoneOffset = 0;
+    } else {
+        const match = /([-+−])(\d{2}):?(\d{2})?$/.exec(empty);
+        if (match) {
+            const sign = match[1] === "+";
+            const hours = +match[2];
+            const minutes = match[3] ? +match[3] : 0;
+
+            timezoneOffset = (sign ? 1 : -1) * ((hours * 60) + minutes);
+        }
+    }
+
+    return formatUTC(format, date, timezoneOffset);
 }
 
 /**

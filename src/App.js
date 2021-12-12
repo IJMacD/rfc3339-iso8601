@@ -1,14 +1,13 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { format, formatUTC } from './format';
+import { formatAuto } from './format';
 import Diagram from './Diagram';
-import { date_formats, time_formats, date_time_formats, periods, ranges, html_formats } from './standardFormats';
-import { downloadFile } from './downloadFile';
 import { useSavedState } from './useSavedState';
+import { DownloadTestFile } from './DownloadTestFile';
+import { date as date_formats, time as time_formats, period as period_formats, range as range_formats, dateTime as date_time_formats } from './formats';
 
 function App() {
   const [ now, setNow ] = useState(() => new Date());
-  const [ testFileType, setTestFileType ] = useState("union");
   const [ showHTML, setShowHTML ] = useSavedState("rfciso.showHTML", false);
   const [ showColours, setShowColours ] = useSavedState("rfciso.showColours", false);
 
@@ -26,65 +25,6 @@ function App() {
     background: "#E5E5E5",
     textAlign: "left",
   };
-
-  function handleDownload () {
-
-    let df;
-    let tf;
-    let dtf;
-
-    let filename = "date-test-values";
-
-    if (testFileType === "intersection") {
-      filename += "-rfc8601_∩_iso8601";
-      if (showHTML) filename += "_∩_html";
-
-      df = date_formats.filter(f => (f.rfc && f.iso && (!showHTML || f.html)));
-      tf = time_formats.filter(f => (f.rfc && f.iso && (!showHTML || f.html)));
-      dtf = date_time_formats.filter(f => (f.rfc && f.iso && (!showHTML || f.html)));
-
-    } else {
-      const yesRFC = testFileType === "rfc3339" || testFileType === "union";
-      const yesISO = testFileType === "iso8601" || testFileType === "union";
-      const yesHTML = showHTML && (testFileType === "html" || testFileType === "union");
-
-      if (testFileType === "union") {
-        filename += "-rfc8601_∪_iso8601";
-        if (showHTML) filename += "_∪_html";
-      } else {
-        filename += `-${testFileType}`;
-      }
-
-      df = date_formats.filter(f => (f.rfc && yesRFC) || (f.iso && yesISO) || (f.html && yesHTML));
-      tf = time_formats.filter(f => (f.rfc && yesRFC) || (f.iso && yesISO) || (f.html && yesHTML));
-      dtf = date_time_formats.filter(f => (f.rfc && yesRFC) || (f.iso && yesISO) || (f.html && yesHTML));
-
-      if (yesHTML) {
-        df.push({ format: "--%M-%D", rfc: false, iso: false, html: true });
-        df.push({ format: "%M-%D", rfc: false, iso: false, html: true });
-      }
-    }
-
-    const str = [];
-
-    if (testFileType === "html") {
-      // eh, just do this on on its own since we don't have separate sections
-      str.push(...html_formats.map(f => format(f, now)));
-    } else {
-      str.push("# Dates");
-      str.push(...df.map(f => format(f.format, now)));
-
-      str.push("# Times");
-      str.push(...tf.map(f => formatUTC(f.format, now, f.timezone)));
-
-      str.push("# Date-Times");
-      str.push(...dtf.map(f => formatUTC(f.format, now, f.timezone)));
-    }
-
-    filename += ".txt";
-
-    downloadFile(str.join("\n"), filename);
-  }
 
   return (
     <div className="App">
@@ -132,35 +72,29 @@ function App() {
           {
             date_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
           }
-          { showHTML &&
-            <>
-              <ExampleRow format={"--%M-%D"} now={now} html showHTML={true}  />
-              <ExampleRow format={"%M-%D"} now={now} html showHTML={true}  />
-            </>
-          }
         </tbody>
         <tbody>
           <tr><th colSpan={100} style={sectionHeaderStyle}>Times</th></tr>
           {
-            time_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} timezone={f.timezone} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
+            time_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
           }
         </tbody>
         <tbody>
           <tr><th colSpan={100} style={sectionHeaderStyle}>Date-Times</th></tr>
           {
-            date_time_formats.map((f, i) => <ExampleRow key={i} format={f.format} now={now} timezone={f.timezone} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
+            date_time_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
           }
         </tbody>
         <tbody>
           <tr><th colSpan={100} style={sectionHeaderStyle}>Periods</th></tr>
           {
-            periods.map(f => <ExampleRow key={f} format={f} now={now} iso html={html_formats.includes(f)} showHTML={showHTML} />)
+            period_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} iso html={f.html} showHTML={showHTML} />)
           }
         </tbody>
         <tbody>
           <tr><th colSpan={100} style={sectionHeaderStyle}>Ranges</th></tr>
           {
-            ranges.map(f => <ExampleRow key={f} format={f} now={now} iso showHTML={showHTML} />)
+            range_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} iso showHTML={showHTML} />)
           }
         </tbody>
       </table>
@@ -192,15 +126,7 @@ function App() {
 `}
         </code>
       </pre>
-      {/* @ts-ignore */}
-      <p onChange={e => setTestFileType(e.target.value)}>
-        <button onClick={() => handleDownload()}>Download test file</button>
-        <label><input type="radio" name="test-file-includes" value="rfc3339" checked={testFileType === "rfc3339"} />RFC 3339</label>
-        <label><input type="radio" name="test-file-includes" value="iso8601" checked={testFileType === "iso8601"} />ISO 8601</label>
-        { showHTML && <label><input type="radio" name="test-file-includes" value="html" checked={testFileType === "html"} />HTML</label> }
-        <label><input type="radio" name="test-file-includes" value="union" checked={testFileType === "union"} />Union</label>
-        <label><input type="radio" name="test-file-includes" value="intersection" checked={testFileType === "intersection"} />Intersection</label>
-      </p>
+      <DownloadTestFile now={now} showHTML={showHTML} />
       <p><a href="https://github.com/IJMacD/rfc3339-iso8601">Source on GitHub</a></p>
     </div>
   );
@@ -208,10 +134,12 @@ function App() {
 
 export default App;
 
-function ExampleRow ({ format: formatString, now, timezone = NaN, rfc = false, iso = false, html = false, showHTML = false }) {
+function ExampleRow ({ format: formatString, now, rfc = false, iso = false, html = false, showHTML = false }) {
+  if (!showHTML && !rfc && !iso) return null;
+
   return <tr>
     <td><code>{formatString}</code></td>
-    <td>{isNaN(timezone) ? format(formatString, now) : formatUTC(formatString, now, timezone)}</td>
+    <td>{formatAuto(formatString, now)}</td>
     <td>{ rfc && "✔️" }</td>
     <td>{ iso && "✔️" }</td>
     { showHTML && <td>{ html && "✔️" }</td> }
