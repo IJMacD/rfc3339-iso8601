@@ -110,12 +110,15 @@ const example_periods = [
     "P1D",
 ];
 
+const example_dateTimes = crossJoin(full_date, ["%h","%h:%m","%h:%m:%s","%h:%m:%.3s","%h:%mZ"]).map(([d,t]) => `${d}T${t}`);
+
 export const range = [
   ...crossJoin(full_date, example_periods).map(([d, p]) => `${d}/${p}`),
   ...crossJoin(full_date, full_date).map(([d1, d2]) => `${d1}/${d2}`),
   ...crossJoin(example_periods, full_date).map(([p, d]) => `${p}/${d}`),
 
-  ...crossJoin(dateTime, ["P1DT1H"]).map(([d, p]) => `${d}/${p}`),
+  ...crossJoin(example_dateTimes, ["P1DT1H"]).map(([d, p]) => `${d}/${p}`),
+  ...crossJoin(example_dateTimes, ["P1DT1H"]).map(([d, p]) => `${p}/${d}`),
 
   ...crossJoin(full_date, ["P1Y"]).map(([d, p]) => `R/${d}/${p}`),
   ...crossJoin(full_date, full_date).map(([d1, d2]) => `R/${d1}/${d2}`),

@@ -5,7 +5,7 @@ import { date as html_date, time as html_time, dateTime as html_dateTime, period
 import { formatAuto } from "./format";
 
 export function CheckFormat ({ now, showHTML }) {
-    const [ testValue, setTestValue ] = useState("");
+    const [ testValue, setTestValue ] = useState("%Y-%M-%D");
 
     const rfcStatus = testValue.length > 0 && (rfc_date.includes(testValue) ?
         "✔️ Date" :

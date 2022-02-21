@@ -1,16 +1,18 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { formatAuto } from './format';
 import Diagram from './Diagram';
 import { useSavedState } from './useSavedState';
 import { DownloadTestFile } from './DownloadTestFile';
-import { date as date_formats, time as time_formats, period as period_formats, range as range_formats, dateTime as date_time_formats } from './formats';
 import { CheckFormat } from './CheckFormat';
+import { FormatTable } from './FormatTable';
+
+const README_DATE = new Date("2021-07-27T14:20:32.556+00:00");
 
 function App() {
   const [ now, setNow ] = useState(() => new Date());
   const [ showHTML, setShowHTML ] = useSavedState("rfciso.showHTML", false);
   const [ showColours, setShowColours ] = useSavedState("rfciso.showColours", false);
+  const [ showStaticDate, setShowStaticDate ] = useState(false);
 
   useEffect(() => {
     const intervalID = setInterval(() => setNow(new Date()), 1000);
@@ -21,16 +23,23 @@ function App() {
     document.title = `RFC 3339 vs ISO 8601${showHTML ? " vs HTML" : "" }`;
   }, [showHTML]);
 
-  /** @type {import('react').CSSProperties} */
-  const sectionHeaderStyle = {
-    background: "#E5E5E5",
-    textAlign: "left",
-  };
+  useEffect(() => {
+    const cb = e => {
+      if (e.ctrlKey && e.key === "m") {
+        setShowStaticDate(showStaticDate => !showStaticDate);
+      }
+      else console.log(e);
+    }
+
+    document.addEventListener("keyup", cb);
+
+    return () => document.removeEventListener("keyup", cb);
+  }, [setShowStaticDate]);
 
   return (
     <div className="App">
       <h1>RFC 3339 vs ISO 8601 { showHTML && "vs HTML" }</h1>
-      <Diagram date={now} html={showHTML} showKey={showColours} />
+      <Diagram date={showStaticDate ? README_DATE : now} html={showHTML} showKey={showColours} />
       <p>
         <label>
           <input type="checkbox" checked={showHTML} onChange={e => setShowHTML(e.target.checked)} />
@@ -52,53 +61,13 @@ function App() {
         <li>ISO 8601 prefers commas to dots for decimal separation but they are interchangeable in all formats.</li>
         <li>ISO 8601 recommends U+2212 MINUS "−" for timezones west of Greenwich. The formatter defaults to U+2D HYPHEN MINUS "-" which is valid under both standards.</li>
         <li>
-          ISO 8601-1:2019 permits omitting the <code>T</code> in the <em>time of day</em> representations (<b>Times</b>)*. However, a <code>T</code> (or <code>t</code>) is always required for <em>date and time of day</em> representations (<b>Date-Times</b>).<br/>
-          Previous editions also allowed omitting the <code>T</code> in Date-Times but it was never permitted to <em>insert</em> alternative characters (e.g. space or underscore). [* when unambiguous]
+          ISO 8601-1:2019 permits omitting the <code>T</code> in the <em>time of day</em> representations (<b>Times</b>) when unambiguous.<br/>However, a <code>T</code> (or <code>t</code>) is always required for <em>date and time of day</em> representations (<b>Date-Times</b>).<br/>
+          Previous editions also allowed omitting the <code>T</code> in Date-Times but it was never permitted to <em>insert</em> alternative characters (e.g. space or underscore).
         </li>
         { showHTML && <li>The HTML living standard defines a microsyntax for <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#dates-and-times">Dates and times</a> based on ISO 8601 and RFC 3339. It has far fewer ambiguities than either standard and gives explicit parsing rules.</li> }
         <li>The format key is given below the table.</li>
       </ul>
-      <table className="App-FormatTable">
-        <thead>
-          <tr>
-            <th>Format</th>
-            <th>Now</th>
-            <th>RFC 3339</th>
-            <th>ISO 8601</th>
-            { showHTML && <th>HTML</th> }
-          </tr>
-        </thead>
-        <tbody>
-          <tr><th colSpan={100} style={sectionHeaderStyle}>Dates</th></tr>
-          {
-            date_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
-          }
-        </tbody>
-        <tbody>
-          <tr><th colSpan={100} style={sectionHeaderStyle}>Times</th></tr>
-          {
-            time_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
-          }
-        </tbody>
-        <tbody>
-          <tr><th colSpan={100} style={sectionHeaderStyle}>Date-Times</th></tr>
-          {
-            date_time_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
-          }
-        </tbody>
-        <tbody>
-          <tr><th colSpan={100} style={sectionHeaderStyle}>Periods</th></tr>
-          {
-            period_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} iso html={f.html} showHTML={showHTML} />)
-          }
-        </tbody>
-        <tbody>
-          <tr><th colSpan={100} style={sectionHeaderStyle}>Ranges</th></tr>
-          {
-            range_formats.map(f => <ExampleRow key={f.format} format={f.format} now={now} iso showHTML={showHTML} />)
-          }
-        </tbody>
-      </table>
+      <FormatTable date={showStaticDate ? README_DATE : now} showHTML={showHTML} />
       <h3>Format Key</h3>
       <pre style={{backgroundColor:"#F4F4F4"}}>
         <code>
@@ -135,15 +104,3 @@ function App() {
 }
 
 export default App;
-
-function ExampleRow ({ format: formatString, now, rfc = false, iso = false, html = false, showHTML = false }) {
-  if (!showHTML && !rfc && !iso) return null;
-
-  return <tr>
-    <td><code>{formatString}</code></td>
-    <td>{formatAuto(formatString, now)}</td>
-    <td>{ rfc && "✔️" }</td>
-    <td>{ iso && "✔️" }</td>
-    { showHTML && <td>{ html && "✔️" }</td> }
-  </tr>;
-}
