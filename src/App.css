@@ -3,34 +3,58 @@
   display: flex;
   flex-direction: column;
 }
+
 @media (min-width: 768px) {
   .App {
     padding: 0 3em;
   }
 }
+
 svg {
   max-height: 600px;
 }
+
 text {
   font-size: 2.653px;
 }
+
 text.key-label {
   font-size: 10.503px;
 }
+
 /* #rfc text {
   fill: #f0f;
 }
 #iso text {
   fill: #00f;
 } */
+
 .App-FormatTable {
   width: 100%;
-  border-collapse: collapse;
+  /* Workarounds for non-sticky borders;
+     see https://stackoverflow.com/a/53559396/266309 for details. */
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #999;
 }
 
 .App-FormatTable th,
 .App-FormatTable td {
   border: 1px solid #999;
+}
+
+/* Sticky table header */
+.App-FormatTable th {
+  position: sticky;
+  top: 0;
+  background: white;
+  box-shadow: 0 1px 0 0 #999; /* Workaround for non-sticky borders */
+}
+
+/* When stickying subheadings (<th>s inside <tbody>),
+   leave room for global table header */
+.App-FormatTable tbody th {
+  top: 1.45em;
 }
 
 .App-FormatTable tbody tr:nth-child(2n) td {
