@@ -70,20 +70,26 @@ export function formatUTC(format, date = new Date(), timezoneOffset = 0) {
         if (w) {
             const dot = w[0];
             const precision = +w[1];
+
+            // To support far too many digits of precision:
+            // for days and below include up to millisecond precision in the fraction
+            const dayMs = +d % 86400000;
+
             switch (s) {
                 case "L": fraction = frac(((d.getUTCFullYear() % 1000)/1000), precision).substr(1);     break;
                 case "C": fraction = frac(((d.getUTCFullYear() % 100)/100), precision).substr(1);       break;
                 case "X": fraction = frac(((d.getUTCFullYear() % 10)/10), precision).substr(1);         break;
                 case "Y": fraction = frac((d.getUTCMonth() / 12), precision).substr(1);                 break;
                 case "M": fraction = frac(((d.getUTCDate() - 1)/(365/12)), precision).substr(1);        break;
-                case "D": fraction = frac((d.getUTCHours() / 24), precision).substr(1);                 break;
+                case "D": fraction = frac(dayMs/86400000, precision).substr(1);                         break;
                 case "V": fraction = frac((datetime.getWeek(d)/52), precision).substr(1);               break;
                 case "W": fraction = frac(((datetime.getWeekDay(d) - 1) / 7), precision).substr(1);     break;
-                case "w": fraction = frac((d.getUTCHours() / 24), precision).substr(1);                 break;
-                case "O": fraction = frac((d.getUTCHours() / 24), precision).substr(1);                 break;
-                case "h": fraction = frac((d.getUTCMinutes() / 60), precision).substr(1);               break;
-                case "m": fraction = frac((d.getUTCSeconds() / 60), precision).substr(1);               break;
-                case "s": fraction = frac((d.getUTCMilliseconds() / 1000), precision).substr(1);        break;
+                case "w": fraction = frac(dayMs/86400000, precision).substr(1);                         break;
+                case "O": fraction = frac(dayMs/86400000, precision).substr(1);                         break;
+                case "h": fraction = frac((dayMs % 3600000) / 3600000, precision).substr(1);             break;
+                case "m": fraction = frac((dayMs % 60000) / 60000, precision).substr(1);                break;
+                case "s": fraction = frac((dayMs % 1000) / 1000, precision).substr(1);                  break;
+                // We said precise, not necessarily accurate
                 case "u": fraction = 0..toFixed(precision).substr(1);                                   break;
                 case "Z": fraction = "";   break;
                 case "z": fraction = "";   break;

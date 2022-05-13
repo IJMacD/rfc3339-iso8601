@@ -28,7 +28,6 @@ function App() {
       if (e.ctrlKey && e.key === "m") {
         setShowStaticDate(showStaticDate => !showStaticDate);
       }
-      else console.log(e);
     }
 
     document.addEventListener("keyup", cb);
