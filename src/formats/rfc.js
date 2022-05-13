@@ -24,10 +24,13 @@ export const time = [
 ];
 
 export const dateTime = [
+    // Common
     "%Y-%M-%DT%h:%m:%sZ",
     "%Y-%M-%DT%h:%m:%.1sZ",
     "%Y-%M-%DT%h:%m:%.2sZ",
     "%Y-%M-%DT%h:%m:%.3sZ",
+    "%Y-%M-%DT%h:%m:%s.%uZ",
+    // Local timezone
     "%Y-%M-%DT%h:%m:%s%Z:%z",
     "%Y-%M-%DT%h:%m:%.3s%Z:%z",
     "%Y-%M-%DT%h:%m:%s.%u%Z:%z",
@@ -36,6 +39,7 @@ export const dateTime = [
     "%Y-%M-%D %h:%m:%.2s%Z:%z",
     "%Y-%M-%D %h:%m:%.3s%Z:%z",
     "%Y-%M-%D %h:%m:%s.%u%Z:%z",
+    // Z timezone
     "%Y-%M-%D %h:%m:%sZ",
     "%Y-%M-%D_%h:%m:%sZ",
     "%Y-%M-%D %h:%m:%sz",
@@ -44,8 +48,13 @@ export const dateTime = [
     "%Y-%M-%D %h:%m:%.2sZ",
     "%Y-%M-%D %h:%m:%.3sZ",
     "%Y-%M-%D_%h:%m:%.3sZ",
+    "%Y-%M-%D %h:%m:%s.%uZ",
+    "%Y-%M-%D_%h:%m:%s.%uZ",
     "%Y-%M-%D %h:%m:%.3sz",
     "%Y-%M-%D_%h:%m:%.3sz",
+    "%Y-%M-%D %h:%m:%s.%uz",
+    "%Y-%M-%D_%h:%m:%s.%uz",
+    // Negative zero timezone
     "%Y-%M-%D %h:%m:%s-00:00",
     "%Y-%M-%D %h:%m:%.3s-00:00",
     "%Y-%M-%DT%h:%m:%s-00:00",
