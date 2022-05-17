@@ -56,9 +56,9 @@ export function CheckFormat ({ now, showHTML }) {
         ));
 
     return (
-        <div>
+        <div className="ToolBox-Card">
             <h2>Format Checker</h2>
-            <p>Type a format using the format key above to check a format's validility. Note: doesn't check all possible formats, only checks formats in the table.</p>
+            <p>Type a format using the format key above to check a format's validility.<br/><em><strong>Note</strong>: doesn't check all possible formats, only checks formats in the table.</em></p>
             <label>
                 <span style={{display: "block", fontSize: "0.8em", fontWeight: "bold"}}>Format</span>
                 <input placeholder="%Y-%M-%D" value={testValue} onChange={e => setTestValue(e.target.value)} />

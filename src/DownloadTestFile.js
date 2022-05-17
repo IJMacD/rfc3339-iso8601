@@ -114,20 +114,22 @@ export function DownloadTestFile ({ now, showHTML }) {
     }
 
     return (
-        <div>
+        <div className="ToolBox-Card">
             <h2>Test File Generator</h2>
             <p>
-                <button onClick={() => handleDownload()} disabled={formatCount === 0}>Download test file</button>
-                <label><input type="checkbox" name="test-file-includes" value="rfc3339" checked={testFileRFC} onChange={e => setTestFileRFC(e.target.checked)} />RFC 3339</label>
-                <label><input type="checkbox" name="test-file-includes" value="iso8601" checked={testFileISO} onChange={e => setTestFileISO(e.target.checked)} />ISO 8601</label>
-                { showHTML && <label><input type="checkbox" name="test-file-includes" value="html" checked={testFileHTML} onChange={e => setTestFileHTML(e.target.checked)} />HTML</label> }
+                <div>
+                    <label><input type="checkbox" name="test-file-includes" value="rfc3339" checked={testFileRFC} onChange={e => setTestFileRFC(e.target.checked)} />RFC 3339</label>
+                    <label><input type="checkbox" name="test-file-includes" value="iso8601" checked={testFileISO} onChange={e => setTestFileISO(e.target.checked)} />ISO 8601</label>
+                    { showHTML && <label><input type="checkbox" name="test-file-includes" value="html" checked={testFileHTML} onChange={e => setTestFileHTML(e.target.checked)} />HTML</label> }
+                </div>
                 {
                     formatCount > 1 &&
-                    <>
+                    <div>
                         <label><input type="radio" name="test-file-includes" value="union" checked={testFileType === "union"} onChange={e => setTestFileType(e.target.value)} />Union</label>
                         <label><input type="radio" name="test-file-includes" value="intersection" checked={testFileType === "intersection"} onChange={e => setTestFileType(e.target.value)} />Intersection</label>
-                    </>
+                    </div>
                 }
+                <button onClick={() => handleDownload()} disabled={formatCount === 0}>Download test file</button>
             </p>
         </div>
     );
