@@ -45,7 +45,7 @@ function FormatTableRaw ({ date, showHTML }) {
             <tbody>
             <tr><th colSpan={100} style={sectionHeaderStyle}>Periods</th></tr>
             {
-                period_formats.map(f => <ExampleRow key={f.format} format={f.format} date={date} iso html={f.html} showHTML={showHTML} />)
+                period_formats.map(f => <ExampleRow key={f.format} format={f.format} date={date} iso={f.iso} html={f.html} showHTML={showHTML} />)
             }
             </tbody>
             <tbody>

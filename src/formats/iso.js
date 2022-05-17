@@ -87,13 +87,13 @@ export const period = [
     "P1,5Y",
     "P1.5Y",
     "P1M",
-    "P1,5M",
-    "P1.5M",
     "P1W",
     "P1D",
     "PT1H",
     "PT1M",
     "PT1S",
+    "PT1,5S",
+    "PT1.5S",
     "P1Y1M",
     "P1Y1D",
     "P1Y1M1D",
@@ -102,6 +102,8 @@ export const period = [
     "P1DT1M",
     "P1WT1M",
     "P1WT1M1S",
+    "P1DT1.000S",
+    "P1DT1H1M1.1S",
 ];
 
 const example_periods = [

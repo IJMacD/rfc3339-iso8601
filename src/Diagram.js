@@ -296,6 +296,12 @@ function Diagram (props) {
           {format("%Y-%M-%DT%h:%m:%s/59", date)}
         </text>
 
+        <text x={142} y={148} className="period">
+          {format("P1W", date)}
+        </text>
+        <text x={140} y={144} className="period">
+          {format("P1.5W", date)}
+        </text>
 
         <text x={134} y={148} className="period">
           {"P1Y"}
@@ -443,21 +449,21 @@ function Diagram (props) {
         <text x={48} y={186} className="datetime">
           {format("%Y-%M-%D %h:%m:%.3s", date)}
         </text>
+        <text x={82} y={198} className="period">
+          {format("1 D", date)}
+        </text>
+        <text x={84} y={202} className="period">
+          {format("5 M 4 W", date)}
+        </text>
       </g>}
       <g id="iso-html">
-        <text x={122} y={146} className="period">
+        <text x={122} y={150} className="period">
           {format("P1D", date)}
         </text>
-        <text x={124} y={150} className="period">
-          {format("P1W", date)}
-        </text>
-        <text x={122} y={154} className="period">
-          {format("P1.5W", date)}
-        </text>
-        <text x={124} y={158} className="period">
+        <text x={124} y={154} className="period">
           {format("PT1H", date)}
         </text>
-        <text x={114} y={162} className="period">
+        <text x={116} y={158} className="period">
           {format("PT1M", date)}
         </text>
         <text x={126} y={162} className="period">

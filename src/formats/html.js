@@ -70,11 +70,17 @@ export const dateTime = [
 ];
 
 export const period = [
-    "P1W",
-    "P1D",
     "PT1H",
     "PT1M",
     "PT1S",
+    "PT1.5S",
     "P1DT1H",
     "P1DT1M",
+    "P1DT1.000S",
+    "P1DT1H1M1.1S",
+    "1W1M1S",
+    "1 W",
+    "1 D 1 W",
+    "1.5 S 1 M",
+    "1H 15 M",
 ];
