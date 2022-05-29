@@ -16,7 +16,7 @@
     }
     // Remove leftover form elements from Format Checker
     while (toolboxCards[1].children[2] != null) {
-        toolboxCards[1].children[2]?.remove();
+        toolboxCards[1].children[2].remove();
     }
 
     let rawDocument = "<!DOCTYPE html><html lang=\"en\">";
