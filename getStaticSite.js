@@ -6,9 +6,14 @@
         }
     }
 
+    // Put document into static date mode to avoid large diffs
+    document.dispatchEvent(new KeyboardEvent("keyup", { key: "m", ctrlKey: true }));
+
     // Prepare document for extraction by removing and replacing what's not needed
     removeAllTags(document.getElementsByTagName("script"));
     removeAllTags(document.getElementsByTagName("noscript"));
+    // Site doesn't use iframes but browser plugins may add them
+    removeAllTags(document.getElementsByTagName("iframe"));
     const toolboxCards = document.getElementsByClassName("ToolBox-Card");
     for (let i = 0; i < toolboxCards.length; i++) {
         const toolName = toolboxCards[i].getElementsByTagName("h2")[0].innerText;
@@ -31,11 +36,13 @@
             extractedStyle.innerText = cssText;
             // Remove source mapping comment
             extractedStyle.innerText = extractedStyle.innerText.replace(new RegExp('\\/\\*[^*]*\\*+([^/*][^*]*\\*+)*\\/', 'gm'), "")
-            extractedHead.appendChild(extractedStyle);
+            const noScriptTag = document.createElement("noscript");
+            noScriptTag.appendChild(extractedStyle);
+            extractedHead.appendChild(noScriptTag);
         } else {
             let outerHTML = document.head.children[i].outerHTML;
             // We need to revert the public URL part back to the template placeholder
-            outerHTML = outerHTML.replace("/rfc3339-iso8601", "%PUBLIC_URL%");
+            outerHTML = outerHTML.replace(window.location.pathname, "%PUBLIC_URL%/");
             extractedHead.innerHTML += outerHTML;
         }
     }
