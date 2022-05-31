@@ -1,12 +1,14 @@
 import { useCallback, useState } from "react";
 
+const ls = typeof localStorage !== "undefined" ? localStorage : { getItem: () => null, setItem: () => {} };
+
 /**
  * @param {string} key
  * @param {any} defaultValue
  */
 export function useSavedState (key, defaultValue) {
     const [ state, setState ] = useState(() => {
-        const saved = localStorage.getItem(key);
+        const saved = ls.getItem(key);
 
         if (saved === null) return defaultValue;
 
@@ -20,7 +22,7 @@ export function useSavedState (key, defaultValue) {
     const saveState = useCallback((newState) => {
         setState(newState);
 
-        localStorage.setItem(key, JSON.stringify(newState));
+        ls.setItem(key, JSON.stringify(newState));
     }, [key, setState]);
 
     return [ state, saveState ];
