@@ -7,12 +7,6 @@ export const FormatTable = React.memo(FormatTableRaw);
 
 function FormatTableRaw ({ date, showHTML }) {
 
-    /** @type {import('react').CSSProperties} */
-    const sectionHeaderStyle = {
-      background: "#E5E5E5",
-      textAlign: "left",
-    };
-
     return (
         <table className="App-FormatTable">
             <thead>
@@ -25,31 +19,31 @@ function FormatTableRaw ({ date, showHTML }) {
             </tr>
             </thead>
             <tbody>
-            <tr><th colSpan={100} style={sectionHeaderStyle}>Dates</th></tr>
+            <tr><th colSpan={100}>Dates</th></tr>
             {
                 date_formats.map(f => <ExampleRow key={f.format} format={f.format} date={date} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
             }
             </tbody>
             <tbody>
-            <tr><th colSpan={100} style={sectionHeaderStyle}>Times</th></tr>
+            <tr><th colSpan={100}>Times</th></tr>
             {
                 time_formats.map(f => <ExampleRow key={f.format} format={f.format} date={date} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
             }
             </tbody>
             <tbody>
-            <tr><th colSpan={100} style={sectionHeaderStyle}>Date-Times</th></tr>
+            <tr><th colSpan={100}>Date-Times</th></tr>
             {
                 date_time_formats.map(f => <ExampleRow key={f.format} format={f.format} date={date} rfc={f.rfc} iso={f.iso} html={f.html} showHTML={showHTML}  />)
             }
             </tbody>
             <tbody>
-            <tr><th colSpan={100} style={sectionHeaderStyle}>Periods</th></tr>
+            <tr><th colSpan={100}>Periods</th></tr>
             {
                 period_formats.map(f => <ExampleRow key={f.format} format={f.format} date={date} iso={f.iso} html={f.html} showHTML={showHTML} />)
             }
             </tbody>
             <tbody>
-            <tr><th colSpan={100} style={sectionHeaderStyle}>Ranges</th></tr>
+            <tr><th colSpan={100}>Ranges</th></tr>
             {
                 range_formats.map(f => <ExampleRow key={f.format} format={f.format} date={date} iso showHTML={showHTML} />)
             }

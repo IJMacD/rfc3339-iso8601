@@ -18,6 +18,7 @@ function Diagram (props) {
       className={className}
       {...restProps}
     >
+      <style>{`text{font-family:sans-serif;font-size:2.653px;}text.key-label{font-size:10.503px;}`}</style>
       { showKey &&
         <g className="key">
           <g onClick={() => setShowDate(v => !v)}>

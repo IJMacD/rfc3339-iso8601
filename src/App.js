@@ -68,7 +68,7 @@ function App() {
       </ul>
       <FormatTable date={showStaticDate ? README_DATE : now} showHTML={showHTML} />
       <h3>Format Key</h3>
-      <pre style={{backgroundColor:"#F4F4F4"}}>
+      <pre className='App-FormatKey'>
         <code>
           {`
 %L - Millennium

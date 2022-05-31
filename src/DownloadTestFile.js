@@ -116,7 +116,7 @@ export function DownloadTestFile ({ now, showHTML }) {
     return (
         <div className="ToolBox-Card">
             <h2>Test File Generator</h2>
-            <p>
+            <div>
                 <div>
                     <label><input type="checkbox" name="test-file-includes" value="rfc3339" checked={testFileRFC} onChange={e => setTestFileRFC(e.target.checked)} />RFC 3339</label>
                     <label><input type="checkbox" name="test-file-includes" value="iso8601" checked={testFileISO} onChange={e => setTestFileISO(e.target.checked)} />ISO 8601</label>
@@ -130,7 +130,7 @@ export function DownloadTestFile ({ now, showHTML }) {
                     </div>
                 }
                 <button onClick={() => handleDownload()} disabled={formatCount === 0}>Download test file</button>
-            </p>
+            </div>
         </div>
     );
 }
