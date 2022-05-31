@@ -71,6 +71,7 @@ function App ({ initialDate = null, initalShowHTML = false, initalShowColours = 
           Previous editions also allowed omitting the <code>T</code> in Date-Times but it was never permitted to <em>insert</em> alternative characters (e.g. space or underscore).
         </li>
         { showHTML && <li>The HTML living standard defines a microsyntax for <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#dates-and-times">Dates and times</a> based on ISO 8601 and RFC 3339. It has far fewer ambiguities than either standard and gives explicit parsing rules.</li> }
+        { !readOnlyMode && <li>Each <span onClick={() => window.open("https://xkcd.com/927/")}>standard</span> defines multiple formats for different purposes. <span onClick={() => window.open("https://xkcd.com/1179/")}>Other formats are therefore discouraged.</span></li> }
         <li>The format key is given below the table.</li>
       </ul>
       <FormatTable date={now} showHTML={showHTML} />
