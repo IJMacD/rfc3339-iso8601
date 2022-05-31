@@ -60,14 +60,20 @@ function Diagram (props) {
         >
           {"RFC 3339"}
         </text>
-        <text x={54} y={84} className="datetime">
+        <text x={58} y={80} className="datetime">
           {formatUTC("%Y-%M-%D_%h:%m:%sZ", date)}
         </text>
-        <text x={46} y={90} className="datetime">
+        <text x={46} y={86} className="datetime">
           {formatUTC("%Y-%M-%D_%h:%m:%.3sZ", date)}
         </text>
-        <text x={40} y={96} className="datetime">
+        <text x={46} y={92} className="datetime">
           {formatUTC("%Y-%M-%DT%h:%m:%s-00:00", date)}
+        </text>
+        <text x={42} y={98} className="datetime">
+          {formatUTC("%Y-%M-%Dt%h:%m:%sz", date)}
+        </text>
+        <text x={30} y={104} className="datetime">
+          {format("%Y-%M-%Dt%h:%m:%s%Z:%z", date)}
         </text>
       </g>
       <g id="rfc-html">
@@ -120,30 +126,24 @@ function Diagram (props) {
         </text>
       </g>
       <g id="rfc-iso">
-        <text x={86} y={99} className="datetime">
-          {formatUTC("%Y-%M-%Dt%h:%m:%sz", date)}
-        </text>
-        <text x={82} y={102} className="datetime">
-          {format("%Y-%M-%Dt%h:%m:%s%Z:%z", date)}
-        </text>
 
         <text x={96} y={90} className="time">
           {formatUTC("%h:%m:%sZ", date)}
         </text>
-        <text x={108} y={111} className="time">
-          {formatUTC("%h:%m:%.1sZ", date)}
-        </text>
-        <text x={88} y={96} className="time">
-          {formatUTC("%h:%m:%.2sZ", date)}
-        </text>
-        <text x={94} y={93} className="time">
+        <text x={92} y={94} className="time">
           {formatUTC("%h:%m:%.3sZ", date)}
         </text>
-        <text x={102} y={108} className="time">
+        <text x={86} y={98} className="time">
+          {formatUTC("%h:%m:%.2sZ", date)}
+        </text>
+        <text x={92} y={102} className="time">
+          {format("%h:%m:%.3s%Z:%z", date)}
+        </text>
+        <text x={100} y={106} className="time">
           {format("%h:%m:%s%Z:%z", date)}
         </text>
-        <text x={94} y={105} className="time">
-          {format("%h:%m:%.3s%Z:%z", date)}
+        <text x={106} y={110} className="time">
+          {formatUTC("%h:%m:%.1sZ", date)}
         </text>
       </g>
       <g id="iso">

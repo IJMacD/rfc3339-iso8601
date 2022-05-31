@@ -65,7 +65,7 @@ function App ({ initialDate = null, initalShowHTML = false, initalShowColours = 
         <li>This page targets <a href="https://www.iso.org/obp/ui#iso:std:iso:8601:-1:ed-1:v1:en">ISO 8601-1:2019</a>. Previous editions and drafts contain key differences.</li>
         <li><a href="https://www.iso.org/obp/ui#iso:std:iso:8601:-2:ed-1:v1:en">ISO 8601-2:2019</a> contains additional representations including sub-year groupings such as for seasons; grouped units; sets; uncertainty qualifications; and date arithmetic. These are not yet represented on this page.</li>
         <li><a href="https://datatracker.ietf.org/doc/html/rfc3339">RFC 3339</a> allows for other characters to replace <code>T</code> but only gives a space character as an example.</li>
-        <li>RFC 3339 and ISO 8601 are both case-insensitive so every <code>T</code>, <code>W</code>, <code>P</code>, <code>R</code>, or <code>Z</code> could be <code>t</code>, <code>w</code>, <code>p</code>, <code>r</code>, or <code>z</code> respectively.</li>
+        <li>RFC 3339 is case-insensitive so every <code>T</code> or <code>Z</code> could also be <code>t</code> or <code>z</code> respectively. Previous editions of ISO 8601 were also case-insensitive.</li>
         <li>ISO 8601 allows decimal fractions of the smallest time value. These are represented here by a single fractional digit but the standard allows arbitrary precision.</li>
         <li>ISO 8601 prefers commas to dots for decimal separation but they are interchangeable in all formats.</li>
         <li>ISO 8601 recommends U+2212 MINUS "−" for timezones west of Greenwich. The formatter defaults to U+2D HYPHEN MINUS "-" which is valid under both standards.</li>
