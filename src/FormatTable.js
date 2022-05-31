@@ -5,14 +5,14 @@ import { date as date_formats, time as time_formats, period as period_formats, r
 
 export const FormatTable = React.memo(FormatTableRaw);
 
-function FormatTableRaw ({ date, showHTML }) {
+function FormatTableRaw ({ date, showHTML, isPaused }) {
 
     return (
         <table className="App-FormatTable">
             <thead>
             <tr>
                 <th>Format</th>
-                <th>Now</th>
+                <th>{ isPaused ? "Example" : "Now" }</th>
                 <th>RFC 3339</th>
                 <th>ISO 8601</th>
                 { showHTML && <th>HTML</th> }

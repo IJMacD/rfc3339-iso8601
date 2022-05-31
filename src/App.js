@@ -10,14 +10,16 @@ function App ({ initialDate = null, initalShowHTML = false, initalShowColours = 
   const [ now, setNow ] = useState(() => (initialDate || new Date()));
   const [ showHTML, setShowHTML ] = useSavedState("rfciso.showHTML", initalShowHTML);
   const [ showColours, setShowColours ] = useSavedState("rfciso.showColours", initalShowColours);
-  const [ pause, setPause ] = useState(initialDate !== null);
+  const [ isPaused, setIsPaused ] = useState(initialDate !== null);
 
   useEffect(() => {
-    if (!pause) {
-      const intervalID = setInterval(() => setNow(new Date()), 1000);
+    if (!isPaused) {
+      const update = () => setNow(new Date());
+      update();
+      const intervalID = setInterval(update, 1000);
       return () => clearTimeout(intervalID);
     }
-  }, [pause]);
+  }, [isPaused]);
 
   useEffect(() => {
     document.title = `RFC 3339 vs ISO 8601${showHTML ? " vs HTML" : "" }`;
@@ -26,14 +28,14 @@ function App ({ initialDate = null, initalShowHTML = false, initalShowColours = 
   useEffect(() => {
     const cb = e => {
       if (e.ctrlKey && e.key === "m") {
-        setPause(pause => !pause);
+        setIsPaused(pause => !pause);
       }
     }
 
     document.addEventListener("keyup", cb);
 
     return () => document.removeEventListener("keyup", cb);
-  }, [setPause]);
+  }, [setIsPaused]);
 
   return (
     <div className="App">
@@ -74,7 +76,7 @@ function App ({ initialDate = null, initalShowHTML = false, initalShowColours = 
         { !readOnlyMode && <li>Each <span onClick={() => window.open("https://xkcd.com/927/")}>standard</span> defines multiple formats for different purposes. <span onClick={() => window.open("https://xkcd.com/1179/")}>Other formats are therefore discouraged.</span></li> }
         <li>The format key is given below the table.</li>
       </ul>
-      <FormatTable date={now} showHTML={showHTML} />
+      <FormatTable date={now} showHTML={showHTML} isPaused={isPaused} />
       <h3>Format Key</h3>
       <pre className='App-FormatKey'>
         <code>
