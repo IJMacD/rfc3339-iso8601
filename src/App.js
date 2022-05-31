@@ -6,18 +6,18 @@ import { DownloadTestFile } from './DownloadTestFile';
 import { CheckFormat } from './CheckFormat';
 import { FormatTable } from './FormatTable';
 
-const README_DATE = new Date("2021-07-27T14:20:32.556+00:00");
-
-function App() {
-  const [ now, setNow ] = useState(() => new Date());
-  const [ showHTML, setShowHTML ] = useSavedState("rfciso.showHTML", false);
-  const [ showColours, setShowColours ] = useSavedState("rfciso.showColours", false);
-  const [ showStaticDate, setShowStaticDate ] = useState(false);
+function App ({ initialDate = null, initalShowHTML = false, initalShowColours = false, readOnlyMode = false, showDiagram = true }) {
+  const [ now, setNow ] = useState(() => (initialDate || new Date()));
+  const [ showHTML, setShowHTML ] = useSavedState("rfciso.showHTML", initalShowHTML);
+  const [ showColours, setShowColours ] = useSavedState("rfciso.showColours", initalShowColours);
+  const [ pause, setPause ] = useState(initialDate !== null);
 
   useEffect(() => {
-    const intervalID = setInterval(() => setNow(new Date()), 1000);
-    return () => clearTimeout(intervalID);
-  }, []);
+    if (!pause) {
+      const intervalID = setInterval(() => setNow(new Date()), 1000);
+      return () => clearTimeout(intervalID);
+    }
+  }, [pause]);
 
   useEffect(() => {
     document.title = `RFC 3339 vs ISO 8601${showHTML ? " vs HTML" : "" }`;
@@ -26,29 +26,36 @@ function App() {
   useEffect(() => {
     const cb = e => {
       if (e.ctrlKey && e.key === "m") {
-        setShowStaticDate(showStaticDate => !showStaticDate);
+        setPause(pause => !pause);
       }
     }
 
     document.addEventListener("keyup", cb);
 
     return () => document.removeEventListener("keyup", cb);
-  }, [setShowStaticDate]);
+  }, [setPause]);
 
   return (
     <div className="App">
-      <h1>RFC 3339 vs ISO 8601 { showHTML && "vs HTML" }</h1>
-      <Diagram date={showStaticDate ? README_DATE : now} html={showHTML} showKey={showColours} />
-      <p>
-        <label>
-          <input type="checkbox" checked={showHTML} onChange={e => setShowHTML(e.target.checked)} />
-          Show HTML
-        </label>
-        <label>
-          <input type="checkbox" checked={showColours} onChange={e => setShowColours(e.target.checked)} />
-          Show Key
-        </label>
-      </p>
+      { !readOnlyMode && <h1>RFC 3339 vs ISO 8601 { showHTML && "vs HTML" }</h1> }
+      { showDiagram &&
+        <>
+          <Diagram date={now} html={showHTML} showKey={showColours} />
+          {
+            !readOnlyMode &&
+            <p className='App-DiagramControls'>
+              <label>
+                <input type="checkbox" checked={showHTML} onChange={e => setShowHTML(e.target.checked)} />
+                Show HTML
+              </label>
+              <label>
+                <input type="checkbox" checked={showColours} onChange={e => setShowColours(e.target.checked)} />
+                Show Key
+              </label>
+            </p>
+          }
+        </>
+      }
       <h2 style={{marginBottom:0}}>Format Listing</h2>
       <p style={{marginBottom:0}}>Notes:</p>
       <ul>
@@ -66,7 +73,7 @@ function App() {
         { showHTML && <li>The HTML living standard defines a microsyntax for <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#dates-and-times">Dates and times</a> based on ISO 8601 and RFC 3339. It has far fewer ambiguities than either standard and gives explicit parsing rules.</li> }
         <li>The format key is given below the table.</li>
       </ul>
-      <FormatTable date={showStaticDate ? README_DATE : now} showHTML={showHTML} />
+      <FormatTable date={now} showHTML={showHTML} />
       <h3>Format Key</h3>
       <pre className='App-FormatKey'>
         <code>
@@ -95,9 +102,14 @@ function App() {
 `}
         </code>
       </pre>
-      <DownloadTestFile now={now} showHTML={showHTML} />
-      <CheckFormat now={now} showHTML={showHTML} />
-      <p><a href="https://github.com/IJMacD/rfc3339-iso8601">Source on GitHub</a></p>
+      {
+        !readOnlyMode &&
+        <>
+          <DownloadTestFile now={now} showHTML={showHTML} />
+          <CheckFormat now={now} showHTML={showHTML} />
+          <p><a href="https://github.com/IJMacD/rfc3339-iso8601">Source on GitHub</a></p>
+        </>
+      }
     </div>
   );
 }
