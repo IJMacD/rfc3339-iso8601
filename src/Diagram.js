@@ -297,11 +297,11 @@ function Diagram (props) {
           {format("%Y-%M-%DT%h:%m:%s/59", date)}
         </text>
 
-        <text x={142} y={148} className="period">
-          {format("P1W", date)}
+        <text x={134} y={170} className="period">
+          {"P1W"}
         </text>
         <text x={140} y={144} className="period">
-          {format("P1.5W", date)}
+          {"P1.5W"}
         </text>
 
         <text x={134} y={148} className="period">
@@ -314,14 +314,14 @@ function Diagram (props) {
           {"P1.5Y"}
         </text>
 
-        <text x={134} y={176} className="period">
+        <text x={134} y={162} className="period">
           {"P2M"}
         </text>
-        <text x={132} y={180} className="period">
+        <text x={130} y={182} className="period">
           {"P2,5M"}
         </text>
 
-        <text x={131} y={184} className="period">
+        <text x={132} y={176} className="period">
           {"P2.5M"}
         </text>
         <text x={138} y={192} className="period">
@@ -368,10 +368,12 @@ function Diagram (props) {
             <tspan x={180} dy={8} style={{fontSize:5}}>
               (e.g. agreement on six-digit years)
             </tspan>
-            <tspan x={180} dy={7} style={{fontSize:4}}>ISO 8601-2:2019</tspan>
           </text>
           <text   x={136}   y={164} className="date" >
             {format("+00%C", date)}
+          </text>
+          <text   x={144}   y={160} className="date" >
+            {format("+00%X", date)}
           </text>
           <text   x={148}   y={164} className="date" >
             {format("+00%Y", date)}
@@ -382,8 +384,14 @@ function Diagram (props) {
           <text   x={128}   y={168} className="date" >
             {format("+00%Y-%M-%D", date)}
           </text>
+          <text   x={130}   y={172} className="date" >
+            {format("+00%Y%M%D", date)}
+          </text>
           <text   x={148}   y={172} className="datetime" >
             {format("+00%Y-%M-%DT%h", date)}
+          </text>
+          <text   x={156}   y={176} className="date" >
+            {format("+00%Y%M", date)}
           </text>
           <text   x={124}   y={176} className="datetime" >
             {format("+00%Y-%M-%DT%h:%m", date)}
@@ -394,16 +402,19 @@ function Diagram (props) {
           <text   x={124}   y={184} className="datetime" >
             {format("+00%V-W%W-%wT%h", date)}
           </text>
-          <text   x={148}   y={188} className="datetime" >
+          <text   x={154}   y={184} className="datetime" >
+            {format("+00%Y-%OT%h:%m", date)}
+          </text>
+          <text   x={138}   y={188} className="datetime" >
             {format("+00%V-W%W-%wT%h:%m", date)}
           </text>
           <text   x={124}   y={192} className="datetime" >
             {format("+00%Y-%OT%h", date)}
-          </text>
-          <text   x={150}   y={192} className="datetime" >
-            {format("+00%Y-%OT%h:%m", date)}
-          </text>
-          <text   x={140}   y={196} className="datetime" >
+            </text>
+          <text   x={148}   y={192} className="datetime" >
+            {format("+00%Y%OT%.3h", date)}
+            </text>
+          <text   x={130}   y={196} className="datetime" >
             {format("+00%Y-%OT%h:%m%Z:%z", date)}
           </text>
           <text   x={128}   y={200} className="datetime" >
