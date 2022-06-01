@@ -1,22 +1,27 @@
 import * as datetime from './date';
 
 /**
- * %C - Century
- * %Y - Year
- * %m - Month
- * %d - Day
- * %V - Week Year
- * %W - Week
- * %w - Week Day
- * %o - Ordinal Day
- *
- * %H - Hour
- * %M - Minute
- * %S - Second
- * %U - Millisecond
- *
- * %Z - Zone Hour including +/-
- * %z - Zone Minute
+ *  %L - Millennium
+ *  %C - Century
+ *  %X - Decade
+ *  %Y - Year
+ *  %M - Month
+ *  %D - Day
+ *  %V - Week Year
+ *  %W - Week
+ *  %w - Week Day
+ *  %O - Ordinal Day
+
+ *  %h - Hour
+ *  %m - Minute
+ *  %s - Second
+ *  %u - Microsecond
+
+ *  %Z - Zone Hour including +/-
+ *  %z - Zone Minute
+
+ *  %[,.]3x - Value including fraction with given precision, using either comma or dot.
+ *  %−Z     - Use U+2212 for negative timezone hours (ISO recommended)
  */
 
 
@@ -64,39 +69,54 @@ export function formatUTC(format, date = new Date(), timezoneOffset = 0) {
     if (isNaN(timezoneOffset)) timezoneOffset = -date.getTimezoneOffset();
 
     const d = timezoneOffset !== 0 ? new Date(+date + timezoneOffset * 60 * 1000) : date;
-    let fraction = "";
 
     return format.replace(/%(−?)(.\d)?([a-z])/ig, (m, u, w, s) => {
+        let fraction = "";
+
         if (w) {
             const dot = w[0];
             const precision = +w[1];
 
-            // To support far too many digits of precision:
-            // for days and below include up to millisecond precision in the fraction
+            // To support far too many digits of precision, use milliseconds in the fraction
             const dayMs = +d % 86400000;
+            const dayFrac = dayMs / 86400000;
 
             switch (s) {
-                case "L": fraction = frac(((d.getUTCFullYear() % 1000)/1000), precision).substr(1);     break;
-                case "C": fraction = frac(((d.getUTCFullYear() % 100)/100), precision).substr(1);       break;
-                case "X": fraction = frac(((d.getUTCFullYear() % 10)/10), precision).substr(1);         break;
-                case "Y": fraction = frac((d.getUTCMonth() / 12), precision).substr(1);                 break;
-                case "M": fraction = frac(((d.getUTCDate() - 1)/(365/12)), precision).substr(1);        break;
-                case "D": fraction = frac(dayMs/86400000, precision).substr(1);                         break;
-                case "V": fraction = frac((datetime.getWeek(d)/52), precision).substr(1);               break;
-                case "W": fraction = frac(((datetime.getWeekDay(d) - 1) / 7), precision).substr(1);     break;
-                case "w": fraction = frac(dayMs/86400000, precision).substr(1);                         break;
-                case "O": fraction = frac(dayMs/86400000, precision).substr(1);                         break;
-                case "h": fraction = frac((dayMs % 3600000) / 3600000, precision).substr(1);             break;
-                case "m": fraction = frac((dayMs % 60000) / 60000, precision).substr(1);                break;
-                case "s": fraction = frac((dayMs % 1000) / 1000, precision).substr(1);                  break;
+                case "L": fraction = frac(((d.getUTCFullYear() % 1000)/1000), precision);               break;
+                case "C": fraction = frac(((d.getUTCFullYear() % 100)/100), precision);                 break;
+                case "X": fraction = frac(((d.getUTCFullYear() % 10)/10), precision);                   break;
+                case "Y":
+                    const yearDay = datetime.getYearDay(d) - 1;
+                    const yearLength = datetime.isLeapYear(d.getUTCFullYear()) ? 366: 365;
+                    fraction = frac((yearDay + dayFrac)/(yearLength), precision);
+                    break;
+                case "M":
+                    const monthDay = d.getUTCDate() - 1;
+                    const monthLength = datetime.getMonthLength(d);
+                    fraction = frac((monthDay + dayFrac)/monthLength, precision);
+                    break;
+                case "D": fraction = frac(dayFrac, precision);                                          break;
+                case "V":
+                    const weekNum = datetime.getWeek(d) - 1;
+                    const totalWeeks = datetime.getLastWeekInYear(d);
+                    const day = datetime.getWeekDay(d) + dayFrac;
+                    fraction = frac((weekNum + day / 7)/totalWeeks, precision);
+                    break;
+                case "W": fraction = frac(((datetime.getWeekDay(d) - 1 + dayFrac) / 7), precision);     break;
+                case "w": fraction = frac(dayFrac, precision);                                          break;
+                case "O": fraction = frac(dayFrac, precision);                                          break;
+                case "h": fraction = frac((dayMs % 3600000) / 3600000, precision);                      break;
+                case "m": fraction = frac((dayMs % 60000) / 60000, precision);                          break;
+                case "s": fraction = frac(d.getMilliseconds() / 1000, precision);                       break;
                 // We said precise, not necessarily accurate
-                case "u": fraction = 0..toFixed(precision).substr(1);                                   break;
-                case "Z": fraction = "";   break;
-                case "z": fraction = "";   break;
-                default: fraction = "";
+                case "u": fraction = 0..toFixed(precision);                                             break;
+                case "Z":
+                case "z":
+                default:
+                    // NOP
             }
 
-            fraction = fraction.replace(".", dot);
+            fraction = fraction.substring(1).replace(".", dot);
         }
 
         switch (s) {
