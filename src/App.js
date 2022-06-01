@@ -52,7 +52,7 @@ function App ({ initialDate = null, initalShowHTML = false, initalShowColours = 
               </label>
               <label>
                 <input type="checkbox" checked={showColours} onChange={e => setShowColours(e.target.checked)} />
-                Show Key
+                Show Colours
               </label>
             </p>
           }
