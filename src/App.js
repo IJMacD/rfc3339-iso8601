@@ -6,8 +6,10 @@ import { DownloadTestFile } from './DownloadTestFile';
 import { CheckFormat } from './CheckFormat';
 import { FormatTable } from './FormatTable';
 
-function App ({ initialDate = null, initalShowHTML = false, initalShowColours = false, readOnlyMode = false, showDiagram = true }) {
+function App ({ initialDate = null, initalShowISO = true, initalShowRFC = true, initalShowHTML = false, initalShowColours = false, readOnlyMode = false, showDiagram = true }) {
   const [ now, setNow ] = useState(() => (initialDate || new Date()));
+  const [ showISO, setShowISO ] = useSavedState("rfciso.showISO", initalShowISO);
+  const [ showRFC, setShowRFC ] = useSavedState("rfciso.showRFC", initalShowRFC);
   const [ showHTML, setShowHTML ] = useSavedState("rfciso.showHTML", initalShowHTML);
   const [ showColours, setShowColours ] = useSavedState("rfciso.showColours", initalShowColours);
   const [ isPaused, setIsPaused ] = useState(initialDate !== null);
@@ -22,8 +24,8 @@ function App ({ initialDate = null, initalShowHTML = false, initalShowColours = 
   }, [isPaused]);
 
   useEffect(() => {
-    document.title = `RFC 3339 vs ISO 8601${showHTML ? " vs HTML" : "" }`;
-  }, [showHTML]);
+    document.title = getTitle(showRFC, showISO, showHTML);
+  }, [showISO, showRFC, showHTML]);
 
   useEffect(() => {
     const cb = e => {
@@ -39,13 +41,21 @@ function App ({ initialDate = null, initalShowHTML = false, initalShowColours = 
 
   return (
     <div className="App">
-      { !readOnlyMode && <h1>RFC 3339 vs ISO 8601 { showHTML && "vs HTML" }</h1> }
+      { !readOnlyMode && <h1>{getTitle(showRFC, showISO, showHTML)}</h1> }
       { showDiagram &&
         <>
-          <Diagram date={now} html={showHTML} showKey={showColours} />
+          <Diagram date={now} iso={showISO} rfc={showRFC} html={showHTML} showKey={showColours} />
           {
             !readOnlyMode &&
             <p className='App-DiagramControls'>
+              <label>
+                <input type="checkbox" checked={showISO} onChange={e => setShowISO(e.target.checked)} />
+                Show ISO 8601
+              </label>
+              <label>
+                <input type="checkbox" checked={showRFC} onChange={e => setShowRFC(e.target.checked)} />
+                Show RFC 3339
+              </label>
               <label>
                 <input type="checkbox" checked={showHTML} onChange={e => setShowHTML(e.target.checked)} />
                 Show HTML
@@ -119,3 +129,15 @@ function App ({ initialDate = null, initalShowHTML = false, initalShowColours = 
 }
 
 export default App;
+
+function getTitle(showRFC, showISO, showHTML) {
+  const t = [];
+  if (showRFC)
+    t.push("RFC 3339");
+  if (showISO)
+    t.push("ISO 8601");
+  if (showHTML)
+    t.push("HTML");
+  return t.join(" vs ");
+}
+
