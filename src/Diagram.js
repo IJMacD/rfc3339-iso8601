@@ -348,11 +348,11 @@ function Diagram (props) {
           <text x={150} y={206} className="range">
             {format("%Y-%M-%DT%h:%m/59", date)}
           </text>
-          <text x={124} y={210} className="range">
+
+          <text x={104} y={212} className="range">
             {format("%Y-%M-%DT%h:%m:%s/59", date)}
           </text>
-
-          <text x={108} y={214} className="range">
+          <text x={135} y={212} className="range">
             {format("R2/%Y-%O/P1Y2.5MT4H", date)}
           </text>
 
@@ -525,16 +525,16 @@ function Diagram (props) {
           <text x={80} y={186} className="datetime">
             {format("%Y-%M-%DT%h:%m:%s", date)}
           </text>
-          <text x={110} y={186} className="date">
+          <text x={114} y={186} className="date">
             {format("%Y-%M", date)}
           </text>
           <text x={100} y={192} className="datetime">
             {format("%Y-%M-%DT%h:%m", date)}
           </text>
-          <text x={86} y={198} className="datetime">
+          <text x={85} y={198} className="datetime">
             {format("%Y-%M-%DT%h:%m:%.3s", date)}
           </text>
-          <text x={96} y={204} className="date">
+          <text x={94} y={204} className="date">
             {format("%V-W%W", date)}
           </text>
         </g>
