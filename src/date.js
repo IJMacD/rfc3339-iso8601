@@ -22,7 +22,7 @@ export function getYearDay(dt) {
 export function getMonthLength (d) {
     const m = d.getUTCMonth();
     if (m === 1) return isLeapYear(d.getUTCFullYear()) ? 29 : 28;
-    return [31,,31,30,31,30,31,31,30,31,30,31][m];
+    return [31,0,31,30,31,30,31,31,30,31,30,31][m];
 }
 
 /**
