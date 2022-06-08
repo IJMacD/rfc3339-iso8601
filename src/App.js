@@ -5,6 +5,7 @@ import { useSavedState } from './hooks/useSavedState';
 import { DownloadTestFile } from './Components/DownloadTestFile';
 import { CheckFormat } from './Components/CheckFormat';
 import { FormatTable } from './Components/FormatTable';
+import { ISO8601aaS } from './Components/ISO8601aaS';
 
 function App ({ initialDate = null, initalShowISO = true, initalShowRFC = true, initalShowHTML = false, initalShowColours = false, readOnlyMode = false, showDiagram = true }) {
   const [ now, setNow ] = useState(() => (initialDate || new Date()));
@@ -121,6 +122,7 @@ function App ({ initialDate = null, initalShowISO = true, initalShowRFC = true, 
         <>
           <DownloadTestFile now={now} showHTML={showHTML} />
           <CheckFormat now={now} showHTML={showHTML} />
+          <ISO8601aaS />
           <p><a href="https://github.com/IJMacD/rfc3339-iso8601">Source on GitHub</a></p>
         </>
       }

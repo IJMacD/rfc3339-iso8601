@@ -1,0 +1,22 @@
+.hl {
+    white-space: pre;
+    font-family:source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    background-color: #F4F4F4;
+    color: #333;
+}
+
+.hl-property {
+    font-weight: bold;
+}
+
+.hl-string {
+    color: green;
+}
+
+.hl-number {
+    color: blue;
+}
+
+.hl-null {
+    color: #999;
+}
