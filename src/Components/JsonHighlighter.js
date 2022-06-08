@@ -4,7 +4,7 @@ import "./JsonHighlighter.css";
 const TAB = "    ";
 
 export function JsonHighlighter ({ data }) {
-    return <div className="hl" style={{whiteSpace:"pre"}}><HighlightValue value={data} /></div>;
+    return <div className="hl"><HighlightValue value={data} /></div>;
 }
 
 function HighlightValue ({ value }) {
@@ -16,24 +16,25 @@ function HighlightValue ({ value }) {
         return (
             <>
                 <span className="hl-punctuation">[</span>
-                <>
                 {
-                    value.map((item, i) => <HighlightValue key={i} value={item} />)
+                    value.map((item, i, a) => (
+                        <Fragment key={i}>
+                            <HighlightValue value={item} />
+                            { i < a.length - 1 ? <span className="hl-punctuation">,</span> : null }
+                        </Fragment>
+                    ))
                 }
-                </>
                 <span className="hl-punctutation">]</span>
             </>
         );
     }
 
     if (typeof value === "object") {
-        const entries = [...Object.entries(value)];
-
        return (
            <>
             <span className="hl-punctuation">{"{"}</span>{"\n"}
             {
-                entries.map(([name, value], i, a) => (
+                Object.entries(value).map(([name, value], i, a) => (
                     <Fragment key={name}>
                         {TAB}
                         <span className="hl-punctuation">"</span>
@@ -47,7 +48,7 @@ function HighlightValue ({ value }) {
                 ))
             }
             {"\n"}
-            <span className="hl-punctutation">{"}"}</span>
+            <span className="hl-punctuation">{"}"}</span>
         </>
        );
     }

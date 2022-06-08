@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
+import { useDebounce } from "../hooks/useDebounce";
 import { JsonHighlighter } from "./JsonHighlighter";
 
 const SERVICE_BASE = "https://iso8601aas.ijmacd.com";
 
 const ENABLE_HIGHLIGHT = true;
 
-export function ISO8601aaS ({ }) {
+export function ISO8601aaS () {
     const [ testValue, setTestValue ] = useState("");
     const [ result, setResult ] = useState(null);
+    const debouncedTestValue = useDebounce(testValue, 500);
 
     useEffect(() => {
         let current = true;
 
-        if (testValue) {
-            fetch(`${SERVICE_BASE}/${testValue}`)
+        if (debouncedTestValue) {
+            fetch(`${SERVICE_BASE}/${debouncedTestValue}`)
             .then(r => {
                 if (r.ok) return r.json();
             })
@@ -24,7 +26,7 @@ export function ISO8601aaS ({ }) {
         }
 
         return () => { current = false; }
-    }, [testValue, setResult]);
+    }, [debouncedTestValue, setResult]);
 
     return (
         <div className="ToolBox-Card">
