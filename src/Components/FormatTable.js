@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { formatAuto } from './format';
-import { date as date_formats, time as time_formats, period as period_formats, range as range_formats, dateTime as date_time_formats } from './formats';
+import { formatAuto } from '../util/format';
+import { date as date_formats, time as time_formats, period as period_formats, range as range_formats, dateTime as date_time_formats } from '../formats';
 
 export const FormatTable = React.memo(FormatTableRaw);
 

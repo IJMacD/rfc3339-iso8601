@@ -1,4 +1,4 @@
-import { crossJoin } from "../crossJoin";
+import { crossJoin } from "../util/crossJoin";
 
 export const date = [
     "%Y-%M-%D",

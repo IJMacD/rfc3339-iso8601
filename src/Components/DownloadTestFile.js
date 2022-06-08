@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { downloadFile } from './downloadFile';
-import { formatAuto } from './format';
-import { date as date_formats, time as time_formats, dateTime as date_time_formats } from './formats';
+import { downloadFile } from '../util/downloadFile';
+import { formatAuto } from '../util/format';
+import { date as date_formats, time as time_formats, dateTime as date_time_formats } from '../formats';
 
 export function DownloadTestFile ({ now, showHTML }) {
     const [ testFileType, setTestFileType ] = useState("union");

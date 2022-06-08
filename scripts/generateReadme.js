@@ -16,12 +16,13 @@ require("@babel/register")({
     ]
   ]
 });
-const pkg = require("./package.json");
+const pkg = require("../package.json");
 const React = require("react");
 const ReactDOMServer = require("react-dom/server");
-const App = require("./src/App").default;
-const Diagram = require("./src/Diagram").default;
+const App = require("../src/App").default;
+const Diagram = require("../src/Components/Diagram").default;
 const fs = require("fs");
+// @ts-ignore
 const { convert } = require('convert-svg-to-png');
 
 const README_FILE = "README.md";
@@ -50,7 +51,7 @@ outputStream.end();
 // Generate the Diagram
 const diagramSVG = ReactDOMServer.renderToStaticMarkup(React.createElement(Diagram, { date: README_DATE }));
 
-// Write png as screenshot
+// Write png to screenshot path
 convert(diagramSVG, { background: "white", height: 1200 }).then(png => {
   fs.writeFileSync("." + pkg.screenshot, png);
 });

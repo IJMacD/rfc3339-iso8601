@@ -1,10 +1,10 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import Diagram from './Diagram';
-import { useSavedState } from './useSavedState';
-import { DownloadTestFile } from './DownloadTestFile';
-import { CheckFormat } from './CheckFormat';
-import { FormatTable } from './FormatTable';
+import Diagram from './Components/Diagram';
+import { useSavedState } from './hooks/useSavedState';
+import { DownloadTestFile } from './Components/DownloadTestFile';
+import { CheckFormat } from './Components/CheckFormat';
+import { FormatTable } from './Components/FormatTable';
 
 function App ({ initialDate = null, initalShowISO = true, initalShowRFC = true, initalShowHTML = false, initalShowColours = false, readOnlyMode = false, showDiagram = true }) {
   const [ now, setNow ] = useState(() => (initialDate || new Date()));

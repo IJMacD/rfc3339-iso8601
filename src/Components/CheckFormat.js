@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { date as rfc_date, time as rfc_time, dateTime as rfc_dateTime } from "./formats/rfc";
-import { date as iso_date, time as iso_time, dateTime as iso_dateTime, period as iso_period, range as iso_range } from "./formats/iso";
-import { date as html_date, time as html_time, dateTime as html_dateTime, period as html_period } from "./formats/html";
-import { formatAuto } from "./format";
+import { date as rfc_date, time as rfc_time, dateTime as rfc_dateTime } from "../formats/rfc";
+import { date as iso_date, time as iso_time, dateTime as iso_dateTime, period as iso_period, range as iso_range } from "../formats/iso";
+import { date as html_date, time as html_time, dateTime as html_dateTime, period as html_period } from "../formats/html";
+import { formatAuto } from "../util/format";
 
 export function CheckFormat ({ now, showHTML }) {
     const [ testValue, setTestValue ] = useState("%Y-%M-%D");

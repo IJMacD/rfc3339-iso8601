@@ -25,7 +25,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build",
-    "readme": "node ./generateReadme.js"
+    "readme": "node ./scripts/generateReadme.js"
   },
   "eslintConfig": {
     "extends": [

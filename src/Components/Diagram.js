@@ -1,5 +1,5 @@
 import * as React from "react"
-import { format, formatUTC } from "./format";
+import { format, formatUTC } from "../util/format";
 
 function Diagram (props) {
   const { date, rfc = true, iso = true, html = false, showKey = false, ...restProps } = props;
