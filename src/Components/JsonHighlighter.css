@@ -3,6 +3,7 @@
     font-family:source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
     background-color: #F4F4F4;
     color: #333;
+    padding: 0.8em;
 }
 
 .hl-property {
@@ -15,6 +16,10 @@
 
 .hl-number {
     color: blue;
+}
+
+.hl-boolean {
+    color: #c80000;
 }
 
 .hl-null {
