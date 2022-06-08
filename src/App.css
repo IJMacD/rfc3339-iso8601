@@ -50,6 +50,7 @@ code {
 
 pre code {
   display: block;
+  border-radius: 0;
 }
 
 .App-FormatTable code {
@@ -131,4 +132,39 @@ pre code {
 .hint {
   font-size: 0.8em;
   color: #333;
+  font-style: italic;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #181818;
+    color: #f9F9F9;
+  }
+  text {
+    fill: white;
+  }
+  .diagram--key .period, .key-period {
+    fill: #a6759a;
+  }
+  .App-FormatTable tbody th {
+    background: #303030;
+  }
+
+  .App-FormatTable th, .App-FormatTable td {
+    border: 1px solid #404040;
+  }
+
+  .App-FormatTable tbody tr:nth-child(2n) td {
+    background: #202020;
+  }
+  code {
+    color: #C0C0C0;
+    background-color: #303030;
+  }
+  pre code {
+    background-color: #080808;
+  }
+  .hint {
+    color: #AAA;
+  }
 }

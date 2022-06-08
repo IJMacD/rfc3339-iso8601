@@ -25,3 +25,13 @@
 .hl-null {
     color: #999;
 }
+
+@media (prefers-color-scheme: dark) {
+    .hl {
+        background-color: #222;
+        color: #F4F4F4;
+    }
+    .hl-number {
+        color: #7c7cff;
+    }
+}
