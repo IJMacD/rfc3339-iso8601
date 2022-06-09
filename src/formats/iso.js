@@ -69,6 +69,11 @@ export const dateTime = [
     // Sample of positive timezone
     "%Y-%M-%DT%h:%m:%s+08",
     "%Y-%M-%DT%h:%m:%s+08:45",
+    // Sample of negative timezone
+    "%Y-%M-%DT%h-12",
+    "%Y-%M-%DT%h-12:00",
+    "%Y-%M-%DT%h:%m-12",
+    "%Y-%M-%DT%h:%m-12:00",
     // Sample of negative timezone with U+2212
     "%Y-%M-%DT%h:%m:%s−12",
     "%Y-%M-%DT%h:%m:%s−12:00",
