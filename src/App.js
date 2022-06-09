@@ -77,9 +77,17 @@ function App ({ initialDate = null, initalShowISO = true, initalShowRFC = true, 
         <li><a href="https://www.iso.org/obp/ui#iso:std:iso:8601:-2:ed-1:v1:en">ISO 8601-2:2019</a> contains additional representations including sub-year groupings such as for seasons; grouped units; sets; uncertainty qualifications; and date arithmetic. These are not yet represented on this page.</li>
         <li><a href="https://datatracker.ietf.org/doc/html/rfc3339">RFC 3339</a> allows for other characters to replace <code>T</code> but only gives a space character as an example.</li>
         <li>RFC 3339 is case-insensitive so every <code>T</code> or <code>Z</code> could also be <code>t</code> or <code>z</code> respectively. Previous editions of ISO 8601 were also case-insensitive.</li>
-        <li>ISO 8601 allows decimal fractions of the smallest time value. These are represented here by a single fractional digit but the standard allows arbitrary precision.</li>
-        <li>ISO 8601 prefers commas to dots for decimal separation but they are interchangeable in all formats.</li>
-        <li>ISO 8601 recommends U+2212 MINUS "−" for timezones west of Greenwich. The formatter defaults to U+2D HYPHEN MINUS "-" which is valid under both standards.</li>
+        {/* ISO 8601-1:2019 § 5.3.1.4 */}
+        <li>ISO 8601 allows decimal fractions of the smallest time value. These are mostly represented here by a single fractional digit but the standard allows arbitrary precision.</li>
+        {/* ISO 8601-1:2019 § 3.2.6 */}
+        <li>ISO 8601 allows commas and dots for decimal separation but they are interchangeable in all formats.</li>
+        {/* ISO 8601-1:2019 § 3.2.1 */}
+        <li>
+          ISO 8601 uses a <em>hyphen</em> character (in Unicode, <code>U+2010 HYPHEN "‐"</code>) and <em>minus</em> character (in Unicode, <code>U+2212 MINUS "−"</code>).<br/>
+          When using character sets which don't have these characters a <em>hyphen-minus</em> character (in Unicode, <code>U+2D HYPHEN-MINUS "-"</code>) should be used instead.<br/>
+          The formatter defaults to using hyphen-minus which is valid under both standards.
+        </li>
+        {/* ISO 8601-1:2019 § 5.3.5 */}
         <li>
           ISO 8601-1:2019 permits omitting the <code>T</code> in the <em>time of day</em> representations (<b>Times</b>) when unambiguous.<br/>However, a <code>T</code> is always required in <em>date and time of day</em> representations (<b>Date-Times</b>).<br/>
           Previous editions also allowed omitting the <code>T</code> in Date-Times but it was never permitted to <em>insert</em> alternative characters (e.g. space or underscore).
