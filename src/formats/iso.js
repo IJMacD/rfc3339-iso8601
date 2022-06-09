@@ -35,7 +35,6 @@ const timezone_time = [
     ...base_time,
     ...base_time.map(f => `${f}Z`),
     ...base_time.map(f => `${f}%Z`),
-    ...base_time.map(f => `${f}%Z%z`),
     ...base_time.map(f => `${f}%Z:%z`),
 ];
 
@@ -80,11 +79,6 @@ export const dateTime = [
     // Sample of positive 00:00 timezone
     "%Y-%M-%DT%h:%m:%s+00:00",
     "%Y-%M-%DT%h:%m:%.3s+00:00",
-    // Sample of positive timezone without colon
-    "%Y-%M-%DT%h:%m:%s+0845",
-    // Sample of positive 00:00 timezone without colon
-    "%Y-%M-%DT%h:%m:%s+0000",
-    "%Y-%M-%DT%h:%m:%.3s+0000",
 ];
 
 export const period = [
