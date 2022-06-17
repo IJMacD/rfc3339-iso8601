@@ -17,6 +17,7 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "4.0.3",
+    "timesync": "^1.0.10",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

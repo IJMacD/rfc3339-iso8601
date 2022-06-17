@@ -1,11 +1,12 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Diagram from './Components/Diagram';
 import { useSavedState } from './hooks/useSavedState';
 import { DownloadTestFile } from './Components/DownloadTestFile';
 import { CheckFormat } from './Components/CheckFormat';
 import { FormatTable } from './Components/FormatTable';
 import { ISO8601aaS } from './Components/ISO8601aaS';
+import * as timesync from 'timesync';
 
 function App ({ initialDate = null, initalShowISO = true, initalShowRFC = true, initalShowHTML = false, initalShowColours = false, readOnlyMode = false, showDiagram = true }) {
   const [ now, setNow ] = useState(() => (initialDate || new Date()));
@@ -14,10 +15,24 @@ function App ({ initialDate = null, initalShowISO = true, initalShowRFC = true, 
   const [ showHTML, setShowHTML ] = useSavedState("rfciso.showHTML", initalShowHTML);
   const [ showColours, setShowColours ] = useSavedState("rfciso.showColours", initalShowColours);
   const [ isPaused, setIsPaused ] = useState(initialDate !== null);
+  const tsRef = useRef(/** @type {any} */(null));
+
+  useEffect(() => {
+    tsRef.current = timesync.create({
+      server: "https://json-rpc-time.azurewebsites.net/rpc",
+    });
+
+      // get notified on changes in the offset
+    tsRef.current.on('change', function (offset) {
+      console.log('changed offset: ' + offset + ' ms');
+    });
+
+    return () => tsRef.current.destroy();
+  }, []);
 
   useEffect(() => {
     if (!isPaused) {
-      const update = () => setNow(new Date());
+      const update = () => setNow(new Date(tsRef.current.now()));
       update();
       const intervalID = setInterval(update, 1000);
       return () => clearTimeout(intervalID);

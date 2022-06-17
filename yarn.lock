@@ -4038,6 +4038,13 @@ debug@4, debug@4.3.4:
   dependencies:
     ms "2.1.2"
 
+debug@4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.2.0.tgz#7f150f93920e94c58f5574c2fd01a3110effe7f1"
+  integrity sha512-IX2ncY78vDTjZMFUdmsvIRFY2Cf4FnD0wRs+nQwJU8Lu99/tPFdb0VybiiMTPe3I6rQmwsqQqRBvxU+bZ/I8sg==
+  dependencies:
+    ms "2.1.2"
+
 debug@^3.1.1, debug@^3.2.6:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.7.tgz#72580b7e9145fb39b6676f9c5e5fb100b934179a"
@@ -10893,6 +10900,13 @@ timers-browserify@^2.0.4:
   integrity sha512-9phl76Cqm6FhSX9Xe1ZUAMLtm1BLkKj2Qd5ApyWkXzsMRaA7dgr81kf4wJmQf/hAvg8EEyJxDo3du/0KlhPiKQ==
   dependencies:
     setimmediate "^1.0.4"
+
+timesync@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/timesync/-/timesync-1.0.10.tgz#d6531a0429a1047b5fbb4096a305844e8e6d75d4"
+  integrity sha512-40bwE6Rxh7gcJgdl0dAcUzPDPsByfRY5EV14jKmDeRnT+dOLzN2yl0gz5fHrSOnnXopfzkuMn4rhR7xaFTqw0g==
+  dependencies:
+    debug "4.2.0"
 
 timsort@^0.3.0:
   version "0.3.0"
