@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { downloadFile } from '../util/downloadFile';
 import { formatAuto } from '../util/format';
 import { date as date_formats, time as time_formats, dateTime as date_time_formats } from '../formats';
+import TimeZoneContext from '../TimeZoneContext';
+import { getCurrentTimezoneOffset } from '../util/timeZone';
+import React from 'react';
 
 export function DownloadTestFile ({ now, showHTML }) {
     const [ testFileType, setTestFileType ] = useState("union");
     const [ testFileISO, setTestFileISO ] = useState(true);
     const [ testFileRFC, setTestFileRFC ] = useState(true);
     const [ testFileHTML, setTestFileHTML ] = useState(showHTML);
+
+    const timeZone = useContext(TimeZoneContext);
+
+    const timeZoneOffset = typeof timeZone === "string" ? getCurrentTimezoneOffset(timeZone) : (void 0);
 
     const formatCount = (testFileRFC ? 1 : 0) + (testFileISO ? 1 : 0) + (testFileHTML && showHTML ? 1 : 0);
 
@@ -100,13 +107,13 @@ export function DownloadTestFile ({ now, showHTML }) {
         const str = [];
 
         str.push("# Dates");
-        str.push(...df.map(f => formatAuto(f.format, now)));
+        str.push(...df.map(f => formatAuto(f.format, now, timeZoneOffset)));
 
         str.push("# Times");
-        str.push(...tf.map(f => formatAuto(f.format, now)));
+        str.push(...tf.map(f => formatAuto(f.format, now, timeZoneOffset)));
 
         str.push("# Date-Times");
-        str.push(...dtf.map(f => formatAuto(f.format, now)));
+        str.push(...dtf.map(f => formatAuto(f.format, now, timeZoneOffset)));
 
         filename += ".txt";
 

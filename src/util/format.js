@@ -40,11 +40,10 @@ export function format(format, date = new Date()) {
  * Takes timezone from the format automatically
  * @param {string} format
  * @param {Date} [date]
+ * @param {number} [timezoneOffset]
  */
-export function formatAuto(format, date = new Date()) {
+export function formatAuto(format, date = new Date(), timezoneOffset = -date.getTimezoneOffset()) {
     const empty = format.replace(/%(−?)(.\d+)?([a-z])/ig, "");
-
-    let timezoneOffset = -date.getTimezoneOffset();
 
     if (empty.match(/Z$/i)) {
         timezoneOffset = 0;

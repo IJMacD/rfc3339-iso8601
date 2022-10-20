@@ -3,8 +3,10 @@ import { useCallback, useState } from "react";
 const ls = typeof localStorage !== "undefined" ? localStorage : { getItem: () => null, setItem: () => {} };
 
 /**
+ * @template T
  * @param {string} key
- * @param {any} defaultValue
+ * @param {T} defaultValue
+ * @returns {[T, (newValue: T) => void]}
  */
 export function useSavedState (key, defaultValue) {
     const [ state, setState ] = useState(() => {

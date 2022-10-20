@@ -1,5 +1,7 @@
-import * as React from "react"
-import { format, formatUTC } from "../util/format";
+import React from "react"
+import TimeZoneContext from "../TimeZoneContext";
+import { formatUTC } from "../util/format";
+import { getCurrentTimezoneOffset } from "../util/timeZone";
 
 function Diagram (props) {
   const { date, rfc = true, iso = true, html = false, showKey = false, ...restProps } = props;
@@ -8,6 +10,10 @@ function Diagram (props) {
   const [ showDateTime, setShowDateTime ] = React.useState(true);
   const [ showPeriod, setShowPeriod ] = React.useState(true);
   const [ showRange, setShowRange ] = React.useState(true);
+
+  const timeZone = React.useContext(TimeZoneContext);
+
+  const timeZoneOffset = typeof timeZone === "string" ? getCurrentTimezoneOffset(timeZone) : (void 0);
 
   const className = `diagram ${showKey?"diagram--key":""} ${showDate?"":"diagram--hide-date"} ${showTime?"":"diagram--hide-time"} ${showDateTime?"":"diagram--hide-datetime"} ${showPeriod?"":"diagram--hide-period"} ${showRange?"":"diagram--hide-range"}`;
 
@@ -74,7 +80,7 @@ function Diagram (props) {
             {formatUTC("%Y-%M-%Dt%h:%m:%sz", date)}
           </text>
           <text x={32} y={106} className="datetime">
-            {format("%Y-%M-%Dt%h:%m:%s%Z:%z", date)}
+            {formatUTC("%Y-%M-%Dt%h:%m:%s%Z:%z", date, timeZoneOffset)}
           </text>
         </g>
       }
@@ -87,7 +93,7 @@ function Diagram (props) {
             {formatUTC("%Y-%M-%D %h:%m:%.3sZ", date)}
           </text>
           <text x={29} y={140} className="datetime">
-            {format("%Y-%M-%D %h:%m:%s%Z:%z", date)}
+            {formatUTC("%Y-%M-%D %h:%m:%s%Z:%z", date, timeZoneOffset)}
           </text>
           {/* <text x={30} y={148}>
             {format("%Y-%M-%D %h:%m:%.3s%Z:%z", date)}
@@ -97,7 +103,7 @@ function Diagram (props) {
       { (iso || rfc || html) &&
         <g id="all">
           <text x={76} y={110} className="date">
-            {format("%Y-%M-%D", date)}
+            {formatUTC("%Y-%M-%D", date, timeZoneOffset)}
           </text>
           <text x={72} y={116} className="datetime">
             {formatUTC("%Y-%M-%DT%h:%m:%sZ", date)}
@@ -118,16 +124,16 @@ function Diagram (props) {
             {formatUTC("%Y-%M-%DT%h:%m:%.1s+00:00", date)}
           </text>
           <text x={64} y={150} className="datetime">
-            {format("%Y-%M-%DT%h:%m:%s%Z:%z", date)}
+            {formatUTC("%Y-%M-%DT%h:%m:%s%Z:%z", date, timeZoneOffset)}
           </text>
           <text x={74} y={155} className="datetime">
-            {format("%Y-%M-%DT%h:%m:%.1s%Z:%z", date)}
+            {formatUTC("%Y-%M-%DT%h:%m:%.1s%Z:%z", date, timeZoneOffset)}
           </text>
           <text x={70} y={160} className="datetime">
-            {format("%Y-%M-%DT%h:%m:%.2s%Z:%z", date)}
+            {formatUTC("%Y-%M-%DT%h:%m:%.2s%Z:%z", date, timeZoneOffset)}
           </text>
           <text x={65} y={165} className="datetime">
-            {format("%Y-%M-%DT%h:%m:%.3s%Z:%z", date)}
+            {formatUTC("%Y-%M-%DT%h:%m:%.3s%Z:%z", date, timeZoneOffset)}
           </text>
         </g>
       }
@@ -144,10 +150,10 @@ function Diagram (props) {
             {formatUTC("%h:%m:%.2sZ", date)}
           </text>
           <text x={82} y={105} className="time">
-            {format("%h:%m:%.3s%Z:%z", date)}
+            {formatUTC("%h:%m:%.3s%Z:%z", date, timeZoneOffset)}
           </text>
           <text x={102} y={110} className="time">
-            {format("%h:%m:%s%Z:%z", date)}
+            {formatUTC("%h:%m:%s%Z:%z", date, timeZoneOffset)}
           </text>
           <text x={109} y={115} className="time">
             {formatUTC("%h:%m:%.1sZ", date)}
@@ -174,122 +180,122 @@ function Diagram (props) {
             <tspan x={170.8} dy={6} style={{fontSize:"0.4em"}}>ISO 8601-1:2019</tspan>
           </text>
           <text x={110} y={84} className="datetime">
-            {format("%Y-%M-%DT%,1h", date)}
+            {formatUTC("%Y-%M-%DT%,1h", date, timeZoneOffset)}
           </text>
           <text x={136} y={84} className="datetime">
-            {format("%Y-%M-%DT%.1h", date)}
+            {formatUTC("%Y-%M-%DT%.1h", date, timeZoneOffset)}
           </text>
           <text x={126} y={88} className="datetime">
             {formatUTC("%Y-%M-%DT%h:%m:%s\u221201:00", date, -60)}
           </text>
           <text x={116} y={92} className="datetime">
-            {format("%Y-%M-%DT%h:%,1m", date)}
+            {formatUTC("%Y-%M-%DT%h:%,1m", date, timeZoneOffset)}
           </text>
           <text x={148} y={92} className="datetime">
-            {format("%Y-%M-%DT%h:%.1m", date)}
+            {formatUTC("%Y-%M-%DT%h:%.1m", date, timeZoneOffset)}
           </text>
           <text x={120} y={96} className="time">
-            {format("T%h:%m:%s", date)}
+            {formatUTC("T%h:%m:%s", date, timeZoneOffset)}
           </text>
           <text x={140} y={96} className="time">
             {formatUTC("T%h:%m:%sZ", date)}
           </text>
           <text x={160} y={96} className="time">
-            {format("T%h:%m:%s%Z:%z", date)}
+            {formatUTC("T%h:%m:%s%Z:%z", date, timeZoneOffset)}
           </text>
           <text x={164} y={100} className="time">
-            {format("T%h:%m:%s%Z", date)}
+            {formatUTC("T%h:%m:%s%Z", date, timeZoneOffset)}
           </text>
           <text x={120} y={100} className="date">
-            {format("%Y", date)}
+            {formatUTC("%Y", date, timeZoneOffset)}
           </text>
           <text x={132} y={100} className="date">
-            {format("%X", date)}
+            {formatUTC("%X", date, timeZoneOffset)}
           </text>
           <text x={142} y={100} className="date">
-            {format("%C", date)}
+            {formatUTC("%C", date, timeZoneOffset)}
           </text>
           <text x={148} y={100} className="time">
-            {format("%h:%m:%s%Z", date)}
+            {formatUTC("%h:%m:%s%Z", date, timeZoneOffset)}
           </text>
           <text x={124} y={104} className="date">
-            {format("%Y-%O", date)}
+            {formatUTC("%Y-%O", date, timeZoneOffset)}
           </text>
           <text x={140} y={104} className="datetime">
-            {format("%Y-%OT%h:%m", date)}
+            {formatUTC("%Y-%OT%h:%m", date, timeZoneOffset)}
           </text>
           <text x={166} y={104} className="datetime">
-            {format("%Y-%OT%.1h", date)}
+            {formatUTC("%Y-%OT%.1h", date, timeZoneOffset)}
           </text>
           <text x={126} y={108} className="datetime">
-            {format("%Y-%OT%h:%m:%s", date)}
+            {formatUTC("%Y-%OT%h:%m:%s", date, timeZoneOffset)}
           </text>
           <text x={164} y={108} className="range">
-            {format("%Y-%O/P2M", date)}
+            {formatUTC("%Y-%O/P2M", date, timeZoneOffset)}
           </text>
           <text x={128} y={112} className="range">
-            {format("%Y-W%W/P2M", date)}
+            {formatUTC("%Y-W%W/P2M", date, timeZoneOffset)}
           </text>
 
           <text x={166} y={116} className="range">
-            {format("%Y-%OT%h/PT2M", date)}
+            {formatUTC("%Y-%OT%h/PT2M", date, timeZoneOffset)}
           </text>
           <text x={160} y={112} className="range">
-            {format("%Y-W%W-%wT%h:%m/PT2M", date)}
+            {formatUTC("%Y-W%W-%wT%h:%m/PT2M", date, timeZoneOffset)}
           </text>
           <text x={133.259} y={120} className="date">
-            {format("%V-W%W-%w", date)}
+            {formatUTC("%V-W%W-%w", date, timeZoneOffset)}
           </text>
           <text x={160.336} y={120} className="datetime">
-            {format("%V-W%W-%wT%h:%m", date)}
+            {formatUTC("%V-W%W-%wT%h:%m", date, timeZoneOffset)}
           </text>
           <text x={169.336} y={124} className="datetime">
-            {format("%V-W%W-%wT%h:%m:%s", date)}
+            {formatUTC("%V-W%W-%wT%h:%m:%s", date, timeZoneOffset)}
           </text>
           <text x={129.087} y={124} className="datetime">
-            {format("%Y-%M-%DT%h:%m:%s.%u", date)}
+            {formatUTC("%Y-%M-%DT%h:%m:%s.%u", date, timeZoneOffset)}
           </text>
 
           <text x={128} y={128} className="range">
-            {format("%Y/P2M", date)}
+            {formatUTC("%Y/P2M", date, timeZoneOffset)}
           </text>
           <text x={144.336} y={128} className="range">
-            {format("%Y-%M/P2M", date)}
+            {formatUTC("%Y-%M/P2M", date, timeZoneOffset)}
           </text>
           <text x={164.336} y={128} className="range">
-            {format("%Y-%M-%D/P2M", date)}
+            {formatUTC("%Y-%M-%D/P2M", date, timeZoneOffset)}
           </text>
 
           <text x={129.336} y={132} className="range">
-            {format("%Y-%M-%DT%h/PT2M", date)}
+            {formatUTC("%Y-%M-%DT%h/PT2M", date, timeZoneOffset)}
           </text>
           <text x={166} y={132} className="range">
-            {format("%Y-%M-%DT%h:%m/PT2M", date)}
+            {formatUTC("%Y-%M-%DT%h:%m/PT2M", date, timeZoneOffset)}
           </text>
 
           <text x={128} y={136} className="range">
-            {format("%Y-%M-%DT%h:%m:%s/P3D", date)}
+            {formatUTC("%Y-%M-%DT%h:%m:%s/P3D", date, timeZoneOffset)}
           </text>
           <text x={170} y={136} className="range">
-            {format("%Y-%M-%DT%h:%m:%s/PT2M", date)}
+            {formatUTC("%Y-%M-%DT%h:%m:%s/PT2M", date, timeZoneOffset)}
           </text>
 
           <text x={134} y={140} className="range">
-            {format("%Y-%M-%D/28", date)}
+            {formatUTC("%Y-%M-%D/28", date, timeZoneOffset)}
           </text>
 
           <text x={184} y={140} className="range">
-            {format("%Y-W%W-%w/P2M", date)}
+            {formatUTC("%Y-W%W-%w/P2M", date, timeZoneOffset)}
           </text>
           <text x={192} y={144} className="range">
-            {format("%Y-%M/12", date)}
+            {formatUTC("%Y-%M/12", date, timeZoneOffset)}
           </text>
 
           <text x={116} y={206} className="range">
-            {format("%Y-%OT%h:%m:%s/PT3H", date)}
+            {formatUTC("%Y-%OT%h:%m:%s/PT3H", date, timeZoneOffset)}
           </text>
           <text x={130} y={116} className="range">
-            {format("%Y-W%W-%wT%h:%m:%s/PT2M", date)}
+            {formatUTC("%Y-W%W-%wT%h:%m:%s/PT2M", date, timeZoneOffset)}
           </text>
 
           <text x={132} y={144} className="period">
@@ -335,29 +341,29 @@ function Diagram (props) {
           </text>
 
           <text x={126} y={196} className="range">
-            {format("%Y-%M-%D/%Y-12-31", date)}
+            {formatUTC("%Y-%M-%D/%Y-12-31", date, timeZoneOffset)}
           </text>
 
           <text x={120} y={201} className="range">
-            {format("%Y-%M-%DT%h/23", date)}
+            {formatUTC("%Y-%M-%DT%h/23", date, timeZoneOffset)}
           </text>
           <text x={148} y={201} className="period">
             {"P1Y2.5MT4H"}
           </text>
 
           <text x={150} y={206} className="range">
-            {format("%Y-%M-%DT%h:%m/59", date)}
+            {formatUTC("%Y-%M-%DT%h:%m/59", date, timeZoneOffset)}
           </text>
 
           <text x={104} y={212} className="range">
-            {format("%Y-%M-%DT%h:%m:%s/59", date)}
+            {formatUTC("%Y-%M-%DT%h:%m:%s/59", date, timeZoneOffset)}
           </text>
           <text x={135} y={212} className="range">
-            {format("R2/%Y-%O/P1Y2.5MT4H", date)}
+            {formatUTC("R2/%Y-%O/P1Y2.5MT4H", date, timeZoneOffset)}
           </text>
 
           <text x={120} y={218} className="range">
-            {format("R/%Y-W%W-%wT%h/PT45M", date)}
+            {formatUTC("R/%Y-W%W-%wT%h/PT45M", date, timeZoneOffset)}
           </text>
 
           <g id="iso-mutual" transform="translate(20 -18)">
@@ -383,58 +389,58 @@ function Diagram (props) {
               </tspan>
             </text>
             <text   x={136}   y={164} className="date" >
-              {format("+00%C", date)}
+              {formatUTC("+00%C", date, timeZoneOffset)}
             </text>
             <text   x={144}   y={160} className="date" >
-              {format("+00%X", date)}
+              {formatUTC("+00%X", date, timeZoneOffset)}
             </text>
             <text   x={148}   y={164} className="date" >
-              {format("+00%Y", date)}
+              {formatUTC("+00%Y", date, timeZoneOffset)}
             </text>
             <text   x={154}   y={168} className="date" >
-              {format("+00%Y-%M", date)}
+              {formatUTC("+00%Y-%M", date, timeZoneOffset)}
             </text>
             <text   x={128}   y={168} className="date" >
-              {format("+00%Y-%M-%D", date)}
+              {formatUTC("+00%Y-%M-%D", date, timeZoneOffset)}
             </text>
             <text   x={130}   y={172} className="date" >
-              {format("+00%Y%M%D", date)}
+              {formatUTC("+00%Y%M%D", date, timeZoneOffset)}
             </text>
             <text   x={148}   y={172} className="datetime" >
-              {format("+00%Y-%M-%DT%h", date)}
+              {formatUTC("+00%Y-%M-%DT%h", date, timeZoneOffset)}
             </text>
             <text   x={156}   y={176} className="date" >
-              {format("+00%Y%M", date)}
+              {formatUTC("+00%Y%M", date, timeZoneOffset)}
             </text>
             <text   x={124}   y={176} className="datetime" >
-              {format("+00%Y-%M-%DT%h:%m", date)}
+              {formatUTC("+00%Y-%M-%DT%h:%m", date, timeZoneOffset)}
             </text>
             <text   x={148}   y={180} className="datetime" >
-              {format("+00%Y-%M-%DT%h:%m:%s", date)}
+              {formatUTC("+00%Y-%M-%DT%h:%m:%s", date, timeZoneOffset)}
             </text>
             <text   x={124}   y={184} className="datetime" >
-              {format("+00%V-W%W-%wT%h", date)}
+              {formatUTC("+00%V-W%W-%wT%h", date, timeZoneOffset)}
             </text>
             <text   x={154}   y={184} className="datetime" >
-              {format("+00%Y-%OT%h:%m", date)}
+              {formatUTC("+00%Y-%OT%h:%m", date, timeZoneOffset)}
             </text>
             <text   x={138}   y={188} className="datetime" >
-              {format("+00%V-W%W-%wT%h:%m", date)}
+              {formatUTC("+00%V-W%W-%wT%h:%m", date, timeZoneOffset)}
             </text>
             <text   x={124}   y={192} className="datetime" >
-              {format("+00%Y-%OT%h", date)}
+              {formatUTC("+00%Y-%OT%h", date, timeZoneOffset)}
               </text>
             <text   x={148}   y={192} className="datetime" >
-              {format("+00%Y%OT%.3h", date)}
+              {formatUTC("+00%Y%OT%.3h", date, timeZoneOffset)}
               </text>
             <text   x={130}   y={197} className="datetime" >
-              {format("+00%Y-%OT%h:%m%Z:%z", date)}
+              {formatUTC("+00%Y-%OT%h:%m%Z:%z", date, timeZoneOffset)}
             </text>
             <text   x={128}   y={202} className="datetime" >
-              {format("+00%Y-%OT%h:%m:%s", date)}
+              {formatUTC("+00%Y-%OT%h:%m:%s", date, timeZoneOffset)}
             </text>
             <text   x={144}   y={207} className="datetime" >
-              {format("+00%Y%OT%h%m%s", date)}
+              {formatUTC("+00%Y%OT%h%m%s", date, timeZoneOffset)}
             </text>
             <text   x={136}   y={212} className="datetime" >
               {formatUTC("+00%Y%M%DT%h%m%sZ", date)}
@@ -462,13 +468,13 @@ function Diagram (props) {
             <tspan dx={-28} dy={6} style={{fontSize:"0.4em"}}>Living Standard</tspan>
           </text>
           <text x={42} y={172} className="datetime">
-            {format("%Y-%M-%D %h:%m", date)}
+            {formatUTC("%Y-%M-%D %h:%m", date, timeZoneOffset)}
           </text>
           <text x={50} y={178} className="datetime">
-            {format("%Y-%M-%D %h:%m:%s", date)}
+            {formatUTC("%Y-%M-%D %h:%m:%s", date, timeZoneOffset)}
           </text>
           <text x={54} y={184} className="datetime">
-            {format("%Y-%M-%D %h:%m:%.3s", date)}
+            {formatUTC("%Y-%M-%D %h:%m:%.3s", date, timeZoneOffset)}
           </text>
           <text x={68} y={190} className="date">
             {formatUTC("--%M-%D", date)}
@@ -477,65 +483,65 @@ function Diagram (props) {
             {formatUTC("%M-%D", date)}
           </text>
           <text x={88} y={196} className="period">
-            {format("1 D", date)}
+            {formatUTC("1 D", date, timeZoneOffset)}
           </text>
           <text x={82} y={202} className="period">
-            {format("5 M 4 W", date)}
+            {formatUTC("5 M 4 W", date, timeZoneOffset)}
           </text>
         </g>
       }
       { (iso || html) &&
         <g id="iso-html">
           <text x={123} y={144} className="period">
-            {format("P1D", date)}
+            {formatUTC("P1D", date, timeZoneOffset)}
           </text>
           <text x={124} y={150} className="period">
-            {format("PT1H", date)}
+            {formatUTC("PT1H", date, timeZoneOffset)}
           </text>
           <text x={124} y={156} className="period">
-            {format("PT1M", date)}
+            {formatUTC("PT1M", date, timeZoneOffset)}
           </text>
           <text x={116} y={162} className="period">
-            {format("P1DT1H1M", date)}
+            {formatUTC("P1DT1H1M", date, timeZoneOffset)}
           </text>
           <text x={106} y={168} className="period">
-            {format("P1DT1.1S", date)}
+            {formatUTC("P1DT1.1S", date, timeZoneOffset)}
           </text>
           <text x={124} y={168} className="period">
-            {format("PT1S", date)}
+            {formatUTC("PT1S", date, timeZoneOffset)}
           </text>
           <text x={116} y={174} className="period">
-            {format("P1TD1.12S", date)}
+            {formatUTC("P1TD1.12S", date, timeZoneOffset)}
           </text>
           <text x={100} y={174} className="time">
-            {format("%h:%m:%s", date)}
+            {formatUTC("%h:%m:%s", date, timeZoneOffset)}
           </text>
           <text x={70} y={180} className="time">
-            {format("%h:%m", date)}
+            {formatUTC("%h:%m", date, timeZoneOffset)}
           </text>
           <text x={80} y={180} className="time">
-            {format("%h:%m:%.1s", date)}
+            {formatUTC("%h:%m:%.1s", date, timeZoneOffset)}
           </text>
           <text x={94} y={180} className="time">
-            {format("%h:%m:%.3s", date)}
+            {formatUTC("%h:%m:%.3s", date, timeZoneOffset)}
           </text>
           <text x={112} y={180} className="period">
-            {format("P1DT1.123S", date)}
+            {formatUTC("P1DT1.123S", date, timeZoneOffset)}
           </text>
           <text x={80} y={186} className="datetime">
-            {format("%Y-%M-%DT%h:%m:%s", date)}
+            {formatUTC("%Y-%M-%DT%h:%m:%s", date, timeZoneOffset)}
           </text>
           <text x={114} y={186} className="date">
-            {format("%Y-%M", date)}
+            {formatUTC("%Y-%M", date, timeZoneOffset)}
           </text>
           <text x={100} y={192} className="datetime">
-            {format("%Y-%M-%DT%h:%m", date)}
+            {formatUTC("%Y-%M-%DT%h:%m", date, timeZoneOffset)}
           </text>
           <text x={85} y={198} className="datetime">
-            {format("%Y-%M-%DT%h:%m:%.3s", date)}
+            {formatUTC("%Y-%M-%DT%h:%m:%.3s", date, timeZoneOffset)}
           </text>
           <text x={94} y={204} className="date">
-            {format("%V-W%W", date)}
+            {formatUTC("%V-W%W", date, timeZoneOffset)}
           </text>
         </g>
       }
