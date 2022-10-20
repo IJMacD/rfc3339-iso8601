@@ -1,5 +1,8 @@
 import * as datetime from './date';
 
+// Spoof milliseconds/microseconds
+const FRACTIONAL_SECONDS = Math.random();
+
 /**
  *  %L - Millennium
  *  %C - Century
@@ -39,7 +42,7 @@ export function format(format, date = new Date()) {
  * @param {Date} [date]
  */
 export function formatAuto(format, date = new Date()) {
-    const empty = format.replace(/%(−?)(.\d)?([a-z])/ig, "");
+    const empty = format.replace(/%(−?)(.\d+)?([a-z])/ig, "");
 
     let timezoneOffset = -date.getTimezoneOffset();
 
@@ -70,12 +73,12 @@ export function formatUTC(format, date = new Date(), timezoneOffset = 0) {
 
     const d = timezoneOffset !== 0 ? new Date(+date + timezoneOffset * 60 * 1000) : date;
 
-    return format.replace(/%(−?)(.\d)?([a-z])/ig, (m, u, w, s) => {
+    return format.replace(/%(−?)(.\d+)?([a-z])/ig, (m, u, w, s) => {
         let fraction = "";
 
         if (w) {
             const dot = w[0];
-            const precision = +w[1];
+            const precision = +w.substring(1);
 
             // To support far too many digits of precision, use milliseconds in the fraction
             const dayMs = +d % 86400000;
@@ -107,9 +110,9 @@ export function formatUTC(format, date = new Date(), timezoneOffset = 0) {
                 case "O": fraction = frac(dayFrac, precision);                                          break;
                 case "h": fraction = frac((dayMs % 3600000) / 3600000, precision);                      break;
                 case "m": fraction = frac((dayMs % 60000) / 60000, precision);                          break;
-                case "s": fraction = frac(d.getMilliseconds() / 1000, precision);                       break;
+                case "s": fraction = frac(FRACTIONAL_SECONDS, precision);                               break;
                 // We said precise, not necessarily accurate
-                case "u": fraction = 0..toFixed(precision);                                             break;
+                case "u": fraction = ((FRACTIONAL_SECONDS * 1e6)%1).toFixed(precision);                 break;
                 case "Z":
                 case "z":
                 default:
@@ -133,7 +136,7 @@ export function formatUTC(format, date = new Date(), timezoneOffset = 0) {
             case "h": return pad2(d.getUTCHours())                                         + fraction;
             case "m": return pad2(d.getUTCMinutes())                                       + fraction;
             case "s": return pad2(d.getUTCSeconds())                                       + fraction;
-            case "u": return (d.getUTCMilliseconds()*1000).toString().padStart(6, "0")     + fraction;
+            case "u": return Math.round(FRACTIONAL_SECONDS*1e6).toString().padStart(6,"0") + fraction;
             case "Z": {
                 const zH = -(timezoneOffset / 60)|0;
                 return `${zH <= 0 ? "+" : (u || "-")}${Math.abs(zH).toString().padStart(2, "0")}`;
