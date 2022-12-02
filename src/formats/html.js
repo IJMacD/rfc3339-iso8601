@@ -79,8 +79,10 @@ export const period = [
     "P1DT1.000S",
     "P1DT1H1M1.1S",
     "1W1M1S",
+    "1S1M1H1W",
     "1 W",
+    "1.5W",
     "1 D 1 W",
-    "1.5 S 1 M",
+    "1.5 S 1.5 M",
     "1H 15 M",
 ];
