@@ -79,6 +79,8 @@ export function formatUTC(format, date = new Date(), timezoneOffset = 0) {
 
     const d = timezoneOffset !== 0 ? new Date(+date + timezoneOffset * 60 * 1000) : date;
 
+    const fracSec = (+d % 1000 + FRACTIONAL_SECONDS) / 1000;
+
     return format.replace(/%(−?)(.\d+)?([a-z])/ig, (m, u, w, s) => {
         let fraction = "";
 
@@ -116,9 +118,9 @@ export function formatUTC(format, date = new Date(), timezoneOffset = 0) {
                 case "O": fraction = frac(dayFrac, precision);                                          break;
                 case "h": fraction = frac((dayMs % 3600000) / 3600000, precision);                      break;
                 case "m": fraction = frac((dayMs % 60000) / 60000, precision);                          break;
-                case "s": fraction = frac(FRACTIONAL_SECONDS, precision);                               break;
+                case "s": fraction = frac(fracSec, precision);                               break;
                 // We said precise, not necessarily accurate
-                case "u": fraction = ((FRACTIONAL_SECONDS * 1e6)%1).toFixed(precision);                 break;
+                case "u": fraction = ((fracSec * 1e6)%1).toFixed(precision);                 break;
                 case "Z":
                 case "z":
                 default:
@@ -142,7 +144,7 @@ export function formatUTC(format, date = new Date(), timezoneOffset = 0) {
             case "h": return pad2(d.getUTCHours())                                         + fraction;
             case "m": return pad2(d.getUTCMinutes())                                       + fraction;
             case "s": return pad2(d.getUTCSeconds())                                       + fraction;
-            case "u": return Math.round(FRACTIONAL_SECONDS*1e6).toString().padStart(6,"0") + fraction;
+            case "u": return Math.round(fracSec*1e6).toString().padStart(6,"0") + fraction;
             case "Z": {
                 const zH = -(timezoneOffset / 60)|0;
                 return `${zH <= 0 ? "+" : (u || "-")}${Math.abs(zH).toString().padStart(2, "0")}`;

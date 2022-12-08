@@ -27,15 +27,27 @@ function App ({
   const [ showColours, setShowColours ] = useSavedState("rfciso.showColours", initialShowColours);
   const [ isPaused, setIsPaused ] = useState(initialDate !== null);
   const [ selectedTimeZone, setSelectedTimeZone ] = useSavedState("rfciso.selectedTimeZone", initialTimeZone || getBrowserTimezone() || "");
+  const [ turboMode, setTurboMode ] = useState(false);
 
   useEffect(() => {
+    if (turboMode) {
+      const update = () => {
+        if (!isPaused) {
+          requestAnimationFrame(update);
+        }
+        setNow(new Date())
+      };
+      requestAnimationFrame(update);
+      return;
+    }
+
     if (!isPaused) {
       const update = () => setNow(new Date());
       update();
       const intervalID = setInterval(update, 1000);
       return () => clearTimeout(intervalID);
     }
-  }, [isPaused]);
+  }, [isPaused, turboMode]);
 
   useEffect(() => {
     document.title = getTitle(showRFC, showISO, showHTML);
@@ -45,6 +57,10 @@ function App ({
     const cb = e => {
       if (e.ctrlKey && e.key === "m") {
         setIsPaused(pause => !pause);
+      }
+
+      if (e.altKey && e.key === "t") {
+        setTurboMode(turbo => !turbo);
       }
     }
 
