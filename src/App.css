@@ -12,6 +12,11 @@ svg {
   max-height: 100vh;
   width: 100%;
 }
+
+.App-DiagramControls label {
+  display: block;
+}
+
 .App-FormatTable {
   width: 100%;
   border-collapse: collapse;
@@ -166,5 +171,8 @@ pre code {
   }
   .hint {
     color: #AAA;
+  }
+  a {
+    color: #AAAAFF;
   }
 }
