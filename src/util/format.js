@@ -1,7 +1,14 @@
 import * as datetime from './date';
 
 // Spoof milliseconds/microseconds
-const FRACTIONAL_SECONDS = Math.random();
+let FRACTIONAL_SECONDS = Math.random();
+
+/**
+ * @param {number} f
+ */
+export function setFractionalSeconds (f) {
+    FRACTIONAL_SECONDS = f;
+}
 
 /**
  *  %L - Millennium

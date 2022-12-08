@@ -10,14 +10,23 @@ import { TimeZonePicker } from './Components/TimeZonePicker';
 import { getBrowserTimezone } from './util/timeZone';
 import TimeZoneContext from './TimeZoneContext';
 
-function App ({ initialDate = null, initalShowISO = true, initalShowRFC = true, initalShowHTML = false, initalShowColours = false, readOnlyMode = false, showDiagram = true }) {
+function App ({
+  initialDate = /** @type {Date?} */ (null),
+  initialShowISO = true,
+  initialShowRFC = true,
+  initialShowHTML = false,
+  initialShowColours = false,
+  readOnlyMode = false,
+  showDiagram = true,
+  initialTimeZone = /** @type {string?} */ (null),
+}) {
   const [ now, setNow ] = useState(() => (initialDate || new Date()));
-  const [ showISO, setShowISO ] = useSavedState("rfciso.showISO", initalShowISO);
-  const [ showRFC, setShowRFC ] = useSavedState("rfciso.showRFC", initalShowRFC);
-  const [ showHTML, setShowHTML ] = useSavedState("rfciso.showHTML", initalShowHTML);
-  const [ showColours, setShowColours ] = useSavedState("rfciso.showColours", initalShowColours);
+  const [ showISO, setShowISO ] = useSavedState("rfciso.showISO", initialShowISO);
+  const [ showRFC, setShowRFC ] = useSavedState("rfciso.showRFC", initialShowRFC);
+  const [ showHTML, setShowHTML ] = useSavedState("rfciso.showHTML", initialShowHTML);
+  const [ showColours, setShowColours ] = useSavedState("rfciso.showColours", initialShowColours);
   const [ isPaused, setIsPaused ] = useState(initialDate !== null);
-  const [ selectedTimeZone, setSelectedTimeZone ] = useSavedState("rfciso.selectedTimeZone", getBrowserTimezone() || "");
+  const [ selectedTimeZone, setSelectedTimeZone ] = useSavedState("rfciso.selectedTimeZone", initialTimeZone || getBrowserTimezone() || "");
 
   useEffect(() => {
     if (!isPaused) {
@@ -127,7 +136,7 @@ function App ({ initialDate = null, initalShowISO = true, initalShowRFC = true, 
 
 %[,.]3x - Value including fraction with given precision, using either comma or dot.
 %−Z     - Use U+2212 for negative timezone hours (ISO recommended)
-  `}
+`}
           </code>
         </pre>
         {
