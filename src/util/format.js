@@ -125,31 +125,32 @@ export function formatUTC(format, date = new Date(), timezoneOffset = 0) {
                     // NOP
             }
 
+            // Use replace() for cases where fraction is still empty string 
             fraction = fraction.substring(1).replace(".", dot);
         }
 
         switch (s) {
             case "L": return ((d.getUTCFullYear() / 1000)|0).toString()                    + fraction;
-            case "C": return ((d.getUTCFullYear() / 100)|0).toString().padStart(2, "0")    + fraction;
-            case "X": return ((d.getUTCFullYear() / 10)|0).toString().padStart(3, "0")     + fraction;
-            case "Y": return d.getUTCFullYear().toString().padStart(4, "0")                + fraction;
+            case "C": return pad2((d.getUTCFullYear() / 100)|0)                            + fraction;
+            case "X": return pad3((d.getUTCFullYear() / 10)|0)                             + fraction;
+            case "Y": return pad4(d.getUTCFullYear())                                      + fraction;
             case "M": return pad2(d.getUTCMonth() + 1)                                     + fraction;
             case "D": return pad2(d.getUTCDate())                                          + fraction;
-            case "V": return datetime.getWeekYear(d).toString().padStart(2, "0")           + fraction;
+            case "V": return pad4(datetime.getWeekYear(d))                                 + fraction;
             case "W": return pad2(datetime.getWeek(d))                                     + fraction;
             case "w": return datetime.getWeekDay(d).toString()                             + fraction;
-            case "O": return datetime.getYearDay(d).toString().padStart(3, "0")            + fraction;
+            case "O": return pad3(datetime.getYearDay(d))                                  + fraction;
             case "h": return pad2(d.getUTCHours())                                         + fraction;
             case "m": return pad2(d.getUTCMinutes())                                       + fraction;
             case "s": return pad2(d.getUTCSeconds())                                       + fraction;
             case "u": return Math.round(FRACTIONAL_SECONDS*1e6).toString().padStart(6,"0") + fraction;
             case "Z": {
                 const zH = -(timezoneOffset / 60)|0;
-                return `${zH <= 0 ? "+" : (u || "-")}${Math.abs(zH).toString().padStart(2, "0")}`;
+                return `${zH <= 0 ? "+" : (u || "-")}${pad2(Math.abs(zH))}`;
             }
             case "z": {
                 const zM = timezoneOffset % 60;
-                return Math.abs(zM).toString().padStart(2, "0");
+                return pad2(Math.abs(zM));
             }
             default: return m;
         }
@@ -161,6 +162,20 @@ export function formatUTC(format, date = new Date(), timezoneOffset = 0) {
  */
 function pad2(n) {
     return n.toString().padStart(2, "0");
+}
+
+/**
+ * @param {number} n
+ */
+function pad3(n) {
+    return n.toString().padStart(3, "0");
+}
+
+/**
+ * @param {number} n
+ */
+function pad4(n) {
+    return n.toString().padStart(4, "0");
 }
 
 function frac (n, precision) {
