@@ -33,7 +33,7 @@ function App ({
       const update = () => setNow(new Date());
       update();
       const intervalID = setInterval(update, 1000);
-      return () => clearTimeout(intervalID);
+      return () => clearInterval(intervalID);
     }
   }, [isPaused]);
 
