@@ -140,23 +140,26 @@ function Diagram (props) {
       { (iso || rfc) &&
         <g id="rfc-iso">
 
-          <text x={96} y={90} className="time">
+          <text x={96} y={91} className="time">
             {formatUTC("%h:%m:%sZ", date)}
           </text>
-          <text x={90} y={95} className="time">
-            {formatUTC("%h:%m:%.3sZ", date)}
+          <text x={92} y={94} className="time">
+            {formatUTC("%h:%m:%.1sZ", date)}
           </text>
-          <text x={98} y={100} className="time">
+          <text x={98} y={97} className="time">
             {formatUTC("%h:%m:%.2sZ", date)}
           </text>
-          <text x={82} y={105} className="time">
+          <text x={90} y={100} className="time">
+            {formatUTC("%h:%m:%.3sZ", date)}
+          </text>
+          <text x={96} y={108} className="time">
             {formatUTC("%h:%m:%.3s%Z:%z", date, timeZoneOffset)}
           </text>
-          <text x={102} y={110} className="time">
+          <text x={104} y={112} className="time">
             {formatUTC("%h:%m:%s%Z:%z", date, timeZoneOffset)}
           </text>
-          <text x={109} y={115} className="time">
-            {formatUTC("%h:%m:%.1sZ", date)}
+          <text x={80} y={104} className="datetime">
+            {formatUTC("%Y-%M-%DT%h:%m:%s.%uZ", date)}
           </text>
         </g>
       }
