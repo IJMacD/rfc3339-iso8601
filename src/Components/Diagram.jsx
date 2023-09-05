@@ -188,9 +188,6 @@ function Diagram (props) {
           <text x={136} y={84} className="datetime">
             {formatUTC("%Y-%M-%DT%.1h", date, timeZoneOffset)}
           </text>
-          <text x={126} y={88} className="datetime">
-            {formatUTC("%Y-%M-%DT%h:%m:%s\u221201:00", date, -60)}
-          </text>
           <text x={116} y={92} className="datetime">
             {formatUTC("%Y-%M-%DT%h:%,1m", date, timeZoneOffset)}
           </text>

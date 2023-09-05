@@ -95,12 +95,6 @@ function App ({
           <li title="ISO 8601-1:2019 § 5.3.1.4">ISO 8601 allows decimal fractions of the smallest time value. These are mostly represented here by a single fractional digit but the standard allows arbitrary precision.</li>
           {/* ISO 8601-1:2019 § 3.2.6 */}
           <li title="ISO 8601-1:2019 § 3.2.6">ISO 8601 allows commas and dots for decimal separation but they are interchangeable in all formats.</li>
-          {/* ISO 8601-1:2019 § 3.2.1 */}
-          <li title="ISO 8601-1:2019 § 3.2.1">
-            ISO 8601 uses a <em>hyphen</em> character (in Unicode, <code>U+2010 HYPHEN "‐"</code>) and <em>minus</em> character (in Unicode, <code>U+2212 MINUS "−"</code>).<br/>
-            When using character sets which don't have these characters a <em>hyphen-minus</em> character (in Unicode, <code>U+2D HYPHEN-MINUS "-"</code>) should be used instead.<br/>
-            The formatter defaults to using hyphen-minus which is valid under both standards.
-          </li>
           {/* ISO 8601-1:2019 § 5.3.5 */}
           <li title="ISO 8601-1:2019 § 5.3.5">
             ISO 8601-1:2019 permits omitting the <code>T</code> in the <em>time of day</em> representations (<b>Times</b>) when unambiguous.<br/>However, a <code>T</code> is always required in <em>date and time of day</em> representations (<b>Date-Times</b>).<br/>
@@ -135,7 +129,7 @@ function App ({
 %z - Zone Minute
 
 %[,.]3x - Value including fraction with given precision, using either comma or dot.
-%−Z     - Use U+2212 for negative timezone hours (ISO recommended)
+%−Z     - Use U+2212 for negative timezone hours
 `}
           </code>
         </pre>

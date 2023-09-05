@@ -65,8 +65,6 @@ const full_date = [
 export const dateTime = [
     ...crossJoin(full_date, timezone_time).map(([d, t]) => `${d}T${t}`),
     ...crossJoin(full_date, timezone_time).map(([d, t]) => `${d}T${t}`.replace(/[-:]/g, "")),
-    // Sample using U+2010
-    "%Y‐%M‐%DT%h:%m:%sZ",
     // Sample of positive timezone
     "%Y-%M-%DT%h:%m:%s+08",
     "%Y-%M-%DT%h:%m:%s+08:45",
@@ -75,9 +73,6 @@ export const dateTime = [
     "%Y-%M-%DT%h-12:00",
     "%Y-%M-%DT%h:%m-12",
     "%Y-%M-%DT%h:%m-12:00",
-    // Sample of negative timezone with U+2212
-    "%Y-%M-%DT%h:%m:%s−12",
-    "%Y-%M-%DT%h:%m:%s−12:00",
     // Sample of positive 00:00 timezone
     "%Y-%M-%DT%h:%m:%s+00:00",
     "%Y-%M-%DT%h:%m:%.3s+00:00",
