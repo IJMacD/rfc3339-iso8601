@@ -1,6 +1,6 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
-import Diagram from './Components/Diagram';
+import React, { useEffect, useRef, useState } from 'react';
+import Diagram, { mutualTypes } from './Components/Diagram';
 import { useSavedState } from './hooks/useSavedState';
 import { DownloadTestFile } from './Components/DownloadTestFile';
 import { CheckFormat } from './Components/CheckFormat';
@@ -27,6 +27,8 @@ function App ({
   const [ showColours, setShowColours ] = useSavedState("rfciso.showColours", initialShowColours);
   const [ isPaused, setIsPaused ] = useState(initialDate !== null);
   const [ selectedTimeZone, setSelectedTimeZone ] = useSavedState("rfciso.selectedTimeZone", initialTimeZone || getBrowserTimezone() || "");
+
+  const mutualType = useRef(mutualTypes[Math.floor((Math.random() * mutualTypes.length))]);
 
   useEffect(() => {
     if (!isPaused) {
@@ -59,7 +61,7 @@ function App ({
         { !readOnlyMode && <h1>{getTitle(showRFC, showISO, showHTML)}</h1> }
         { showDiagram &&
           <>
-            <Diagram date={now} iso={showISO} rfc={showRFC} html={showHTML} showKey={showColours} />
+            <Diagram date={now} iso={showISO} rfc={showRFC} html={showHTML} showKey={showColours} initialMutual={mutualType.current} />
             {
               !readOnlyMode &&
               <p className='App-DiagramControls'>

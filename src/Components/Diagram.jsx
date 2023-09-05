@@ -1,15 +1,32 @@
-import React from "react"
+import React, { useState } from "react"
 import TimeZoneContext from "../TimeZoneContext";
 import { formatUTC } from "../util/format";
 import { getCurrentTimezoneOffset } from "../util/timeZone";
 
+export const mutualTypes = /** @type {const} */(["mutual-five", "mutual-six", "mutual-seven"]);
+
+/**
+ * @typedef {typeof mutualTypes[number]} MutualTypes
+ */
+
+/**
+ * @param {object} props
+ * @param {Date} props.date
+ * @param {boolean} [props.rfc]
+ * @param {boolean} [props.iso]
+ * @param {boolean} [props.html]
+ * @param {boolean} [props.showKey]
+ * @param {MutualTypes} [props.initialMutual]
+ */
 function Diagram (props) {
-  const { date, rfc = true, iso = true, html = false, showKey = false, ...restProps } = props;
+  const { date, rfc = true, iso = true, html = false, showKey = false, initialMutual = "mutual-six", ...restProps } = props;
   const [ showDate, setShowDate ] = React.useState(true);
   const [ showTime, setShowTime ] = React.useState(true);
   const [ showDateTime, setShowDateTime ] = React.useState(true);
   const [ showPeriod, setShowPeriod ] = React.useState(true);
   const [ showRange, setShowRange ] = React.useState(true);
+
+  const [ mutual, setMutual ] = useState(initialMutual);
 
   const timeZone = React.useContext(TimeZoneContext);
 
@@ -366,86 +383,257 @@ function Diagram (props) {
             {formatUTC("R/%Y-W%W-%wT%h/PT45M", date, timeZoneOffset)}
           </text>
 
-          <g id="iso-mutual" transform="translate(20 -18)">
-            <circle
-              cx={150.327}
-              cy={186.288}
-              r={30.135}
-              fill="none"
-              stroke="#666"
-              strokeWidth={0.372}
-              strokeDasharray="4 4"
-            />
-            <text
-              x={180}
-              y={210}
-              fill="#666"
-              className="key-label"
-              style={{fontSize:8}}
-            >
-              {"By Mutual Agreement"}
-              <tspan x={180} dy={8} style={{fontSize:5}}>
-                (e.g. agreement on six-digit years)
-              </tspan>
-            </text>
-            <text   x={136}   y={164} className="date" >
-              {formatUTC("+00%C", date, timeZoneOffset)}
-            </text>
-            <text   x={144}   y={160} className="date" >
-              {formatUTC("+00%X", date, timeZoneOffset)}
-            </text>
-            <text   x={148}   y={164} className="date" >
-              {formatUTC("+00%Y", date, timeZoneOffset)}
-            </text>
-            <text   x={154}   y={168} className="date" >
-              {formatUTC("+00%Y-%M", date, timeZoneOffset)}
-            </text>
-            <text   x={128}   y={168} className="date" >
-              {formatUTC("+00%Y-%M-%D", date, timeZoneOffset)}
-            </text>
-            <text   x={130}   y={172} className="date" >
-              {formatUTC("+00%Y%M%D", date, timeZoneOffset)}
-            </text>
-            <text   x={148}   y={172} className="datetime" >
-              {formatUTC("+00%Y-%M-%DT%h", date, timeZoneOffset)}
-            </text>
-            <text   x={156}   y={176} className="date" >
-              {formatUTC("+00%Y%M", date, timeZoneOffset)}
-            </text>
-            <text   x={124}   y={176} className="datetime" >
-              {formatUTC("+00%Y-%M-%DT%h:%m", date, timeZoneOffset)}
-            </text>
-            <text   x={148}   y={180} className="datetime" >
-              {formatUTC("+00%Y-%M-%DT%h:%m:%s", date, timeZoneOffset)}
-            </text>
-            <text   x={124}   y={184} className="datetime" >
-              {formatUTC("+00%V-W%W-%wT%h", date, timeZoneOffset)}
-            </text>
-            <text   x={154}   y={184} className="datetime" >
-              {formatUTC("+00%Y-%OT%h:%m", date, timeZoneOffset)}
-            </text>
-            <text   x={138}   y={188} className="datetime" >
-              {formatUTC("+00%V-W%W-%wT%h:%m", date, timeZoneOffset)}
-            </text>
-            <text   x={124}   y={192} className="datetime" >
-              {formatUTC("+00%Y-%OT%h", date, timeZoneOffset)}
+          { mutual === "mutual-five" &&
+            <g id="iso-mutual" transform="translate(20 -18)">
+              <circle
+                cx={150.327}
+                cy={186.288}
+                r={30.135}
+                fill="none"
+                stroke="#666"
+                strokeWidth={0.372}
+                strokeDasharray="4 4"
+              />
+              <text
+                x={180}
+                y={210}
+                fill="#666"
+                className="key-label"
+                style={{fontSize:8}}
+                onClick={() => setMutual("mutual-six")}
+              >
+                {"By Mutual Agreement"}
+                <tspan x={180} dy={8} style={{fontSize:5}}>
+                  (e.g. agreement on five-digit years)
+                </tspan>
               </text>
-            <text   x={148}   y={192} className="datetime" >
-              {formatUTC("+00%Y%OT%.3h", date, timeZoneOffset)}
+              <text   x={136}   y={164} className="date" >
+                {formatUTC("+0%C", date, timeZoneOffset)}
               </text>
-            <text   x={130}   y={197} className="datetime" >
-              {formatUTC("+00%Y-%OT%h:%m%Z:%z", date, timeZoneOffset)}
-            </text>
-            <text   x={128}   y={202} className="datetime" >
-              {formatUTC("+00%Y-%OT%h:%m:%s", date, timeZoneOffset)}
-            </text>
-            <text   x={144}   y={207} className="datetime" >
-              {formatUTC("+00%Y%OT%h%m%s", date, timeZoneOffset)}
-            </text>
-            <text   x={136}   y={212} className="datetime" >
-              {formatUTC("+00%Y%M%DT%h%m%sZ", date)}
-            </text>
-          </g>
+              <text   x={144}   y={160} className="date" >
+                {formatUTC("+0%X", date, timeZoneOffset)}
+              </text>
+              <text   x={148}   y={164} className="date" >
+                {formatUTC("+0%Y", date, timeZoneOffset)}
+              </text>
+              <text   x={154}   y={168} className="date" >
+                {formatUTC("+0%Y-%M", date, timeZoneOffset)}
+              </text>
+              <text   x={128}   y={168} className="date" >
+                {formatUTC("+0%Y-%M-%D", date, timeZoneOffset)}
+              </text>
+              <text   x={130}   y={172} className="date" >
+                {formatUTC("+0%Y%M%D", date, timeZoneOffset)}
+              </text>
+              <text   x={148}   y={172} className="datetime" >
+                {formatUTC("+0%Y-%M-%DT%h", date, timeZoneOffset)}
+              </text>
+              <text   x={156}   y={176} className="date" >
+                {formatUTC("+0%Y%M", date, timeZoneOffset)}
+              </text>
+              <text   x={124}   y={176} className="datetime" >
+                {formatUTC("+0%Y-%M-%DT%h:%m", date, timeZoneOffset)}
+              </text>
+              <text   x={148}   y={180} className="datetime" >
+                {formatUTC("+0%Y-%M-%DT%h:%m:%s", date, timeZoneOffset)}
+              </text>
+              <text   x={124}   y={184} className="datetime" >
+                {formatUTC("+0%V-W%W-%wT%h", date, timeZoneOffset)}
+              </text>
+              <text   x={154}   y={184} className="datetime" >
+                {formatUTC("+0%Y-%OT%h:%m", date, timeZoneOffset)}
+              </text>
+              <text   x={138}   y={188} className="datetime" >
+                {formatUTC("+0%V-W%W-%wT%h:%m", date, timeZoneOffset)}
+              </text>
+              <text   x={124}   y={192} className="datetime" >
+                {formatUTC("+0%Y-%OT%h", date, timeZoneOffset)}
+                </text>
+              <text   x={148}   y={192} className="datetime" >
+                {formatUTC("+0%Y%OT%.3h", date, timeZoneOffset)}
+                </text>
+              <text   x={130}   y={197} className="datetime" >
+                {formatUTC("+0%Y-%OT%h:%m%Z:%z", date, timeZoneOffset)}
+              </text>
+              <text   x={128}   y={202} className="datetime" >
+                {formatUTC("+0%Y-%OT%h:%m:%s", date, timeZoneOffset)}
+              </text>
+              <text   x={144}   y={207} className="datetime" >
+                {formatUTC("+0%Y%OT%h%m%s", date, timeZoneOffset)}
+              </text>
+              <text   x={136}   y={212} className="datetime" >
+                {formatUTC("+0%Y%M%DT%h%m%sZ", date)}
+              </text>
+            </g>
+          }
+
+          { mutual === "mutual-six" &&
+            <g id="iso-mutual" transform="translate(20 -18)">
+              <circle
+                cx={150.327}
+                cy={186.288}
+                r={30.135}
+                fill="none"
+                stroke="#666"
+                strokeWidth={0.372}
+                strokeDasharray="4 4"
+              />
+              <text
+                x={180}
+                y={210}
+                fill="#666"
+                className="key-label"
+                style={{fontSize:8}}
+                onClick={() => setMutual("mutual-seven")}
+              >
+                {"By Mutual Agreement"}
+                <tspan x={180} dy={8} style={{fontSize:5}}>
+                  (e.g. agreement on six-digit years)
+                </tspan>
+              </text>
+              <text   x={136}   y={164} className="date" >
+                {formatUTC("+00%C", date, timeZoneOffset)}
+              </text>
+              <text   x={144}   y={160} className="date" >
+                {formatUTC("+00%X", date, timeZoneOffset)}
+              </text>
+              <text   x={148}   y={164} className="date" >
+                {formatUTC("+00%Y", date, timeZoneOffset)}
+              </text>
+              <text   x={154}   y={168} className="date" >
+                {formatUTC("+00%Y-%M", date, timeZoneOffset)}
+              </text>
+              <text   x={128}   y={168} className="date" >
+                {formatUTC("+00%Y-%M-%D", date, timeZoneOffset)}
+              </text>
+              <text   x={130}   y={172} className="date" >
+                {formatUTC("+00%Y%M%D", date, timeZoneOffset)}
+              </text>
+              <text   x={148}   y={172} className="datetime" >
+                {formatUTC("+00%Y-%M-%DT%h", date, timeZoneOffset)}
+              </text>
+              <text   x={156}   y={176} className="date" >
+                {formatUTC("+00%Y%M", date, timeZoneOffset)}
+              </text>
+              <text   x={124}   y={176} className="datetime" >
+                {formatUTC("+00%Y-%M-%DT%h:%m", date, timeZoneOffset)}
+              </text>
+              <text   x={148}   y={180} className="datetime" >
+                {formatUTC("+00%Y-%M-%DT%h:%m:%s", date, timeZoneOffset)}
+              </text>
+              <text   x={124}   y={184} className="datetime" >
+                {formatUTC("+00%V-W%W-%wT%h", date, timeZoneOffset)}
+              </text>
+              <text   x={154}   y={184} className="datetime" >
+                {formatUTC("+00%Y-%OT%h:%m", date, timeZoneOffset)}
+              </text>
+              <text   x={138}   y={188} className="datetime" >
+                {formatUTC("+00%V-W%W-%wT%h:%m", date, timeZoneOffset)}
+              </text>
+              <text   x={124}   y={192} className="datetime" >
+                {formatUTC("+00%Y-%OT%h", date, timeZoneOffset)}
+                </text>
+              <text   x={148}   y={192} className="datetime" >
+                {formatUTC("+00%Y%OT%.3h", date, timeZoneOffset)}
+                </text>
+              <text   x={130}   y={197} className="datetime" >
+                {formatUTC("+00%Y-%OT%h:%m%Z:%z", date, timeZoneOffset)}
+              </text>
+              <text   x={128}   y={202} className="datetime" >
+                {formatUTC("+00%Y-%OT%h:%m:%s", date, timeZoneOffset)}
+              </text>
+              <text   x={144}   y={207} className="datetime" >
+                {formatUTC("+00%Y%OT%h%m%s", date, timeZoneOffset)}
+              </text>
+              <text   x={136}   y={212} className="datetime" >
+                {formatUTC("+00%Y%M%DT%h%m%sZ", date)}
+              </text>
+            </g>
+          }
+
+          { mutual === "mutual-seven" &&
+            <g id="iso-mutual" transform="translate(20 -18)">
+              <circle
+                cx={150.327}
+                cy={186.288}
+                r={30.135}
+                fill="none"
+                stroke="#666"
+                strokeWidth={0.372}
+                strokeDasharray="4 4"
+              />
+              <text
+                x={180}
+                y={210}
+                fill="#666"
+                className="key-label"
+                style={{fontSize:8}}
+                onClick={() => setMutual("mutual-five")}
+              >
+                {"By Mutual Agreement"}
+                <tspan x={180} dy={8} style={{fontSize:5}}>
+                  (e.g. agreement on seven-digit years)
+                </tspan>
+              </text>
+              <text   x={136}   y={164} className="date" >
+                {formatUTC("+000%C", date, timeZoneOffset)}
+              </text>
+              <text   x={144}   y={160} className="date" >
+                {formatUTC("+000%X", date, timeZoneOffset)}
+              </text>
+              <text   x={148}   y={164} className="date" >
+                {formatUTC("+000%Y", date, timeZoneOffset)}
+              </text>
+              <text   x={154}   y={168} className="date" >
+                {formatUTC("+000%Y-%M", date, timeZoneOffset)}
+              </text>
+              <text   x={128}   y={168} className="date" >
+                {formatUTC("+000%Y-%M-%D", date, timeZoneOffset)}
+              </text>
+              <text   x={130}   y={172} className="date" >
+                {formatUTC("+000%Y%M%D", date, timeZoneOffset)}
+              </text>
+              <text   x={148}   y={172} className="datetime" >
+                {formatUTC("+000%Y-%M-%DT%h", date, timeZoneOffset)}
+              </text>
+              <text   x={156}   y={176} className="date" >
+                {formatUTC("+000%Y%M", date, timeZoneOffset)}
+              </text>
+              <text   x={124}   y={176} className="datetime" >
+                {formatUTC("+000%Y-%M-%DT%h:%m", date, timeZoneOffset)}
+              </text>
+              <text   x={148}   y={180} className="datetime" >
+                {formatUTC("+000%Y-%M-%DT%h:%m:%s", date, timeZoneOffset)}
+              </text>
+              <text   x={124}   y={184} className="datetime" >
+                {formatUTC("+000%V-W%W-%wT%h", date, timeZoneOffset)}
+              </text>
+              <text   x={154}   y={184} className="datetime" >
+                {formatUTC("+000%Y-%OT%h:%m", date, timeZoneOffset)}
+              </text>
+              <text   x={138}   y={188} className="datetime" >
+                {formatUTC("+000%V-W%W-%wT%h:%m", date, timeZoneOffset)}
+              </text>
+              <text   x={124}   y={192} className="datetime" >
+                {formatUTC("+000%Y-%OT%h", date, timeZoneOffset)}
+                </text>
+              <text   x={148}   y={192} className="datetime" >
+                {formatUTC("+000%Y%OT%.3h", date, timeZoneOffset)}
+                </text>
+              <text   x={130}   y={197} className="datetime" >
+                {formatUTC("+000%Y-%OT%h:%m%Z:%z", date, timeZoneOffset)}
+              </text>
+              <text   x={128}   y={202} className="datetime" >
+                {formatUTC("+000%Y-%OT%h:%m:%s", date, timeZoneOffset)}
+              </text>
+              <text   x={144}   y={207} className="datetime" >
+                {formatUTC("+000%Y%OT%h%m%s", date, timeZoneOffset)}
+              </text>
+              <text   x={136}   y={212} className="datetime" >
+                {formatUTC("+000%Y%M%DT%h%m%sZ", date)}
+              </text>
+            </g>
+          }
         </g>
       }
       { html &&
