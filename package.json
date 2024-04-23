@@ -16,7 +16,7 @@
     "@vitejs/plugin-react": "^4.0.4",
     "babel-plugin-transform-assets": "^1.0.2",
     "convert-svg-to-png": "^0.6.2",
-    "gh-pages": "^3.2.3",
+    "gh-pages": "^5.0.0",
     "iana-timezones": "1.1.2022-e",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
