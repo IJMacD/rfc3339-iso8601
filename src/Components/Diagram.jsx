@@ -3,10 +3,8 @@ import TimeZoneContext from "../TimeZoneContext";
 import { formatUTC } from "../util/format";
 import { getCurrentTimezoneOffset } from "../util/timeZone";
 
-export const mutualTypes = /** @type {const} */(["mutual-five", "mutual-six", "mutual-seven"]);
-
 /**
- * @typedef {typeof mutualTypes[number]} MutualTypes
+ * @typedef {typeof import("../types").mutualTypes[number]} MutualTypes
  */
 
 /**
@@ -366,18 +364,18 @@ function Diagram (props) {
             {"P1Y2.5MT4H"}
           </text>
 
-          <text x={126} y={200} className="range">
+          <text x={126} y={196} className="range">
             {formatUTC("%Y-%M-%D/%Y-12-31", date, timeZoneOffset)}
           </text>
 
-          <text x={150} y={204} className="range">
+          <text x={130} y={200} className="range">
             {formatUTC("%Y-%M-%DT%h:%m/59", date, timeZoneOffset)}
           </text>
           <text x={116} y={204} className="range">
             {formatUTC("%Y-%OT%h:%m:%s/PT3H", date, timeZoneOffset)}
           </text>
 
-          <text x={130} y={208} className="range">
+          <text x={136} y={208} className="range">
             {formatUTC("%Y-%M-%DT%h:%m:%s/59", date, timeZoneOffset)}
           </text>
 
@@ -676,17 +674,17 @@ function Diagram (props) {
           <text x={60} y={200} className="datetime">
             {formatUTC("%Y-%M-%D %h:%m:%.3s", date, timeZoneOffset)}
           </text>
-          <text x={84} y={204} className="date">
+          <text x={84} y={208} className="date">
             {formatUTC("--%M-%D", date)}
           </text>
-          <text x={90} y={208} className="date">
+          <text x={94} y={212} className="date">
             {formatUTC("%M-%D", date)}
           </text>
         </g>
       }
       { (iso || html) &&
         <g id="iso-html">
-          <text x={122.5} y={148} className="time">
+          <text x={122.5} y={152} className="time">
             {formatUTC("%h:%m", date, timeZoneOffset)}
           </text>
           <text x={120} y={156} className="time">
@@ -698,7 +696,7 @@ function Diagram (props) {
           <text x={114} y={164} className="time">
             {formatUTC("%h:%m:%.3s", date, timeZoneOffset)}
           </text>
-          <text x={112} y={172} className="period">
+          <text x={126} y={168} className="period">
             {formatUTC("P1D", date, timeZoneOffset)}
           </text>
           <text x={122} y={172} className="period">
@@ -719,7 +717,7 @@ function Diagram (props) {
           <text x={88} y={184} className="period">
             {formatUTC("P1DT1H1M", date, timeZoneOffset)}
           </text>
-          <text x={108} y={184} className="period">
+          <text x={112} y={184} className="period">
             {formatUTC("P1DT1.123S", date, timeZoneOffset)}
           </text>
 

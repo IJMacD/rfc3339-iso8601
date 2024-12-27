@@ -29,8 +29,8 @@ const base_time = [
   "%h:%m:%.3s",
   "%h:%m:%s,%u",
   "%h:%m:%s.%u",
-  "%h:%m:%.9s",
-  "%h:%m:%,9s",
+  "%h:%m:%s.%n",
+  "%h:%m:%s,%n",
 ];
 
 const timezone_time = [
@@ -51,7 +51,7 @@ const basic_time = [
   "%h:%m:%.2s+00:00",
   "%h:%m:%.3s+00:00",
   "%h:%m:%s.%u+00:00",
-  "%h:%m:%.9s+00:00",
+  "%h:%m:%s.%n+00:00",
 ];
 
 export const time = [...new Set(basic_time)];

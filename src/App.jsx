@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect, useRef, useState } from 'react';
-import Diagram, { mutualTypes } from './Components/Diagram';
+import Diagram from './Components/Diagram';
 import { useSavedState } from './hooks/useSavedState';
 import { DownloadTestFile } from './Components/DownloadTestFile';
 import { CheckFormat } from './Components/CheckFormat';
@@ -9,6 +9,7 @@ import { ISO8601aaS } from './Components/ISO8601aaS';
 import { TimeZonePicker } from './Components/TimeZonePicker';
 import { getBrowserTimezone } from './util/timeZone';
 import TimeZoneContext from './TimeZoneContext';
+import { mutualTypes } from './types';
 
 function App ({
   initialDate = /** @type {Date?} */ (null),
@@ -126,6 +127,7 @@ function App ({
 %m - Minute
 %s - Second
 %u - Microsecond
+%n - Nanosecond
 
 %Z - Zone Hour including +/-
 %z - Zone Minute

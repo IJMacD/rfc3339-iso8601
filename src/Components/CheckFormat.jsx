@@ -20,7 +20,7 @@ export function CheckFormat ({ now, showHTML }) {
             "✔️ Time" :
             (
                 rfc_dateTime.includes(testValue) ?
-                "✔️ Date" :
+                "✔️ DateTime" :
                 "Invalid"
             )
         ));
@@ -32,7 +32,7 @@ export function CheckFormat ({ now, showHTML }) {
             "✔️ Time" :
             (
                 iso_dateTime.includes(testValue) ?
-                "✔️ Date" :
+                "✔️ DateTime" :
                 (
                     iso_period.includes(testValue) ?
                     "✔️ Period" :
@@ -52,7 +52,7 @@ export function CheckFormat ({ now, showHTML }) {
             "✔️ Time" :
             (
                 html_dateTime.includes(testValue) ?
-                "✔️ Date" :
+                "✔️ DateTime" :
                 (
                     html_period.includes(testValue) ?
                     "✔️ Period" :
