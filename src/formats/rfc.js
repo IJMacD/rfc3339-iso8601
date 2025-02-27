@@ -43,32 +43,7 @@ export const dateTime = [
   "%Y-%M-%DT%h:%m:%.3s%Z:%z",
   "%Y-%M-%DT%h:%m:%s.%u%Z:%z",
   "%Y-%M-%DT%h:%m:%s.%n%Z:%z",
-  "%Y-%M-%D %h:%m:%s%Z:%z",
-  "%Y-%M-%D %h:%m:%.1s%Z:%z",
-  "%Y-%M-%D %h:%m:%.2s%Z:%z",
-  "%Y-%M-%D %h:%m:%.3s%Z:%z",
-  "%Y-%M-%D %h:%m:%s.%u%Z:%z",
-  "%Y-%M-%D %h:%m:%s.%n%Z:%z",
-  // Z timezone
-  "%Y-%M-%D %h:%m:%sZ",
-  "%Y-%M-%D_%h:%m:%sZ",
-  //  (& lowercase)
-  "%Y-%M-%D %h:%m:%sz",
-  "%Y-%M-%D_%h:%m:%sz",
-  "%Y-%M-%D %h:%m:%.1sZ",
-  "%Y-%M-%D %h:%m:%.2sZ",
-  "%Y-%M-%D %h:%m:%.3sZ",
-  "%Y-%M-%D_%h:%m:%.3sZ",
-  "%Y-%M-%D %h:%m:%s.%uZ",
-  "%Y-%M-%D_%h:%m:%s.%uZ",
-  //  (& lowercase)
-  "%Y-%M-%D %h:%m:%.3sz",
-  "%Y-%M-%D_%h:%m:%.3sz",
-  "%Y-%M-%D %h:%m:%s.%uz",
-  "%Y-%M-%D_%h:%m:%s.%uz",
   // Negative zero timezone
-  "%Y-%M-%D %h:%m:%s-00:00",
-  "%Y-%M-%D %h:%m:%.3s-00:00",
   "%Y-%M-%DT%h:%m:%s-00:00",
   "%Y-%M-%DT%h:%m:%.3s-00:00",
   // Sample of positive timezone

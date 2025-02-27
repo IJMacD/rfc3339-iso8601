@@ -82,37 +82,15 @@ function Diagram (props) {
           >
             {"RFC 3339"}
           </text>
-          <text x={58} y={82} className="datetime">
-            {formatUTC("%Y-%M-%D_%h:%m:%sZ", date)}
-          </text>
-          <text x={50} y={88} className="datetime">
-            {formatUTC("%Y-%M-%D_%h:%m:%.3sZ", date)}
-          </text>
-          <text x={46} y={94} className="datetime">
+          <text x={56} y={86} className="datetime">
             {formatUTC("%Y-%M-%DT%h:%m:%s-00:00", date)}
           </text>
-          <text x={42} y={100} className="datetime">
+          <text x={50} y={94} className="datetime">
             {formatUTC("%Y-%M-%Dt%h:%m:%sz", date)}
           </text>
-          <text x={32} y={106} className="datetime">
+          <text x={36} y={102} className="datetime">
             {formatUTC("%Y-%M-%Dt%h:%m:%s%Z:%z", date, timeZoneOffset)}
           </text>
-        </g>
-      }
-      { (rfc || html) &&
-        <g id="rfc-html">
-          <text x={37} y={128} className="datetime">
-            {formatUTC("%Y-%M-%D %h:%m:%sZ", date)}
-          </text>
-          <text x={32} y={134} className="datetime">
-            {formatUTC("%Y-%M-%D %h:%m:%.3sZ", date)}
-          </text>
-          <text x={29} y={140} className="datetime">
-            {formatUTC("%Y-%M-%D %h:%m:%s%Z:%z", date, timeZoneOffset)}
-          </text>
-          {/* <text x={30} y={148}>
-            {format("%Y-%M-%D %h:%m:%.3s%Z:%z", date)}
-          </text> */}
         </g>
       }
       { (iso || rfc || html) &&
@@ -659,7 +637,7 @@ function Diagram (props) {
             {"HTML"}
             <tspan dx={-28} dy={6} style={{fontSize:"0.4em"}}>Living Standard</tspan>
           </text>
-          <text x={74} y={180} className="period">
+          <text x={60} y={184} className="period">
             {formatUTC("1 D", date, timeZoneOffset)}
           </text>
           <text x={70} y={184} className="period">
@@ -679,6 +657,15 @@ function Diagram (props) {
           </text>
           <text x={94} y={212} className="date">
             {formatUTC("%M-%D", date)}
+          </text>
+          <text x={38} y={174} className="datetime">
+            {formatUTC("%Y-%M-%D %h:%m:%sZ", date)}
+          </text>
+          <text x={40} y={180} className="datetime">
+            {formatUTC("%Y-%M-%D %h:%m:%.3sZ", date)}
+          </text>
+          <text x={44} y={188} className="datetime">
+            {formatUTC("%Y-%M-%D %h:%m:%s%Z:%z", date, timeZoneOffset)}
           </text>
         </g>
       }

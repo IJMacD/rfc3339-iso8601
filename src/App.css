@@ -17,6 +17,10 @@ svg {
   display: block;
 }
 
+a.secret {
+  color: inherit;
+  text-decoration: none;
+}
 .App-FormatTable {
   width: 100%;
   border-collapse: collapse;
@@ -44,6 +48,10 @@ svg {
 
 .App-FormatKey {
   background-color: #F4F4F4;
+}
+
+.App-Notes code {
+  font-size: 0.8em;
 }
 
 code {

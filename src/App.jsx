@@ -86,13 +86,14 @@ function App ({
             }
           </>
         }
+        {!readOnlyMode && <p>Each <a className='secret' href="https://xkcd.com/927/" target="_blank">standard</a> defines multiple formats for different purposes. This page attempts to show which formats the standards have in common and which are unique to each standard. <a className='secret' href="https://xkcd.com/1179/" target="_blank">The following formats are therefore encouraged.</a></p>}
         <h2 style={{marginBottom:0}}>Format Listing</h2>
         <p style={{marginBottom:0}}>Notes:</p>
-        <ul>
+        <ul className='App-Notes'>
           <li>This table is not exhaustive.</li>
           <li>This page targets <a href="https://www.iso.org/obp/ui#iso:std:iso:8601:-1:ed-1:v1:en">ISO 8601-1:2019</a>. Previous editions and drafts contain key differences.</li>
           <li><a href="https://www.iso.org/obp/ui#iso:std:iso:8601:-2:ed-1:v1:en">ISO 8601-2:2019</a> contains additional representations including sub-year groupings (e.g. for seasons); grouped units; sets; uncertainty qualifications; and date arithmetic. These are not yet represented on this page.</li>
-          <li><a href="https://datatracker.ietf.org/doc/html/rfc3339">RFC 3339</a> suggests other characters could be specified to replace the <code>T</code> in downstream standards but only gives a space character as an example.</li>
+          <li><a href="https://datatracker.ietf.org/doc/html/rfc3339">RFC 3339</a> suggests other characters could be specified to replace the <code>T</code> in downstream standards. Giving a space character as an example, it suggests that instead of specifying <code>&lt;rfc3339:date-time&gt;</code> in some API documentation, one might specify <code>&lt;rfc3339:full-date&gt; ::SPACE:: &lt;rfc3339:full-time&gt;</code>.</li>
           <li>RFC 3339 is case-insensitive so every <code>T</code> or <code>Z</code> could also be <code>t</code> or <code>z</code> respectively. Previous editions of ISO 8601 were also case-insensitive.</li>
           {/* ISO 8601-1:2019 § 5.3.1.4 */}
           <li title="ISO 8601-1:2019 § 5.3.1.4">ISO 8601 allows decimal fractions of the smallest time value. These are mostly represented here by a single fractional digit but the standard allows arbitrary precision.</li>
@@ -103,8 +104,7 @@ function App ({
             ISO 8601-1:2019 permits omitting the <code>T</code> in the <em>time of day</em> representations (<b>Times</b>) when unambiguous.<br/>However, a <code>T</code> is always required in <em>date and time of day</em> representations (<b>Date-Times</b>).<br/>
             Previous editions also allowed omitting the <code>T</code> in Date-Times but it was never permitted to <em>insert</em> alternative characters (e.g. space or underscore).
           </li>
-          { showHTML && <li>The HTML living standard defines a microsyntax for <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#dates-and-times">Dates and times</a> based on ISO 8601 and RFC 3339. It has far fewer ambiguities than either standard and gives explicit parsing rules.</li> }
-          { !readOnlyMode && <li>Each <span onClick={() => window.open("https://xkcd.com/927/")}>standard</span> defines multiple formats for different purposes. <span onClick={() => window.open("https://xkcd.com/1179/")}>Other formats are therefore discouraged.</span></li> }
+          {showHTML && <li>The HTML living standard defines a microsyntax for <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#dates-and-times">Dates and times</a> based on ISO 8601 and RFC 3339. It has fewer ambiguities than either standard and gives explicit parsing rules.</li>}
           <li>The format key is given below the table.</li>
         </ul>
         <FormatTable date={now} showHTML={showHTML} isPaused={isPaused} />
