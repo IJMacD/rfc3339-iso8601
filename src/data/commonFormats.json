@@ -1,0 +1,468 @@
+{
+  "name": "Common DateTime Formats (Non-Standard)",
+  "description": "Popular datetime formats that are neither RFC 3339 nor ISO 8601 compliant",
+  "formats": [
+    {
+      "name": "US Date Format",
+      "pattern": "MM/DD/YYYY",
+      "locale": "en-US", 
+      "examples": ["09/08/2024", "1/15/2024"],
+      "notes": "Month/Day/Year - ambiguous internationally"
+    },
+    {
+      "name": "European Date Format", 
+      "pattern": "DD/MM/YYYY",
+      "locale": "en-EU",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Day/Month/Year - common in Europe"
+    },
+    {
+      "name": "Continental European Format",
+      "pattern": "DD.MM.YYYY", 
+      "locale": "de-DE",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "German/Austrian/Swiss standard"
+    },
+    {
+      "name": "Portuguese Abbreviated (Upper)",
+      "pattern": "DD-MMM-YYYY",
+      "locale": "pt-BR", 
+      "examples": ["09-SET-2024", "15-JAN-2024", "08-DEZ-2024", "03-FEV-2024"],
+      "notes": "Brazilian Portuguese with uppercase months"
+    },
+    {
+      "name": "Portuguese Abbreviated (Title)",
+      "pattern": "DD-Mmm-YYYY", 
+      "locale": "pt-PT",
+      "examples": ["09-Set-2024", "15-Jan-2024", "08-Dez-2024", "03-Fev-2024"],
+      "notes": "European Portuguese with title case months"
+    },
+    {
+      "name": "French Long Format",
+      "pattern": "DD MMM YYYY",
+      "locale": "fr-FR",
+      "examples": ["09 sept 2024", "15 janv 2024"], 
+      "notes": "French abbreviated months"
+    },
+    {
+      "name": "US DateTime Format",
+      "pattern": "MM/DD/YYYY HH:MM:SS AM/PM",
+      "locale": "en-US",
+      "examples": ["09/08/2024 3:15:22 PM", "1/15/2024 10:30:45 AM"],
+      "notes": "US format with 12-hour time"
+    },
+    {
+      "name": "European DateTime Format", 
+      "pattern": "DD/MM/YYYY HH:MM:SS",
+      "locale": "en-EU",
+      "examples": ["08/09/2024 15:15:22", "15/01/2024 10:30:45"],
+      "notes": "European format with 24-hour time"
+    },
+    {
+      "name": "Japanese Format",
+      "pattern": "YYYY年MM月DD日",
+      "locale": "ja-JP",
+      "examples": ["2024年09月08日", "2024年01月15日"],
+      "notes": "Japanese date format with kanji"
+    },
+    {
+      "name": "Chinese Format", 
+      "pattern": "YYYY年MM月DD日",
+      "locale": "zh-CN",
+      "examples": ["2024年09月08日", "2024年01月15日"], 
+      "notes": "Chinese date format"
+    },
+    {
+      "name": "Indian Format",
+      "pattern": "DD-MM-YYYY",
+      "locale": "en-IN", 
+      "examples": ["08-09-2024", "15-01-2024"],
+      "notes": "Indian standard format"
+    },
+    {
+      "name": "Australian Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "en-AU",
+      "examples": ["08/09/2024", "15/01/2024"], 
+      "notes": "Australian date format"
+    },
+    {
+      "name": "Canadian Format",
+      "pattern": "YYYY-MM-DD",
+      "locale": "en-CA", 
+      "examples": ["2024-09-08", "2024-01-15"],
+      "notes": "Canadian official format (actually IS ISO 8601!)"
+    },
+    {
+      "name": "UK Long Format",
+      "pattern": "DD Month YYYY", 
+      "locale": "en-GB",
+      "examples": ["8 September 2024", "15 January 2024"],
+      "notes": "British long format"
+    },
+    {
+      "name": "SQL Server Format",
+      "pattern": "YYYY-MM-DD HH:MM:SS.mmm",
+      "locale": "sql",
+      "examples": ["2024-09-08 15:15:22.123", "2024-01-15 10:30:45.000"],
+      "notes": "Microsoft SQL Server datetime format"
+    },
+    {
+      "name": "Oracle Format", 
+      "pattern": "DD-MON-YYYY",
+      "locale": "oracle",
+      "examples": ["08-SEP-2024", "15-JAN-2024"],
+      "notes": "Oracle database default format"
+    },
+    {
+      "name": "Unix Timestamp",
+      "pattern": "seconds",
+      "locale": "unix", 
+      "examples": ["1725811200", "1705276245"],
+      "notes": "Seconds since Unix epoch (1970-01-01)"
+    },
+    {
+      "name": "JavaScript Timestamp",
+      "pattern": "milliseconds",
+      "locale": "js",
+      "examples": ["1725811200000", "1705276245000"], 
+      "notes": "Milliseconds since Unix epoch"
+    },
+    {
+      "name": "Excel Serial Date",
+      "pattern": "excel-serial", 
+      "locale": "excel",
+      "examples": ["45516", "44946"],
+      "notes": "Days since 1900-01-01 (Excel format)"
+    },
+    {
+      "name": "Russian Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "ru-RU",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Russian date format with dots"
+    },
+    {
+      "name": "Spanish Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "es-ES",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Spanish date format"
+    },
+    {
+      "name": "Italian Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "it-IT",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Italian date format"
+    },
+    {
+      "name": "Korean Format",
+      "pattern": "YYYY년 MM월 DD일",
+      "locale": "ko-KR",
+      "examples": ["2024년 09월 08일", "2024년 01월 15일"],
+      "notes": "Korean date format with Hangul"
+    },
+    {
+      "name": "Arabic Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "ar-SA",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Arabic date format (Gregorian)"
+    },
+    {
+      "name": "Hebrew Format", 
+      "pattern": "DD/MM/YYYY",
+      "locale": "he-IL",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Hebrew date format (Gregorian)"
+    },
+    {
+      "name": "Thai Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "th-TH",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Thai date format (Gregorian calendar)"
+    },
+    {
+      "name": "Vietnamese Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "vi-VN",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Vietnamese date format"
+    },
+    {
+      "name": "Indonesian Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "id-ID",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Indonesian date format"
+    },
+    {
+      "name": "Turkish Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "tr-TR",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Turkish date format with dots"
+    },
+    {
+      "name": "Dutch Format",
+      "pattern": "DD-MM-YYYY",
+      "locale": "nl-NL",
+      "examples": ["08-09-2024", "15-01-2024"],
+      "notes": "Dutch date format with dashes"
+    },
+    {
+      "name": "Swedish Format",
+      "pattern": "YYYY-MM-DD",
+      "locale": "sv-SE",
+      "examples": ["2024-09-08", "2024-01-15"],
+      "notes": "Swedish format (ISO 8601 compliant)"
+    },
+    {
+      "name": "Norwegian Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "no-NO",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Norwegian date format with dots"
+    },
+    {
+      "name": "Danish Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "da-DK",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Danish date format with dots"
+    },
+    {
+      "name": "Finnish Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "fi-FI",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Finnish date format with dots"
+    },
+    {
+      "name": "Polish Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "pl-PL",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Polish date format with dots"
+    },
+    {
+      "name": "Czech Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "cs-CZ",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Czech date format with dots"
+    },
+    {
+      "name": "Hungarian Format",
+      "pattern": "YYYY.MM.DD",
+      "locale": "hu-HU",
+      "examples": ["2024.09.08", "2024.01.15"],
+      "notes": "Hungarian date format (big-endian with dots)"
+    },
+    {
+      "name": "Greek Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "el-GR",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Greek date format"
+    },
+    {
+      "name": "Romanian Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "ro-RO",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Romanian date format with dots"
+    },
+    {
+      "name": "Bulgarian Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "bg-BG",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Bulgarian date format with dots"
+    },
+    {
+      "name": "Croatian Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "hr-HR",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Croatian date format with dots"
+    },
+    {
+      "name": "Serbian Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "sr-RS",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Serbian date format with dots"
+    },
+    {
+      "name": "Ukrainian Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "uk-UA",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Ukrainian date format with dots"
+    },
+    {
+      "name": "Belarusian Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "be-BY",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Belarusian date format with dots"
+    },
+    {
+      "name": "Estonian Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "et-EE",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Estonian date format with dots"
+    },
+    {
+      "name": "Latvian Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "lv-LV",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Latvian date format with dots"
+    },
+    {
+      "name": "Lithuanian Format",
+      "pattern": "YYYY-MM-DD",
+      "locale": "lt-LT",
+      "examples": ["2024-09-08", "2024-01-15"],
+      "notes": "Lithuanian format (ISO 8601 compliant)"
+    },
+    {
+      "name": "Slovenian Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "sl-SI",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Slovenian date format with dots"
+    },
+    {
+      "name": "Slovakian Format",
+      "pattern": "DD.MM.YYYY",
+      "locale": "sk-SK",
+      "examples": ["08.09.2024", "15.01.2024"],
+      "notes": "Slovakian date format with dots"
+    },
+    {
+      "name": "Mexican Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "es-MX",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Mexican date format"
+    },
+    {
+      "name": "Argentinian Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "es-AR",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Argentinian date format"
+    },
+    {
+      "name": "Chilean Format",
+      "pattern": "DD-MM-YYYY",
+      "locale": "es-CL",
+      "examples": ["08-09-2024", "15-01-2024"],
+      "notes": "Chilean date format with dashes"
+    },
+    {
+      "name": "Colombian Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "es-CO",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Colombian date format"
+    },
+    {
+      "name": "Peruvian Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "es-PE",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Peruvian date format"
+    },
+    {
+      "name": "Uruguayan Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "es-UY",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Uruguayan date format"
+    },
+    {
+      "name": "Venezuelan Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "es-VE",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Venezuelan date format"
+    },
+    {
+      "name": "South African Format",
+      "pattern": "YYYY/MM/DD",
+      "locale": "en-ZA",
+      "examples": ["2024/09/08", "2024/01/15"],
+      "notes": "South African format (big-endian)"
+    },
+    {
+      "name": "Egyptian Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "ar-EG",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Egyptian date format (Gregorian)"
+    },
+    {
+      "name": "Moroccan Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "ar-MA",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Moroccan date format (Gregorian)"
+    },
+    {
+      "name": "Pakistani Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "ur-PK",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Pakistani date format"
+    },
+    {
+      "name": "Bangladeshi Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "bn-BD",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Bangladeshi date format"
+    },
+    {
+      "name": "Sri Lankan Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "si-LK",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Sri Lankan date format"
+    },
+    {
+      "name": "Filipino Format",
+      "pattern": "MM/DD/YYYY",
+      "locale": "tl-PH",
+      "examples": ["09/08/2024", "01/15/2024"],
+      "notes": "Filipino format (US influenced)"
+    },
+    {
+      "name": "Malaysian Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "ms-MY",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Malaysian date format"
+    },
+    {
+      "name": "Singaporean Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "en-SG",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "Singaporean date format"
+    },
+    {
+      "name": "New Zealand Format",
+      "pattern": "DD/MM/YYYY",
+      "locale": "en-NZ",
+      "examples": ["08/09/2024", "15/01/2024"],
+      "notes": "New Zealand date format"
+    }
+  ]
+}
